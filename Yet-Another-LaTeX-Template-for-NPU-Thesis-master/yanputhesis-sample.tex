@@ -1,0 +1,2461 @@
+%%
+%% This is file `yanputhesis-sample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% yanputhesis.dtx  (with options: `sample')
+%% Copyright (C) 2022 by Shangkun Shen
+%% 
+%% It may be distributed and/or modified under the conditions of the LaTeX
+%% Project Public License, either version 1.3b of this license or (at your
+%% option) any later version. The latest version of this license is in
+%%     https://www.latex-project.org/lppl.txt
+%% and version 1.3b or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%%=============================================================================%
+%% 设置论文格式（学位、学位类型、盲评、Adobe 字体）
+%%-----------------------------------------------------------------------------%
+%% 博士、学术学位、正常版本、不使用 Adobe 字体
+%% \documentclass[lang=chs, degree=phd, blindreview=false, adobe=false, academic=true]{yanputhesis}
+%% 博士、专业学位、盲评版本、不使用 Adobe 字体
+%% \documentclass[lang=chs, degree=phd, blindreview=true, adobe=false, academic=false]{yanputhesis}
+%% 博士、学术学位、正常版本、强制使用 Windows 系统字体
+\documentclass[lang=chs, degree=master, blindreview=false, winfonts=true, academic=false]{yanputhesis}
+%% 硕士、学术学位、正常版本、不使用 Adobe 字体
+%% \documentclass[lang=chs, degree=master, blindreview=false, adobe=false, academic=true]{yanputhesis}
+%% 硕士、专业学位、盲评版本、不使用 Adobe 字体
+%% \documentclass[lang=chs, degree=master, blindreview=true, adobe=false, academic=false]{yanputhesis}
+%%=============================================================================%
+%% 导言区：请自行添加额外宏包
+%%-----------------------------------------------------------------------------%
+\usepackage{blindtext}                               % 生成无意义文本
+\usepackage{metalogo}                                   % 软件标志
+\usepackage[binary-units=true]{siunitx}                 % 物理量单位
+\usepackage{amsmath}                                    % 基础数学库
+\usepackage[acronym]{glossaries}					    % 缩略表库
+\usepackage{mathrsfs}  % 花体字母支持
+\usepackage{amssymb}    % 数学符号支持
+\usepackage{tabularx}
+\usepackage{geometry} % 可选，用于设置页面边距
+\usepackage{algpseudocode}
+\usepackage[table]{xcolor}
+% 如果你的环境还需要 array 包来支持 >{} 语法，也请加上：
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+%%=============================================================================%
+%% 缩略语（也可以是独立文件）
+%%-----------------------------------------------------------------------------%
+\newacronym{npu}{西工大}{西北工业大学}
+\newglossaryentry{massEnergyFunc}{
+	name = 质能方程,
+	description = 一种阐述能量与质量间相互关系的理论物理学公式
+}
+\makeglossaries
+%%=============================================================================%
+%% 参考文献（也可以是独立文件）
+%%-----------------------------------------------------------------------------%
+
+%%=============================================================================%
+%% 基本信息录入
+%%-----------------------------------------------------------------------------%
+\title{面向车联网的安全联邦遗忘技术研究}{          % 中英文标题
+    Towards Secure Federated Unlearning in Internet of Vehicles
+}                                                           % 请自行断行
+\author{\blindreview{吴朝敏}}{\blindreview{Zhaomin Wu}}  % 姓名（添加盲评标记）
+\date{2026年3月}{Mar 2026}                                  % 答辩日期
+\school{网络空间安全学院}{School of Cyberspace Security}% 学院
+\major{网络与信息安全}{Network and Information Security}                     % 专业 博士请添加 Ph
+\advisor{\blindreview{孙文}}{\blindreview{Wen Sun}}      % 导师（添加盲评标记）
+\advisorAcademicRank{教授}{Professor}						  % 导师中英学术职位（教授 Professor、副教授 Associate Professor、研究员 Researcher 和讲师 Lecturer）
+\studentnumber{2023264588}                                  % 学号
+                              %
+%%=============================================================================%
+%% 文档开始
+%%-----------------------------------------------------------------------------%
+\begin{document}
+%%-----------------------------------------------------------------------------%
+%% 总前言，包含封皮页、中英文标题、中英文摘要、目录
+%%-----------------------------------------------------------------------------%
+\frontmatter                                                % 前言部分
+\maketitle                                                  % 封皮页及标题页
+%%-----------------------------------------------------------------------------%
+\makeCommitteePage{                                         % 学位论文评阅人
+    \reviewers{\fullBlindReview{5}}                         % 和答辩委员会名单
+    \committee{2026 年 x 月 y 日}{
+        \defenseChair{刘倍源}{副高}{西北工业大学}
+        \committeeMember{刘金会}{副高}{西北工业大学}
+        \committeeMember{徐乐西}{正高}{中国联合网络通信有限公司研究院}
+        \defenseSecretary{王曲北剑}{副高}{西北工业大学}
+    }
+}
+%%-----------------------------------------------------------------------------%
+\begin{abstract}                                            % 中文摘要开始
+随着车联网演进为数据密集型应用，联邦学习（Federated Learning, FL）通过仅交互模型参数而非原始数据，有效打破了“数据孤岛”，被广泛应用于车联网智能业务中。然而，随着欧盟《通用数据保护条例》（GDPR）等法律框架的确立，“被遗忘权”已从道德倡议转变为强制合规要求。现有架构缺乏高效撤销机制，且在车联网高动态、弱信任及资源受限环境下，传统联邦遗忘面临严峻挑战。被动重训练难以适应网络拓扑快变且成本高昂；现有主动遗忘方法易引发“灾难性遗忘”导致性能下降；同时还存在遗忘验证难及通信带宽压力大等瓶颈。针对效率、效用、可信性与通信开销间的矛盾，本文致力于研究高效、可信且高性能的车联网联邦遗忘技术。主要工作及创新如下：
+
+第一，提出面向车联网的无需重训练高效框架 VeriFed-UL。针对传统方法不适应动态拓扑的局限，从表征空间重构视角设计主动遗忘机制。该机制引入“最近错误类别质心”作为导向目标，将待遗忘数据特征强制对齐至错误质心，迫使其行为趋同于“未见数据”，从而在无需重训练的前提下实现精准遗忘。此外，通过模型漂移正则化与剩余数据分类损失进行多目标约束，有效防止参数震荡并兼顾模型通用性能，实现了遗忘效率与效用的最佳平衡。
+
+第二，构建基于几何零知识证明（Geo-ZKP）与 DAG 区块链的可验证遗忘机制。针对弱信任环境下的审计难题，本文建立“密码学验证+去中心化审计”闭环体系。首先，设计 Geo-ZKP 电路将表征对齐抽象为几何约束，允许车辆在保护隐私的前提下生成零知识证明，确证模型已执行特征迁移。其次，采用高并发 DAG 共识架构大幅提升吞吐量，并结合遗忘贡献证明（PoUC）信誉机制，依据有效证明动态调整节点权重，实现去中心化可信管理，有效突破信任构建瓶颈。
+
+第三，设计基于有限域映射的 Q-LZW 差分压缩传输机制。针对带宽受限及 Geo-ZKP 引入的传输压力，且传统有损压缩破坏验证一致性的难题，本文提出计算与通信协同的无损压缩策略。该策略挖掘 Geo-ZKP 需有限域运算的特性，复用定点数量化过程，将稀疏模型更新映射为低熵整数流，并结合 LZW 算法进行动态编码。该“量化-差分-编码”机制在实现高压缩比的同时，确保了解压数据与验证输入的严格一致性，在零安全折损前提下大幅降低通信载荷与时延。
+
+实验结果表明，提出的 VeriFed-UL 框架及其配套机制在基准数据集上表现优异。在遗忘有效性方面，无需重训练即可将目标数据遗忘率最高降低 99.64\%，效果接近完全重训练；在模型效用方面，最终全局模型预测性能损失控制在 3.88\% 以内；在系统效率方面，Geo-ZKP 与 Q-LZW 的结合显著提升了网络吞吐量并降低了通信开销。
+
+\begin{keywords}                                        % 中文关键词开始
+车联网 \sep  联邦学习 \sep 联邦遗忘 \sep 区块链 \sep 数据压缩                   %
+\end{keywords}                                          % 中文关键词结束
+\end{abstract}                                              % 中文摘要结束
+%%-----------------------------------------------------------------------------%
+
+\begin{engabstract}                                         % 英文摘要开始
+With the evolution of the Internet of Vehicles (IoV) into a data-intensive application paradigm, Federated Learning (FL) has effectively dismantled "data silos" by exchanging only model parameters rather than raw data, finding widespread application in intelligent IoV services. However, with the establishment of legal frameworks such as the European Union's General Data Protection Regulation (GDPR), the "Right to be Forgotten" has transitioned from an ethical initiative to a mandatory compliance requirement. Existing architectures lack efficient data revocation mechanisms, and traditional Federated Unlearning (FU) faces severe challenges within the highly dynamic, weakly trusted, and resource-constrained IoV environment. Passive retraining struggles to adapt to rapid topological changes and incurs prohibitive costs; existing active unlearning methods are prone to inducing "catastrophic forgetting," leading to performance degradation. Additionally, bottlenecks such as difficulties in unlearning verification and high pressure on communication bandwidth remain prevalent. Addressing the contradictions among efficiency, utility, trustworthiness, and communication overhead, this thesis is dedicated to researching efficient, trustworthy, and high-performance federated unlearning technologies for the IoV. The main contributions and innovations are as follows:
+
+First, an efficient federated unlearning framework named VeriFed-UL requiring no retraining is proposed for the IoV. Addressing the limitations of traditional methods in adapting to dynamic topologies, an active unlearning mechanism is designed from the perspective of Representation Space reconstruction. This mechanism introduces the "Nearest Incorrect Class Centroid" as a guiding objective, forcibly aligning the feature representations of data to be unlearned to the error centroid. This forces the model's behavior to converge towards that of "unseen data," thereby achieving precise unlearning without retraining. Furthermore, by employing multi-objective constraints via Model Drift Regularization and classification loss on remaining data, the method effectively prevents parameter oscillation and preserves general model performance, achieving an optimal balance between unlearning efficiency and utility.
+
+Second, a verifiable unlearning mechanism based on Geometric Zero-Knowledge Proof (Geo-ZKP) and DAG Blockchain is constructed. Targeting auditing challenges in weakly trusted environments, a closed-loop system of "cryptographic verification + decentralized auditing" is established. Firstly, a Geo-ZKP circuit is designed to abstract representation alignment into geometric constraints, allowing vehicles to generate zero-knowledge proofs while protecting privacy, thereby certifying that the model has executed feature migration. Secondly, a high-concurrency DAG consensus architecture is adopted to significantly enhance throughput. Combined with a Proof of Unlearning Contribution (PoUC) reputation mechanism, node weights are dynamically adjusted based on valid proofs, realizing decentralized trustworthy management and effectively overcoming bottlenecks in trust construction.
+
+Third, a Q-LZW differential compression transmission mechanism based on finite field mapping is designed. Addressing bandwidth constraints and the transmission pressure introduced by Geo-ZKP, as well as the issue where traditional lossy compression destroys verification consistency, a lossless compression strategy with synergistic computation and communication optimization is proposed. This strategy exploits the endogenous requirement of Geo-ZKP for Finite Field operations by reusing the fixed-point quantization process. It maps sparse model updates into a low-entropy integer stream and employs the LZW algorithm for dynamic encoding. This "Quantization-Difference-Encoding" mechanism achieves high compression ratios while ensuring Strict Consistency between decompressed data and verification inputs, significantly reducing communication payload and latency with zero security compromise.
+
+Experimental results demonstrate that the proposed VeriFed-UL framework and its supporting mechanisms perform excellently on benchmark datasets. In terms of unlearning effectiveness, the unlearning rate of target data is reduced by up to 99.64\% without retraining, approaching the effectiveness of complete retraining. Regarding model utility, the prediction performance loss of the final global model is controlled within 3.88\%. In terms of system efficiency, the combination of Geo-ZKP and Q-LZW significantly improves network throughput and reduces communication overhead.
+\begin{engkeywords}                                     % 英文关键词开始
+Internet of Vehicles (IoV) \ensep Federated Learning \ensep Federated unlearning \ensep Blockchain \ensep Data Compression                
+\end{engkeywords}                                       % 英文关键词结束
+\end{engabstract}                                           % 英文摘要结束
+%%-----------------------------------------------------------------------------%
+
+
+\tableofcontents                                            % 目录
+%%-----------------------------------------------------------------------------%
+\mainmatter
+\sDefault
+\chapter{绪论}
+\chaptermark{绪论}
+\section{选题背景及意义}
+随着智能交通系统（Intelligent Transportation Systems, ITS）和自动驾驶技术的快速发展，车联网（Internet of Vehicles, IoV）已成为典型的数据密集型分布式系统。车辆在行驶过程中持续产生包含位置、轨迹、驾驶行为等在内的高敏感数据，这些数据为交通状态感知、协同决策与安全驾驶提供了重要支撑。然而，传统集中式数据收集与建模方式在隐私保护、系统鲁棒性以及法规合规性方面面临严峻挑战。联邦学习（Federated Learning, FL）通过在本地保留原始数据并仅交换模型参数，实现了跨车辆的数据协同建模，被认为是车联网场景下兼顾模型性能与隐私保护的有效技术路径。这种协作式学习方式在保护隐私的前提下促进了车辆之间的高效知识共享，并提升了交通系统的整体性能。
+
+然而，全球范围内日益严格的数据隐私法规——如欧盟的《通用数据保护条例》（GDPR）和美国加州的《消费者隐私法案》（CCPA）——明确确立了用户的“被遗忘权”。该权利要求数据持有者能够根据用户请求，从系统中彻底删除其个人数据及相关影响。现有的传统 FL 架构虽然实现了数据的“物理隔离”，但一旦数据参与了模型聚合，其特征记忆便会持久化地保留在全局模型参数中。这种缺乏“撤销机制”的特性，使得传统 FL 难以满足法律层面的合规性要求，也无法适应 IoV 场景中因数据过时（新样本覆盖旧样本）而需动态更新模型的需求。因此，如何在分布式环境中实现对特定数据的精准去除，即联邦遗忘，已成为 IoV 隐私保护领域亟待突破的核心问题。
+
+联邦遗忘旨在从已训练的全局模型中精准移除特定车辆或特定数据的训练影响，使模型行为在统计意义上等价于“未使用这些数据进行训练”。在车联网场景中，联邦遗忘不仅是满足上述法规合规要求的关键技术，更是应对车辆频繁上线离线、数据持续更新所带来模型退化问题的必要手段。然而，现有联邦遗忘方法在 IoV 环境下仍存在明显局限：被动式联邦遗忘通常依赖所有参与车辆协同执行额外训练步骤，难以适应车辆数量庞大且高度动态的网络环境；主动式联邦遗忘虽降低了对其他车辆的依赖，但由于缺乏明确且可控的优化目标，往往通过对全局模型参数进行粗粒度扰动来实现遗忘，极易破坏未遗忘数据的判别能力，甚至引发“灾难性遗忘”。对于对预测准确性与可靠性高度敏感的车联网应用而言，这种性能退化具有不可忽视的安全风险。因此，设计一种无需其他车辆参与、无需大规模重训练、且能够在有效遗忘的同时最大限度保持全局模型性能的联邦遗忘方法，是车联网联邦学习亟待解决的核心难题。
+
+
+在解决“怎么遗忘”的基础上，遗忘过程的可信性与可验证性同样至关重要。车联网是一个典型的弱信任环境，传统的中心化服务器在协调遗忘时面临黑箱操作与单点信任风险，且理性的车辆节点可能为了节省算力而实施“懒惰更新”攻击（即虚假报告已遗忘）。区块链技术凭借其去中心化、不可篡改和可追溯特性，为联邦遗忘构建了可靠的信任锚点\cite{khan2022blockchain}。通过将遗忘请求、参数指纹及验证结果记录在分布式账本中，可以有效防止遗忘过程被抵赖或篡改。特别是结合零知识证明（Zero-Knowledge Proof, ZKP）技术，车辆可以在不泄露原始数据的前提下证明其遗忘操作的数学有效性，从而为隐私合规审计提供可验证的密码学证据。
+
+尽管联邦遗忘与区块链的结合在理论上解决了隐私与信任问题，但其工程落地仍受限于车联网严苛的通信带宽与计算资源。在引入复杂的密码学验证ZKP 生成）和高频的模型参数交互后，网络拥塞与通信延迟成为制约系统实时性的主要瓶颈。直接传输全精度的模型参数不仅消耗宝贵的频谱资源，还会增加共识确认的时延。因此，如何设计高效的通信压缩机制成为系统可用的关键。利用联邦遗忘更新的稀疏性与验证电路的量化特性，通过差分编码与无损压缩技术LZW大幅降低通信载荷，是在保障安全性的前提下提升系统吞吐量与实时性的必然选择。
+
+综上所述，面向车联网这一对隐私、安全与效率均有极高要求的应用场景，构建一个支持数据合规撤销的联邦学习系统具有重要的理论意义与应用价值。本文旨在通过提出表征空间定向偏移的遗忘算法解决遗忘有效性问题，引入几何零知识证明与 DAG 区块链解决过程可信问题，并结合Q-LZW 差分压缩机制突破通信瓶颈。该研究致力于构建一个安全、可信、高效的车联网联邦遗忘闭环体系，为智能交通系统的数据合规治理提供具有现实意义的技术解决方案。
+
+\section{国内外研究现状}
+\subsection{联邦学习在车联网中的研究现状}
+随着通信技术与人工智能的飞速发展，智能交通系统正经历从简单的车载自组网向全连接、智能化的车联网演进。本节将分别从车联网通信与计算架构的演进，以及联邦学习在车联网场景下的关键技术研究两个维度，对国内外的研究现状进行系统综述。
+
+车联网作为物联网技术在交通领域的典型应用，经历了从早期的车载自组网（VANET）到基于蜂窝网络的车联网（C-V2X），再到当前面向 6G 的空天地一体化智联网络的演变。国内外学者主要围绕通信协议标准、移动边缘计算（MEC）卸载策略以及网络安全架构三个方面展开了深入研究。
+
+早期的 VANET 研究主要基于 IEEE 802.11p 标准（DSRC），侧重于车辆间的短距离通信。然而，随着自动驾驶对低时延和高可靠性的需求增加，基于蜂窝网络的 C-V2X 技术逐渐成为主流。3GPP 在 Release 16 和 Release 17 中进一步完善了 5G-V2X 标准，引入了直连通信（PC5 接口）与网络通信（Uu 接口）的混合模式。针对 5G-V2X 的资源调度问题，Abboud 等人~\cite{abboud2016interworking} 较早提出了异构网络下的垂直切换机制，以保证服务质量（QoS）。近年来，随着 6G 愿景的提出，研究重心开始向空天地一体化网络（SAGIN）转移。Zhang 等人~\cite{zhang20196g} 分析了 6G 车联网在覆盖范围和连接密度上的优势，指出了卫星链路与地面网络协同的必要性。此外，为了解决高动态环境下的频谱稀缺问题，基于非正交多址接入（NOMA）和智能反射面（RIS）的物理层技术也受到了广泛关注~\cite{liu2021ris}，这些技术通过重构无线信道环境，显著提升了车辆通信的频谱效率。
+
+
+由于车辆终端计算能力受限且电池容量有限，将计算密集型任务（如高精地图构建、视频分析）卸载至路侧单元（RSU）或边缘服务器成为必然选择。移动边缘计算（MEC）在车联网中的应用是近五年来的研究热点。针对车辆的高移动性导致的通信链路中断问题，Mao 等人~\cite{mao2017survey} 系统总结了基于随机几何的卸载模型。在动态资源分配算法方面，深度强化学习（DRL）被广泛应用。例如，Liu 等人~\cite{liu2019adaptive} 提出了一种基于多智能体强化学习（MARL）的分布式卸载框架，使车辆能够在缺乏全局信息的情况下自主优化卸载决策，以最小化系统时延和能耗。针对计算资源极其紧张的场景，Ning 等人~\cite{ning2019mobile} 提出了一种基于车辆协作的雾计算架构，利用空闲车辆作为临时计算节点，构建了“车-车-路”三层卸载体系，有效缓解了 RSU 的负载压力。
+
+
+随着车联网数据价值的提升，安全与隐私问题日益凸显。传统的加密认证机制在计算开销和响应速度上难以满足 IoV 的实时性要求。因此，区块链技术因其去中心化和不可篡改特性被引入 IoV。Kang 等人~\cite{kang2019secure} 设计了一种基于联盟链的数据共享激励机制，利用智能合约确保数据交易的公平性。此外，为了解决物理实验成本高、风险大的问题，数字孪生（Digital Twin）技术开始应用于车联网测试与优化。Sun 等人~\cite{sun2021digital} 提出了基于数字孪生的网络切片管理架构，通过在数字空间对网络状态进行实时映射和预测，实现了物理网络资源的抢先式调度。
+
+综上所述，车联网研究已从底层的连通性问题转向高层的智能化资源调度与安全架构设计。然而，现有的中心化数据处理模式在隐私保护方面仍存在缺陷，这为联邦学习的引入提供了契机。联邦学习（Federated Learning, FL）作为一种“数据不动模型动”的分布式机器学习范式，契合车联网隐私保护与分布式计算的需求。近年来，国内外学者在将 FL 应用于 IoV 时，主要面临通信资源受限、数据非独立同分布（Non-IID）以及系统鲁棒性三大挑战。
+
+在车联网环境中，车辆的高速移动导致无线信道状态快速变化，且可用带宽极为有限。传统的联邦平均算法（FedAvg）涉及频繁的模型参数传输，极易造成网络拥塞。为了降低通信开销，模型压缩与稀疏化是主流解决方案。Mills 等人~\cite{mills2020communication} 提出了一种针对 FL 的量化压缩算法，在保证模型精度的同时将通信开销降低了 90\% 以上。除了压缩技术，基于信道状态的客户选择（Client Selection）策略也是研究热点。Shi 等人~\cite{shi2020joint} 建立了一个联合优化模型，根据车辆的当前信道质量和剩余计算资源，动态选择参与聚合的车辆节点，从而避免“落后节点”（Stragglers）拖累整体训练进度。针对 IoV 拓扑高度动态的特性，异步联邦学习（Asynchronous FL）逐渐取代同步 FL 成为新趋势。Chen 等人~\cite{chen2020asynchronous} 提出了一种深层异步聚合机制，允许服务器在接收到部分更新后即刻进行聚合，显著提高了模型在断这类不稳定网络环境下的收敛速度。
+
+车辆采集的数据受到地理位置、传感器类型及驾驶习惯的影响，呈现出显著的非独立同分布（Non-IID）特征。这种数据分布的偏移会导致全局模型收敛困难甚至发散。
+为了解决这一问题，Zhao 等人~\cite{zhao2018federated} 最早提出了数据共享策略，通过下发少量全局共享数据集来校准本地分布，但这在一定程度上增加了隐私泄露风险。相比之下，个性化联邦学习（Personalized FL）更具前景。Tan 等人~\cite{tan2022towards} 提出了一种基于元学习（Meta-Learning）的个性化框架，使全局模型能够快速适应不同车辆的本地数据分布。此外，Li 等人~\cite{li2021model} 利用知识蒸馏技术处理异构数据，通过在服务器端聚合模型输出的软标签（Soft Label）而非参数，不仅解决了 Non-IID 问题，还实现了不同结构模型的协同训练。
+
+尽管 FL 避免了原始数据交换，但梯度信息仍可能泄露用户隐私。差分隐私（Differential Privacy, DP）是目前最常用的增强手段。Wei 等人~\cite{wei2020federated} 推导了 FL 场景下差分隐私的理论收敛界，并设计了自适应噪声添加机制以平衡隐私性与模型精度。在安全性方面，针对投毒攻击（Poisoning Attack）的防御是研究重点。Sun 等人~\cite{sun2020data} 利用异常检测算法剔除恶意的模型更新。然而，现有的研究多集中于“如何安全地训练模型”，而忽略了“如何安全地删除模型记忆”。随着 GDPR 等法规的出台，车辆用户要求从全局模型中撤销其贡献的“被遗忘权”日益受到关注。尽管已有少量关于机器遗忘（Machine Unlearning）的研究，但在车联网这种边缘节点频繁离线、通信受限的联邦环境下，如何实现高效、可验证的联邦遗忘（Federated Unlearning）仍是一个处于起步阶段且极具挑战的课题~\cite{liu2022federated}。
+
+总结而言，联邦学习在车联网中的应用研究已在通信优化和个性化方面取得了显著进展，但在处理极致的数据异构性以及实现全生命周期的隐私管理（含遗忘机制）方面，仍有广阔的探索空间。
+
+
+\subsection{机器遗忘与联邦遗忘研究现状}
+\subsubsection{机器遗忘}
+机器遗忘（MU）旨在从已训练模型中移除训练数据的影响。根据删除的完整性，机器遗忘可分为精确遗忘和近似遗忘~\cite{nguyen2022survey}。
+
+(1) 精确遗忘通过重训练受影响组件，完全消除特定数据的影响。Bourtoule等人~\cite{bourtoule2021machine}提出SISA方法，该方法通过数据分片并重训练子模型实现遗忘。基于SISA，Chen等人~\cite{chen2022graph}设计了图遗忘方法。Chen等人~\cite{chen2022recommendation}通过基于交互的数据划分和基于注意力的自适应聚合，将SISA扩展至推荐系统。Guo等人~\cite{guo2024verifying}提出一种基于增量学习和索引结构的高效可验证机器遗忘方法。
+
+(2) 近似遗忘通过参数级优化，最小化特定数据对模型的贡献。Chen等人~\cite{chen2023boundary}提出边界收缩与边界扩展方法，以偏移模型对待遗忘数据的决策边界。Wang等人~\cite{wang2024representation}提出一种基于互信息和参数自共享的两阶段遗忘方法。Chundawat等人~\cite{chundawat2023zeroshot}通过误差最小-最大化噪声和门控知识转移，实现零样本机器遗忘。Wang等人~\cite{wang2023kga}利用重训练模型的分布特性，使最终模型对待遗忘数据的行为近似于未见过该数据的状态。
+总之，上述机器遗忘方案均聚焦于集中式场景，即服务器可全面访问模型及其训练数据。然而，在联邦学习（FL）场景中，此类方案的适用性受到一定限制——出于隐私保护需求，车辆需将数据保留在本地设备中。因此，有必要为联邦学习场景开发定制化的机器遗忘方法。
+
+
+\subsubsection{联邦遗忘}
+当接收到遗忘请求时，现有联邦学习系统可通过两种方式响应：被动式联邦遗忘（passive FU）和主动式联邦遗忘（active FU）~\cite{liu2025survey_fu}。具体架构如图\ref{fig:fl-sys1}所示。
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+  \node[inner sep=0, rounded corners=14pt, clip]
+   {
+\includegraphics[width=0.8\textwidth,trim=3.6cm 0 4.3cm 0, clip]{picture/联邦遗忘重训练模型对比遗忘模型.pdf}};
+\end{tikzpicture}
+\caption{联邦遗忘重训练模型对比遗忘模型}
+\label{fig:fl-sys1}
+\end{figure}
+
+(1) 被动式联邦遗忘方法由剩余参与者（包括服务器、剩余车辆或两者共同）通过额外的加速从头训练，或利用所有参与车辆的剩余数据操纵历史信息，快速重构全局模型。Liu等人~\cite{liu2022rtbf}采用对角经验Fisher信息矩阵和自适应动量重训练全局模型。Sheng等人~\cite{sheng2024robust}提出一种基于冲突样本补偿和全局重加权的抗攻击重训练方案。Liu等人~\cite{liu2021federaser}提出FedEraser方法，利用其他车辆的重训练本地模型消除目标车辆的更新影响。Wu等人~\cite{wu2022fukd}通过从全局模型中减去历史更新移除目标客户端，并采用知识蒸馏保留模型效用。Lin等人~\cite{lin2024scalable}利用编码分片机制提升FedEraser的效率。Dinsdale等人~\cite{indsdale2022fedharmony}通过学习到的特征缓解扫描器特定偏差。Gao等人~\cite{gao2024verifi}允许服务器在多轮聚合中缩减待遗忘客户端的参数，并为待遗忘客户端提供验证权。
+
+(2) 主动式联邦遗忘方法使目标车辆能够利用自身待遗忘数据独立微调已训练全局模型，无需完全重训练即可移除这些数据的影响。Halimi等人~\cite{halimi2022efficient}通过对剩余客户端的平均参数应用投影梯度上升（GA）更新全局模型。Wu等人~\cite{wu2022guarantee}将随机梯度上升与弹性权重巩固（EWC）相结合实现遗忘。Alam等人~\cite{alam2023backdoor}采用基于梯度上升的方法从全局模型中清除后门数据。Wang等人~\cite{wang2024server}在服务器发起请求后，应用梯度上升移除低质量数据。Xia等人~\cite{xia2023fedme2}基于记忆评估模型消除待遗忘数据。Wang等人~\cite{wang2024goldfish}通过基础模型、损失函数、优化模块及扩展实现完成遗忘。Chen等人~\cite{chen2024har}利用Kullback-Leibler散度使待遗忘数据的输出分布与第三方数据对齐。
+
+然而，这些遗忘方法存在局限性：需其他参与者参与、涉及额外重训练步骤，且因缺乏明确的遗忘目标导致全局模型对未遗忘数据的预测性能显著退化，使其在车辆数量众多且对模型可用性有要求的车联网（IoV）中适用性受限。
+
+
+
+\subsection{区块链在分布式机器学习中的研究现状}
+随着分布式机器学习系统规模的不断扩大，其在开放网络环境下面临的信任、审计与安全问题日益凸显。传统分布式学习框架通常依赖中心化服务器完成模型聚合、任务调度与结果存储，这种架构在恶意节点注入、单点故障以及责任不可追溯等方面存在缺陷。区块链技术凭借去中心化、不可篡改和可追溯等特性，为构建可信的分布式机器学习系统提供了新的技术路径。
+
+早期研究主要关注区块链与分布式学习的基础融合模式。例如，Kim 等人提出将模型更新摘要写入区块链账本，用于防止模型参数在传输与存储过程中被篡改，从而增强分布式学习过程的完整性与可审计性。随后，研究者开始引入智能合约机制，实现模型聚合、节点激励与任务调度的自动化执行。Lu 等人设计了基于以太坊智能合约的联邦学习框架，通过合约规则约束参与节点的行为，有效缓解了参数投毒与搭便车问题。
+
+在联邦学习场景下，区块链被广泛用于替代传统中心服务器，构建去中心化的模型协调与信任管理机制。一类典型工作采用区块链记录各轮模型更新的哈希值与贡献度评估结果，以实现模型演化过程的可追溯性；另一类研究则关注基于区块链的激励机制设计，通过代币或信誉积分鼓励高质量模型更新的提交。Zhang 等人提出基于区块链的联邦学习激励框架，在防止恶意节点提交低质量更新的同时，提高了系统整体的鲁棒性。
+
+近年来，针对车联网、边缘计算等高动态场景，区块链在分布式机器学习中的研究重点逐渐转向高并发与低时延问题。传统区块链共识机制（如 PoW、PBFT）在吞吐量和确认延迟方面难以满足车联网环境的实时性需求。为此，部分研究引入 DAG（Directed Acyclic Graph）账本结构或轻量级共识机制，以提升系统并发处理能力和可扩展性。此外，区块链还被用于支撑模型版本管理、学习过程审计以及隐私合规证明，为后续可验证机器遗忘与合规审计奠定基础。
+
+总体而言，现有研究表明区块链在提升分布式机器学习可信性方面具有显著优势，但其在计算开销、通信复杂度以及与隐私保护机制深度融合方面仍存在不足。尤其是在联邦遗忘场景中，如何利用区块链对遗忘请求、遗忘执行过程及其结果进行可验证记录，仍缺乏系统化的解决方案，有待进一步研究。
+
+
+\subsection{Q-LZW 差分压缩技术研究现状}
+在车联网联邦学习（IoV-FL）场景中，通信带宽受限与高频模型交互之间的矛盾已成为制约系统落地的主要瓶颈。为了降低通信开销，学术界主要围绕模型更新的稀疏化（Sparsification）、量化（Quantization）以及无损熵编码（Entropy Encoding）展开了深入研究。
+
+为了减少传输的数据量，研究者们提出利用模型更新的稀疏性，仅传输发生显著变化的参数。Konečný等人（2016）最早提出了“结构化更新”和“草图更新”策略，通过限制参数更新的秩或对其进行随机掩码，显著降低了上行链路的通信成本~\cite{konecny2016federated}。Lin等人（2018）提出了深度梯度压缩（Deep Gradient Compression, DGC）技术，通过仅传输大于特定阈值的梯度元素（通常仅占总量的0.1\%~1\%），并结合动量修正机制，在保证模型精度的前提下实现了数百倍的压缩比~\cite{lin2018deep}。在车联网场景下，Jiang等人（2020）提出了一种基于联邦学习的差分隐私与稀疏化结合方案，利用车辆模型更新的差分特性来减少冗余数据传输~\cite{jiang2022model}。然而，上述稀疏化方法通常是有损的，且对稀疏阈值的选择极为敏感，若设置不当易导致模型收敛困难。
+
+量化通过减少表示模型参数所需的比特数来降低通信带宽。Alistarh等人（2017）提出了QSGD（Quantized SGD）算法，证明了在理论上可以通过随机量化将梯度压缩至低比特宽度（如2-4比特）而不损失收敛速度，该方法在高维网络训练中表现出优异的通信效率~\cite{alistarh2017qsgd}。Bernstein等人（2018）进一步提出了符号SGD（signSGD），仅传输梯度的符号（+1或-1），将通信压缩推向了极致~\cite{bernstein2018signsgd}。针对异构网络环境，Reisizadeh等人（2020）提出了FedPAQ算法，结合了周期性平均与量化技术，在边缘设备计算能力受限的情况下实现了通信与计算的平衡~\cite{reisizadeh2020fedpaq}。尽管量化技术效率显著，但现有的量化方案大多旨在追求极致的压缩率，而忽略了量化后的数据格式是否兼容后续的密码学验证（如零知识证明电路对定点数的特殊要求）。
+
+为了在量化和稀疏化的基础上进一步挖掘压缩潜力，研究者开始引入哈夫曼编码（Huffman Coding）或LZW等熵编码技术。Han等人（2016）在“Deep Compression”的经典工作中，确立了“剪枝（Pruning）-量化（Quantization）-哈夫曼编码”的三阶段压缩流水线，证明了量化后的权重分布具有显著的低熵特性，非常适合进行变长编码~\cite{han2016deep}。在联邦学习领域，Sattler等人（2019）提出了稀疏三元压缩（Sparse Ternary Compression, STC），结合了Golomb编码来进一步压缩稀疏化后的更新流，实现了通信效率的帕累托最优~\cite{sattler2020robust}。Xu等人（2021）则探索了在联邦学习通信中应用LZW算法的可行性，指出LZW在处理具有高度重复模式的梯度差值时具有优势，且无需像哈夫曼编码那样预先统计词频~\cite{xu2021lzw}。
+
+纵观国内外研究现状，尽管通信压缩技术已取得丰硕成果，但仍存在以下局限性： 首先，绝大多数压缩方法（如剪枝、低比特量化）均属于有损压缩。在本文提出的“可验证联邦遗忘”架构中，模型参数的哈希值是链接链下计算与链上验证的唯一凭证，有损压缩会导致解压后的参数哈希发生变化，从而导致零知识证明（ZKP）验证失败。 其次，现有的无损压缩研究大多独立于安全机制，鲜有研究考虑到ZKP电路验证所需的定点数量化特性。事实上，ZKP电路强制要求的有限域映射产生低熵整数流，这为无损压缩提供了绝佳的前置条件，但目前的文献尚未充分挖掘这一“计算-通信协同”的优化空间。
+
+综上所述，设计一种既能利用模型更新稀疏性与量化低熵特性，又能严格保持数据无损以兼容密码学验证的差分压缩机制，是当前车联网安全联邦学习研究中的一个需要解决的问题。
+
+
+
+\section{本文研究内容}
+针对车联网环境下联邦学习在隐私合规性、系统可信性以及资源受限等方面面临的挑战，本文围绕“高效、可验证且通信友好的联邦遗忘”这一核心目标，开展了系统性的研究工作。主要研究内容概括如下：
+
+（1）提出一种面向车联网的高效联邦遗忘框架。 针对现有联邦遗忘方法依赖大规模重训练、对其他节点高度依赖的问题，本文从表征空间重构的角度出发，设计了一种无需其他车辆参与的主动式联邦遗忘方法（VeriFed-UL）。该方法通过定向削弱待遗忘数据在模型表征空间中与分类决策相关的关键信息，并引入模型漂移正则化约束，在实现有效遗忘的同时，最大限度保持未遗忘数据的预测性能，并为后续的高效通信奠定稀疏化基础。
+
+（2）构建基于几何零知识证明与 DAG 区块链的可信遗忘审计体系。 针对车联网弱信任环境下遗忘过程缺乏可验证性及传统区块链吞吐受限的问题，本文提出了一种“密码学验证 + 去中心化账本”的双重信任机制。首先，将遗忘操作抽象为表征空间中的几何约束，设计基于几何零知识证明（Geo-ZKP）的验证电路，使车辆能够在不泄露隐私的前提下生成遗忘正确性与微创性的数学证明；其次，引入适配车联网高并发特性的 DAG（有向无环图）共识账本，将上述遗忘证明、请求及模型更新摘要上链记录。该体系实现了从遗忘执行到结果记录的全流程可信闭环，有效防御了“懒惰节点”攻击，解决了合规审计难题。
+
+（3）提出基于有限域映射的 Q-LZW 差分压缩传输机制。 针对车联网节点计算资源受限及高频模型交互导致的带宽瓶颈，本文提出了一种计算与通信协同优化的无损压缩策略。该机制充分复用 Geo-ZKP 电路验证所必需的定点数量化过程，将 VeriFed-UL 产生的微小浮点模型更新差值映射为有限域上的低熵整数序列，并应用 LZW 算法进行动态编码。该策略在严格保证链上哈希验证一致性（无损性）的前提下，大幅降低了模型同步过程中的通信载荷与时延，实现了安全性与传输效率的平衡。
+
+通过上述研究，本文构建了一套兼顾遗忘有效性、系统可信性与工程可行性的车联网联邦遗忘解决方案。
+
+\section{本文结构安排}
+
+本文共分为六个章节，各章节内容安排如下：
+第 1 章为绪论，介绍研究背景与研究意义，系统综述车联网联邦学习、联邦遗忘、区块链技术以及高效通信与数据压缩等相关领域的国内外研究现状，分析现有技术面临的挑战，并明确本文的研究内容、技术路线与创新点。
+
+第 2 章介绍本文所涉及的相关理论基础，包括车联网通信架构与联邦学习机制、联邦遗忘的基本定义、区块链与智能合约技术，以及零知识证明电路与无损数据压缩（LZW）的基本原理，为后续章节的算法设计与机制构建奠定理论基础。
+
+第 3 章提出一种基于表征空间定向偏移的联邦遗忘算法（VeriFed-UL），从数学定义与优化目标出发，详细阐述算法的主动式遗忘设计思路、系统模型与具体实现过程。该章节重点解决“如何遗忘”的问题，并通过实验验证算法在无需重训练情况下的遗忘有效性与模型泛化性能保持能力。
+
+第 4 章构建基于几何零知识证明与 DAG 区块链的可信审计体系，围绕联邦遗忘的“可验证性”与“可信管理”问题，设计基于几何约束的遗忘证明生成电路（Geo-ZKP），并结合 DAG 共识架构实现遗忘全流程的去中心化记录。本章重点解决弱信任环境下的安全与信任问题，并分析系统的安全性与抗攻击能力。
+
+第 5 章提出基于有限域映射的 Q-LZW 差分压缩传输机制，针对车联网环境中的通信带宽受限与高频验证开销问题，利用 Geo-ZKP 电路的定点数量化特性，设计计算与通信协同的无损压缩策略。详细阐述从浮点差值到低熵整数流的映射过程及 LZW 动态编码方法，并通过系统级仿真实验评估所提方法在通信开销、吞吐量提升及验证一致性方面的表现。
+
+第 6 章对全文研究工作进行总结，归纳本文的主要研究成果与结论，并分析现有工作存在的不足，展望未来在更复杂的动态车联网场景下，联邦遗忘、隐私计算与通信优化技术融合方向上的进一步研究。
+\cleardoublepage
+
+
+\chapter{相关理论基础}
+\chaptermark{相关理论基础}
+随着车联网（IoV）技术的飞速发展，车辆产生的数据量呈指数级增长。联邦学习（FL）作为一种隐私保护计算范式，虽然打破了数据孤岛，但在面对 GDPR 等法规关于“被遗忘权”的强制要求时，仍存在模型记忆残留的合规风险。此外，车联网环境的弱信任本质以及高频模型交互所带来的通信带宽瓶颈，也为构建可信、实时且高效的隐私保护系统带来了严峻挑战。
+
+本章将系统阐述支撑本论文研究方案的核心理论。首先，介绍车联网架构与联邦学习的基本机制，分析其在动态网络环境下急需解决的隐私合规与通信效率问题；其次，详细定义本研究的核心对象——联邦遗忘（Federated Unlearning），并给出其数学形式化定义与评估指标；接着，探讨区块链与智能合约技术如何为遗忘过程提供去中心化的信任审计基础；最后，重点阐述零知识证明电路（Arithmetic Circuits）的量化原理与无损熵编码（Entropy Encoding）理论，解析如何通过有限域映射实现密码学验证与数据压缩的协同优化。这些理论为后续章节提出的基于 Geo-ZKP 验证与 Q-LZW 差分压缩的联邦遗忘方案奠定了坚实的理论基石。
+
+\section{车联网（IoV）的通信特性与系统模型}
+车联网（Internet of Vehicles, IoV）作为物联网在智能交通系统（ITS）中的典型应用，通过车内网、车际网和车载移动互联网的深度融合，实现了车与车（V2V）、车与路（V2I）、车与人（V2P）以及车与网络（V2N）的全方位连接（V2X）。
+
+与传统移动自组网（MANET）相比，面向联邦学习任务的车联网环境表现出显著的异构性和动态性，具体通信特性分析如下：车辆的高速移动导致网络拓扑结构频繁变化，V2V 和 V2I 链路连接时间短且不稳定。这对联邦学习中的模型参数传输提出了鲁棒性要求，系统需适应节点（车辆）的随时加入与退出。虽然现代车辆配备了车载单元（On-Board Unit, OBU），但相比于云端服务器，其算力和电池容量仍十分有限。在进行本地模型训练时，必须考虑计算开销与能耗平衡。不同车辆行驶的区域、时间及驾驶习惯不同，导致本地采集的传感器数据（如摄像头图像、雷达数据）在分布上存在显著差异，这会严重影响全局模型的收敛性能。
+
+基于上述特性，本文采用基于“云-边-端”协同的层次化 IoV 系统模型。端层（Terminal Layer）由大量配备传感器的智能车辆组成。车辆作为联邦学习的客户端（Client），负责本地数据的采集、预处理及本地模型的训练。边缘层（Edge Layer）由部署在路侧的路侧单元（Road Side Unit, RSU）组成。RSU 作为边缘服务器，具备一定的计算和存储能力，负责区域内车辆的模型聚合与缓存，以降低通信时延。云层（Cloud Layer）由远程云服务器组成，拥有强大的算力，负责全局模型的长期维护、复杂任务的编排以及跨区域的全局聚合。具体架构\ref{fig:v2x_arch}如图所示：
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}
+  \node[inner sep=0, rounded corners=14pt, clip]
+   {
+\includegraphics[width=\textwidth,trim=1cm 0 6cm 0, clip]{picture/车联网 V2X 通信架构示意图.pdf}};
+\end{tikzpicture}
+    \caption{车联网 V2X 通信架构示意图}
+    \label{fig:v2x_arch}
+\end{figure}
+
+
+
+\section{联邦遗忘理论基础}
+随着GDPR等隐私法规的出台，用户对“被遗忘权”的需求日益增长。在联邦学习场景下，如何高效、彻底地消除特定参与者数据对全局模型的影响，成为了亟待解决的关键问题。在本节中，将首先概述机器遗忘，在此基础上，结合成员推理攻击（MIA）的原理，给出了近似机器遗忘的严格理论定义，确立了验证遗忘有效性的基准。随后，将这一理论框架延伸至联邦学习环境，对联邦遗忘进行定义，并补充介绍相关的模型攻击技术，以构建完整的安全性与遗忘效果验证逻辑。
+
+\subsection{机器遗忘}
+在机器遗忘（MU）系统中，训练数据集 $\mathcal{D}$ 包含两个部分：$\mathcal{D}_f$ 代表待遗忘的数据样本，$\mathcal{D}_r$ 代表剩余的数据样本，其中 $\mathcal{D}_r = \mathcal{D} \setminus \mathcal{D}_f$（即 $\mathcal{D}$ 中除去 $\mathcal{D}_f$ 的部分）。本文将基于完整数据集 $\mathcal{D}$ 训练得到的原始模型记为 $\mathcal{F}(\boldsymbol{\omega}^\circ)$。
+
+主要符号及说明如表\ref{tab:main_symbols}所示。
+\begin{table}[!ht]
+  \centering
+  \caption{主要符号及描述}
+  \label{tab:main_symbols}
+  \begin{tabularx}{\textwidth}{|c|X|}
+  \hline
+  \textbf{符号} & \textbf{描述} \\
+  \hline
+  $\mathcal{D}$ & $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^{N}$ 表示包含 $N$ 个样本的训练数据集，其中 $x_i$ 为输入特征，$y_i$ 为对应的类别标签。 \\
+  \hline
+  $\mathcal{D}_f$ & $\mathcal{D}_f = \{(x_i, y_i)\}_{i=1}^{N_f} \subset \mathcal{D}$表示被遗忘数据集，包含 $N_f$ 个样本。 \\
+  \hline
+  $\mathcal{D}_r$ & $\mathcal{D}_r = \mathcal{D} \setminus \mathcal{D}_f$表示剩余数据集，包含 $N_r$ 个样本。 \\
+  \hline
+  $\mathcal{D}_t$ & 非成员数据集（Non-member Dataset），不参与模型训练。$\mathcal{D}_t$ 满足 $\mathcal{D}_t \cup \mathcal{D} = \varnothing$。 \\
+  \hline
+  $\mathcal{U}$ & $\mathcal{U} = \bigcup_{k \in [n]} u_k$ 表示联邦学习中的车辆集合。在联邦遗忘场景下，$\mathcal{U} = \mathcal{U}_f \cup \mathcal{U}_r$，其中 $\mathcal{U}_f$ 表示发起遗忘请求的目标车辆集合，$\mathcal{U}_r$ 表示其余车辆集合。 \\
+  \hline
+  $\mathcal{D}_i$ & 目标车辆$u_i \in \mathcal{U}$的训练数据集； \\
+  \hline
+  $\mathcal{D}_i^f$ & 目标车辆$u_i \in \mathcal{U}_f$的待遗忘数据集； \\
+  \hline
+  $\mathcal{D}_i^r$ & $\mathcal{D}_i^r = \mathcal{D}_i \setminus \mathcal{D}_i^f$是目标车辆$u_i \in \mathcal{U}_f$的剩余数据集； \\
+  \hline
+  $\mathcal{F}(\boldsymbol{\omega})$ & $\mathcal{F}(\boldsymbol{\omega})$ 是由参数 $\boldsymbol{\omega}$ 参数化的模型，由一个特征提取器 $f(\boldsymbol{\omega}_e)$ 和一个分类器 $h(\boldsymbol{\omega}_c)$ 组成。 \\
+  &给定样本 $(x, y)$，$f(\boldsymbol{\omega}_e)$ 将输入 $x$ 转换为潜在空间的表征向量 $z = f(x; \boldsymbol{\omega}_e)$，而 $h(\boldsymbol{\omega}_c)$ 将表征向量 $z$ 映射为预测的对数几率 $g = h(z; \boldsymbol{\omega}_c)$； \\
+  \hline
+  $\mathcal{F}(\bar{\boldsymbol{\omega}})$ & 仅使用$\mathcal{D}_r$重训练得到的模型； \\
+  \hline
+  $\mathcal{F}(\boldsymbol{\omega}^\circ)$ & 基于完整数据集$\mathcal{D}$上训练得到的原始模型，包含特征提取器$f(\boldsymbol{\omega}_e^o)$和分类器$h(\boldsymbol{\omega}_c^o)$。它同时也代表联邦学习中训练完成的全局模型； \\
+  \hline
+  $\mathcal{F}(\boldsymbol{\omega}^{\circ\prime})$ & 联邦遗忘过程后更新的全局模型； \\
+  \hline
+  $\mathcal{F}(\boldsymbol{\omega}^u)$ & 移除$\mathcal{D}_f$影响后的遗忘模型，包含特征提取器$f(\boldsymbol{\omega}_e^u)$和分类器$h(\boldsymbol{\omega}_c^u)$。它同时也代表联邦遗忘中本地遗忘过程生成的模型，该模型将被发送至服务器进行聚合； \\
+  \hline
+  $\mathcal{F}(\mathcal{D}; \boldsymbol{\omega})$ & $\mathcal{F}(\boldsymbol{\omega})$在$\mathcal{D}$上的性能，例如分布、准确率等； \\
+  \hline
+  $\mathcal{F}(x; \boldsymbol{\omega})$ & 给定样本$(x,y)$时$\mathcal{F}(\boldsymbol{\omega})$的logits输出； \\
+  \hline
+  $\mathcal{O}(\cdot)$ & 理想的成员推理预言机； \\
+  \hline
+  $\approx$ & 模型的行为近似一致； \\
+  \hline
+\end{tabularx}
+\end{table}
+
+
+现有机器遗忘相关研究主要基于以下原理，使遗忘后的模型 $\mathcal{F}(\boldsymbol{\omega}^u)$ 的分布与仅基于 $\mathcal{D}_r$ 重训练得到的模型 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的分布保持一致\cite{bourtoule2021machine}。
+
+(1)重训练（Retraining）：在剩余数据集 $\mathcal{D}_r$ 上训练一个不受 $\mathcal{D}_f$ 数据影响的模型，本质上是从零开始训练。通过该方法得到的模型即为 $\mathcal{F}(\bar{\boldsymbol{\omega}})$，它不包含任何与 $\mathcal{D}_f$ 相关的信息。但该过程既耗时又耗费资源，因为它会丢弃已融合了 $\mathcal{D}_r$ 贡献的原始模型 $\mathcal{F}(\boldsymbol{\omega}^\circ)$。
+
+(2)微调（Fine-tuning）：利用剩余数据集 $\mathcal{D}_r$ 对原始模型 $\mathcal{F}(\boldsymbol{\omega}^\circ)$ 进行优化，以降低 $\mathcal{D}_f$ 数据的影响。但该过程需要多次迭代，会导致计算成本和通信成本增加。
+
+(3)梯度上升（Gradient ascent）：一种反向学习过程。在机器学习中，模型 $\mathcal{F}(\boldsymbol{\omega}^\circ)$ 通过梯度下降最小化损失来完成训练；相反，遗忘过程通过梯度上升最大化损失来实现。但该方法容易导致灾难性遗忘（catastrophic forgetting），因此许多研究会引入约束条件以保护模型已习得的有效记忆。
+
+(4)多任务遗忘（Multi-task unlearning）：不仅要消除 $\mathcal{D}_f$ 的影响，还要强化对剩余数据 $\mathcal{D}_r$ 中知识的习得。多数相关研究致力于在“擦除效果”与“保留效果”之间寻求平衡。
+
+(5)模型清理（Model scrubbing）：对原始模型 $\mathcal{F}(\boldsymbol{\omega}^\circ)$ 施加“清理”变换 $\mathscr{H}$，使遗忘后的模型与理想的重训练模型高度近似，数学表达式为 $\mathscr{H}(\mathcal{F}(\boldsymbol{\omega}^\circ)) \approx \mathcal{F}(\bar{\boldsymbol{\omega}})$\cite{ginart2019making}。定义清理方法 $\mathscr{H}$ 时，多数方案依赖损失函数的二次近似。具体而言，对于模型参数 $\boldsymbol{\omega}$，给定数据点 $\mathcal{D}_x$ 的损失函数梯度满足泰勒展开近似：$\nabla \mathcal{L}_{\mathcal{D}_x}(\boldsymbol{\omega}) \approx \nabla \mathcal{L}_{\mathcal{D}_x}(\boldsymbol{\omega}^\circ) + H_{\mathcal{D}_x}(\boldsymbol{\omega}^\circ)(\boldsymbol{\omega} - \boldsymbol{\omega}^\circ)$其中 $H_{\mathcal{D}_x}(\boldsymbol{\omega}^\circ)$ 为半正定黑塞矩阵（Hessian matrix）。通过令 $\nabla \mathcal{L}_{\mathcal{D}_r}(\boldsymbol{\omega}) = 0$，可使清理后的模型达到在 $\mathcal{D}_r$ 上的最优解，由此推导得到参数更新公式：$\boldsymbol{\omega}^u = \boldsymbol{\omega}^\circ - H_{\mathcal{D}_r}^{-1}(\boldsymbol{\omega}^\circ) \nabla \mathcal{L}_{\mathcal{D}_r}(\boldsymbol{\omega}^\circ)$$\mathscr{H}$ 可执行牛顿步（Newton step），且能在多种理论假设下推导得出\cite{fraboni2024sifu}\cite{golatkar2020forgetting}。但该方法的核心挑战在于黑塞矩阵的计算——对于高维模型而言，这一计算过程是不可行的。因此，部分研究致力于求解黑塞矩阵的近似值。
+
+(6)合成数据法（Synthetic data）：通过合成数据替换特定数据，帮助模型“遗忘”目标信息。例如，为 $\mathcal{D}_f$ 中的数据生成合成标签，再将其与 $\mathcal{D}_f$ 中的原始数据结合进行训练，从而实现遗忘。该方法可将特定数据的影响与模型解耦，在消除目标信息影响的同时，保留模型的整体性能。
+
+
+
+
+其中，近似机器遗忘算法\(U(F(\omega^o), D, D_t)\)旨在从已训练模型\(F(\omega^o)\)中移除\(D_f\)的影响，从而得到\(F(\omega^u)\)。\(F(\omega^u)\)作为\(F(\bar{\omega})\)的计算高效替代方案。当\(F(\omega^o)\)清除对\(D_f\)的记忆后，所得模型\(F(\omega^u)\)不再偏倚\(D_f\)的后验概率，使其与\(F(\omega^o)\)成员数据（即训练数据）的后验分布对齐。这种行为证明了使用成员推理攻击（MIA）评估MU的有效性是合理的，因为MIA利用了目标模型在成员数据和非成员数据（即非训练数据）上的行为差异\cite{shokri2017membership}。具体而言，对于给定的\(F(\omega^o)\)与样本\((x,y)\)，若\((x,y) \in D\)，理想成员推理预言机\(O(\cdot)\)输出True；否则输出False。若对于\(F(\omega^u)\)，\(O(\cdot)\)在\(D_f\)与\(D_t\)上表现出等效性能，则表明\(O(\cdot)\)推断\(D_f\)属于\(D\)的置信度已显著降低，从而完成遗忘。定义1从MIA的角度形式化地规定了遗忘后模型的期望状态\cite{ma2023learn}。满足定义1可确保\(F(\omega^u)\)在\(D_f\)上的行为与在未见过数据上的行为一致，同时保留其在\(D_t\)上的预测性能。
+
+定义1（近似机器遗忘）：若存在遗忘算法\(U(F(\omega^o), D, D_t)\)能输出\(F(\omega^u)\)并满足以下条件，则认为机器遗忘被完美执行：
+
+（1）\(O(F(D_f;\omega^o))=\text{True}\)，\(O(F(D_f;\omega^u))=\text{False}\)；
+
+（2）\(F(D_t;\omega^u) \approx F(D_t;\omega^o)\)。
+
+
+
+\subsection{联邦遗忘}
+联邦学习（Federated Learning, FL）是一种分布式机器学习范式，旨在解决“数据孤岛”与数据隐私保护之间的矛盾。其核心思想是“数据不动模型动”，即在客户端本地保留原始数据，仅通过交互模型参数（如梯度或权重）来协同训练全局模型。具体流程如图\ref{fig:fl_workflow}所示：
+\begin{figure}[!ht]
+    \centering
+        \begin{tikzpicture}
+  \node[inner sep=0, rounded corners=14pt, clip]
+   {
+\includegraphics[width=\textwidth,trim=1cm 4cm 3cm 1cm, clip]{picture/联邦学习本地训练与全局聚合流程.pdf}};
+\end{tikzpicture}
+    \caption{联邦学习本地训练与全局聚合流程}
+    \label{fig:fl_workflow}
+\end{figure}
+
+在一个典型的横向联邦学习系统中，假设车辆集合为 $\mathcal{U} = \{u_1, u_2, ..., u_n\}$，第 $i$ 个车辆 $u_i$ 拥有的本地数据集为 $\mathcal{D}_i$，且 $|\mathcal{D}_i|$ 表示数据样本数量。全局模型的训练过程通常包含以下步骤：
+
+(1)系统初始化：云端或边缘服务器初始化全局模型参数$\boldsymbol{\omega}_0$，并设定学习率 $\eta$ 等超参数，将模型下发给选定的车辆客户端。
+
+(2)本地训练：在第 $t$ 轮通信中，车辆 $u_i$ 基于本地数据集 $\mathcal{D}_i$ 和接收到的全局模型 $\boldsymbol{\omega}_t$，通过最小化本地损失函数 $F_i(\boldsymbol{\omega})$ 来更新本地模型。本地损失函数通常定义为：
+\begin{equation}F_i(\boldsymbol{\omega}) = \frac{1}{|\mathcal{D}i|} \sum{(x_j, y_j) \in \mathcal{D}i} \ell(x_j, y_j; \boldsymbol{\omega})\end{equation}其中，$\ell(\cdot)$ 为预测值与真实标签 $(x_j, y_j)$ 之间的误差函数。更新后的本地模型参数为 $\boldsymbol{\omega}{t+1}^i$。
+
+(3)模型上传与聚合：车辆将更新后的参数 $\boldsymbol{\omega}_{t+1}^i$（或梯度更新量 $\nabla F_i(\boldsymbol{\omega}_t)$）上传至聚合服务器。服务器利用聚合算法生成新的全局模型 $\boldsymbol{\omega}_{t+1}$。
+
+(4)模型更新：服务器将新的全局模型分发回车辆，重复上述步骤直至模型收敛。
+\newline
+
+其中联邦平均算法（Federated Averaging, FedAvg）是目前应用最广泛的基准算法 \cite{mcmahan2017communication}。其核心机制是根据各客户端的数据量大小进行加权平均。全局目标函数旨在最小化所有客户端损失的加权平均值：
+\begin{equation} \min_{\boldsymbol{\omega}} F(\boldsymbol{\omega}) = \sum_{i=1}^{n} \frac{|\mathcal{D}_i|}{|\mathcal{D}|} F_i(\boldsymbol{\omega}) \end{equation}
+其中 $|\mathcal{D}| = \sum_{i} |\mathcal{D}_i|$ 为总样本量（即表中定义的 $N$）。在服务器端，FedAvg 的聚合公式为：
+\begin{equation}
+\boldsymbol{\omega}{t+1} = \sum{u_i \in \mathcal{K}} \frac{|\mathcal{D}i|}{|\mathcal{D}{\mathcal{K}}|} \boldsymbol{\omega}{t+1}^i
+\end{equation}
+其中 $\mathcal{K} \subseteq \mathcal{U}$ 是该轮参与训练的客户端子集，$\mathcal{D}{\mathcal{K}}$ 表示该子集的数据总量。
+\newline
+
+本文采用联邦平均（FedAvg）算法，其中n辆车辆与1台服务器S协同训练用于L分类任务的全局模型\(F(\omega^o)\)。车辆\(u_k\)持有训练数据集\(D_k = \{(x_i, y_i)\}_{i=1}^{n_k}\)，含\(n_k\)个样本与\(m\)个特征，其中\(k \in [n]\)，\(x_i \in \mathbb{R}^m\)，\(y_i \in [L]\)。联邦学习中的全部训练数据集为\(D = \cup_{k \in [n]} D_k\)。
+
+在第t轮中，服务器S随机选择K辆车辆，广播全局模型\(F(\omega^{t-1})\)。被选中的车辆\(u_k\)基于\(D_k\)与\(\omega^{t-1}\)，通过E轮随机梯度下降（SGD）训练得到局部模型\(F(\omega_k^t)\)。
+
+随后，服务器S对接收的局部模型\(F(\omega_k^t)\)通过\(\omega^t = \sum_{k=0}^{K-1} \frac{n_k}{n} \omega_k^t\)获得更新后的全局模型\(F(\omega^t)\)，聚合公式为，其中\(n = \sum_{k=0}^{K-1} n_k\)。
+
+联邦学习的目标是通过最小化\(\sum_{k=0}^{K-1} \frac{n_k}{n} L_k(D_k; F(\omega))\)，学习最优全局参数\(\omega^o\)。其中\(L_k(D_k; F(\omega)) = \mathbb{E}_{(x,y) \in D_k} \ell_k(F(x;\omega), y)\)，\(\ell_k(F(x;\omega), y)\)为样本级分类损失。
+
+尽管 FedAvg 在理论上证明了收敛性，但在 IoV 场景中面临严峻挑战，随着深度神经网络层数的增加，模型参数量激增，频繁传输完整模型会消耗大量 V2I 带宽。虽然不传输原始数据，但研究表明，攻击者仍可通过梯度反演攻击（Gradient Inversion Attack）推断出用户的隐私信息 \cite{zhu2019deep}。在 GDPR 等法规下，当车辆用户撤回数据授权时，传统 FL 无法简单地从已聚合的全局模型中“剔除”特定数据的影响，这催生了对联邦遗忘技术的需求。因此，结合轻量级的压缩传输技术以减少通信负载，区块链保障遗忘过程的可验证性与可审计性 ，并融合联邦遗忘机制以实现数据的可擦除性，是构建下一代可信车联网联邦学习架构的关键方向。
+
+对比学习（CL）用于表征学习，SimCLR是一种知名的对比学习方法~\cite{chen2020simclr}。对于每个输入\(x_i\)，其一对增强视图\((x_i, x_i^+)\)构成正样本对，同批次中的其余样本则为负样本集合\(N_x\)。目标函数由InfoNCE损失定义~\cite{oord2018cpc}，即：\mbox{$-\log \frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\exp(\text{sim}(z_i, z_j)/\tau) + \sum_{x_j^- \in N_x} \exp(\text{sim}(z_i, z_k)/\tau)}$}其中，\(z_i = f(x_i; \omega_e)\)，\(z_j = f(x_i^+; \omega_e)\)，\(z_k = f(x_j^-; \omega_e)\)，\(\text{sim}\)表示余弦相似度，\(\tau\)为温度参数。
+
+Li等人~\cite{li2021model}提出了模型级对比学习方法MOON，该方法可减小全局模型与局部模型之间的差异。Miao等人~\cite{miao2023secure}将MOON集成到多模态异构数据场景中，以缓解数据异质性对模型性能的影响。Zhou等人~\cite{zhou2024personalized}则利用MOON加速多模态异构数据环境下的模型收敛过程。
+
+本文沿用MOON的思路，聚焦于有监督学习场景。不同于MOON通过最大化局部模型与全局模型表征一致性来解决联邦学习训练阶段的数据异质性问题，而VeriFed-UL聚焦于联邦学习的后处理阶段，旨在消除待遗忘数据对训练后全局模型的影响，同时最小化对剩余知识的影响。
+
+具体而言，VeriFed-UL重新利用模型级对比学习的思想以实现有效的遗忘，将待遗忘数据的表征向定制化的未记忆表征靠拢，从而指导目标车辆的局部遗忘过程。该方法的灵感来源于成员推理攻击（MIA）及重训练模型中观察到的决策行为。
+
+联邦遗忘是一种机器遗忘技术，旨在以分布式方式从全局模型中移除待遗忘数据的影响。设\(D_{f}=\cup_{i \in|U_{f}|} D_{i}^{f}\)为所有目标车辆的待遗忘数据集的完整集合。若存在联邦遗忘算法\(FU(F(\omega^o), U_f, D, D_t)\)，其输出更新后的全局模型$\mathcal{F}(\omega^{\circ \prime})$并满足定义1，则认为联邦遗忘被完美执行。在联邦学习中满足定义1，可确保$\mathcal{F}(\omega^{\circ \prime})$在\(D_f\)上的行为与在未见过数据上的行为类似，同时在\(D_r\)上保持与\(F(\omega^o)\)相当的性能。
+
+联邦遗忘的目标如下：（1）有效遗忘。\(FU(F(\omega^o), U_f, D, D_t)\)应尽可能消除\(D_f\)对\(F(\omega^o)\)的影响。（2）全局模型的竞争性预测性能。\(FU(F(\omega^o), U_f, D, D_t)\)生成的$\mathcal{F}(\omega^{\circ \prime})$，在\(D_t\)上与\(F(\omega^o)\)的性能差距应最小化。（3）高效遗忘。\(FU(F(\omega^o), U_f, D, D_t)\)的计算效率应高于获取\(F(\bar{\omega})\)的效率。
+
+联邦遗忘在车联网场景下面临的关键挑战如表\ref{tab:vanet_fu_challenges}所示：
+\begin{table}[htbp]
+\centering
+\caption{VANET 场景下联邦遗忘面临的关键挑战}
+\label{tab:vanet_fu_challenges}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{2.5cm} p{4.5cm} p{7cm}}
+\toprule
+\textbf{维度} & \textbf{VANET 特征} & \textbf{对联邦遗忘的挑战} \\
+\midrule
+拓扑结构 & 高度动态，车辆快速移动，连接频繁中断 & 遗忘过程必须在极短的时间窗口内完成，无法依赖长期的交互式验证机制。 \\
+
+通信链路 & 不可靠，带宽受限，存在丢包和时延 & 需要极小化通信开销，无法传输庞大的模型梯度历史或完整数据集用于验证遗忘效果。 \\
+
+设备资源 & OBU（车载单元）算力受限，电池/能源敏感 & 验证与遗忘算法必须轻量级，不能依赖计算或通信开销较高的同态加密或安全多方计算（MPC）机制，以避免过度消耗车载资源。 \\
+
+信任模型 & 弱信任或零信任，存在拜占庭节点 & 需要防范伪造遗忘（Fake Unlearning）和恶意保留（Malicious Retention）等攻击行为，确保遗忘请求被真实、完整地执行。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{遗忘效果验证与评估}
+如前所述，对机器学习（ML）模型的攻击可作为验证遗忘有效性的一种手段。具体而言，这类攻击可帮助判断目标客户端相关数据是否已被成功遗忘。本节将重点介绍两种最广泛用于遗忘验证的攻击方法：
+
+(1)成员推理攻击（MIA）
+
+该攻击由Shokri等人\cite{shokri2017membership}首次提出，其核心思想是判断某条记录是否被用于目标模型的训练过程。这一思想基于一个观察：训练集中的数据样本会使模型输出具有更高置信度的结果。因此，攻击者可训练一个独立的二分类模型，将输出标记为“成员”（表示该数据属于训练集）或“非成员”（表示该数据不属于训练集）。这种区分成员与非成员记录的能力会对数据隐私构成威胁。
+
+值得注意的是，MIA无需知晓目标模型的具体架构或训练数据的分布情况。借助影子模型，可合成一系列影子训练数据集$D'_1, \dots, D'_k$和互不相交的影子测试数据集$T'_1, \dots, T'_k$，以模拟目标模型的行为，进而训练攻击模型。通过对遗忘后的模型和待遗忘数据执行MIA，可评估遗忘效果。攻击成功率（ASR）是衡量数据遗忘程度的指标：MIA性能的下降表明，待遗忘数据对全局模型的影响已被成功削弱。
+
+(2)后门攻击（BA）
+
+后门攻击会在部分训练数据中嵌入特定模式或“触发器”\cite{li2024backdoor}。触发器可为人类可见的小补丁或标记\cite{gu2017badnets, liu2018trojaning}，也可为良性样本的数值扰动——这种扰动难以通过人工检查识别\cite{bagdasaryan2021blind, li2020invisible, saha2020hidden}。当模型后续基于含触发器的数据进行训练或微调时，其对标准输入的行为仍保持正常；但一旦检测到包含该隐藏触发器的输入，模型就会产生与攻击者意图一致的恶意行为。
+
+后门攻击的危害性尤为突出，因为它们可能长期潜伏而不被发现，直至攻击者选择触发。在遗忘场景中，向待遗忘数据注入后门后执行遗忘流程，应能有效破坏触发器模式与后门类别之间的关联。攻击成功率（ASR）可用于评估遗忘流程移除后门的效果：ASR越低，表明后门已被成功清除。
+
+
+为了全面评估联邦遗忘算法的性能，通常采用以下多维度指标：
+
+(1)最直接的方法是评估模型在目标客户端数据和测试数据上的性能，以此判断数据遗忘的有效性及遗忘后模型的稳健性。评估指标包括准确率、损失值和统计误差。
+
+(2)通过评估“原始训练模型”与“遗忘后模型”之间的差异来衡量遗忘效果，常用指标包括欧氏距离（Euclidean distance）、KL散度（KL-divergence）、L2距离、沃尔什-田原距离（Wasserstein distance）和基于角度的距离（angle-based distance）。
+
+(3)执行效率（Execution efficiency）：以轮次、运行时间、相对基准的加速比，以及内存消耗等指标评估遗忘算法的效率。
+
+(4)攻击性能（Attack performance）：成员推理攻击（MIA）可用于判断某一数据是否参与了模型训练。因此，通过对遗忘后模型在待遗忘数据上执行成员推理攻击，可利用攻击成功率（ASR）评估遗忘效果——成员推理攻击性能越差，说明待遗忘数据对全局模型的影响越小。类似地，在后门攻击场景中，先向待遗忘数据中注入后门，再执行遗忘流程；有效的遗忘应能破坏触发模式与后门类别的关联，此时后门攻击的成功率（ASR）可用于评估后门移除效果。相关指标的实证研究可参考文献\cite{nguyen2024empirical}。
+
+\section{区块链辅助的可验证联邦遗忘技术}
+车联网（IoV）本质上是一个具有高度动态性和弱信任特征的分布式网络。在联邦遗忘（Federated Unlearning）场景中，核心挑战在于“验证性危机”（Verifiability Crisis）：即如何向系统证明用户的数据已被彻底遗忘（几何有效性），同时保证模型性能未被破坏（微创性），而无需泄露用户的私有数据。传统的区块链技术仅能提供数据的存证功能，无法深入模型训练内部进行逻辑验证。为此，本研究提出将几何零知识证明（Geo-ZKP）与有向无环图（DAG）共识账本相结合，构建去中心化的信任锚点与审计层。
+
+车联网环境中，本系统主要应对以下针对遗忘过程的特有安全威胁：
+
+(1)懒惰客户端攻击（Lazy Client Attack）：理性的车辆节点可能为了节省车载算力，不执行反向传播和表征对齐，直接提交随机噪声或未修改的梯度。在缺乏零知识证明的情况下，服务器无法在不获取私有数据的前提下验证特征向量是否已真实发生位移。 
+
+(2)虚假遗忘证明与后门残留：恶意车辆可能声称删除了包含后门触发器（Backdoor Trigger）的数据，但实际上并未执行移除操作。系统需通过密码学手段强制验证遗忘的数学约束。
+
+(3)隐私泄露风险：为了验证遗忘效果，直接上传特征向量或原始数据会违背隐私保护初衷。因此，必须采用零知识证明技术，证明“计算过程符合逻辑”而不泄露“计算数据本身” 。
+
+\subsection{基于DAG的异步共识账本结构}
+传统的区块链采用单链结构，难以应对车联网中海量车辆同时发起遗忘请求的高并发需求。本研究采用有向无环图（DAG）作为底层分布式账本结构，以替代传统的线性链式结构。
+
+在DAG账本中，不存在“区块”的刚性概念，交易（Transaction）直接相互链接。其核心特性如下：
+
+(1)高并发与异步确认：车辆发布的遗忘请求（交易）无需等待打包进区块，而是直接广播并引用网络中先前的两笔交易（Tips）。这种机制允许网络并行处理成千上万的并发请求，交易吞吐量（TPS）随节点数量增加而提升，极好地适配了IoV的实时性需求 。
+
+(2)交易结构与Geo-ZKP载荷：在联邦遗忘流程中，一笔合法的交易 $TX$ 不仅包含模型参数的哈希 $H(\omega^{u})$，还必须携带几何零知识证明 $\pi_{zkp}$。交易结构定义为：\begin{equation}TX = {ID_{node}, H(\omega^{o}), H(\omega^{u}), C_{i}^{j^{*}}, R_{\mathcal{D}{i}}, \pi{zkp}, Tips}\end{equation}其中 $\pi_{zkp}$ 是车辆在本地生成的密码学证据，证明其模型更新满足遗忘算法（VeriFed-UL）的几何约束；$R_{\mathcal{D}_{i}}$ 为数据集的Merkle根，用于验证数据所有权。
+
+(3)准入控制机制：DAG网络利用Geo-ZKP作为交易的“入场券”。RSU在接收到交易时，会自动执行验证函数 $Ver(vk, x, \pi_{zkp})$。只有通过零知识验证的交易（即数学上证明已完成遗忘的交易）才会被网络接受并引用，从而在账本层面通过数学真理构建了信任网络。
+
+\subsection{遗忘贡献证明与分层混合共识}
+在车联网联邦学习场景中，共识机制的选择必须兼顾安全性、去中心化与遗忘贡献的激励。本研究摒弃了高能耗的PoW和低吞吐的传统PBFT，设计了遗忘贡献证明（Proof of Unlearning Contribution, PoUC）结合分层混合共识的机制。
+
+\begin{itemize}
+    \item 遗忘贡献证明（PoUC）与信誉系统：系统维护一个动态信誉评分 $R_{i}(t)$。车辆通过提交经Geo-ZKP验证的有效遗忘更新来积累信誉（加法增长），若提交无效证明或作恶则触发信誉削减（乘法惩罚）。信誉值不仅决定了车辆在全局聚合中的权重，还影响其交易被网络确认的速度（基于信誉加权的MCMC尾部选择算法）。
+    \item 分层混合共识架构：
+    \begin{enumerate}
+        \item 边缘侧（DAG异步共识）：在RSU覆盖范围内，利用DAG的高并发特性快速收集和确认车辆的本地更新。RSU通过监控交易的“累积权重”（Cumulative Weight）来确定交易的最终性。
+        \item 核心侧（RSU委员会BFT）：在不同RSU之间，采用轻量级的拜占庭容错（BFT）机制同步全局模型。RSU定期生成包含区域信誉统计和聚合参数的“局部快照”，在骨干网络中达成全局一致，从而实现“边缘异步并发、核心强一致同步”的架构。
+    \end{enumerate}
+\end{itemize}
+
+\subsection{将遗忘逻辑转化为算术约束}
+在本系统中，传统的“智能合约”被升级为几何零知识证明电路（Geo-ZKP Circuit）。这是一种运行在链下的计算型验证协议，它将VeriFed-UL算法的数学逻辑转化为算术电路（R1CS），由车辆生成证明，RSU（或验证合约）进行验证。核心电路组件包括：
+\begin{itemize}
+    \item 几何有效性验证（Geometric Validity）：电路强制验证遗忘后样本特征 $f(x_{f})$ 与目标错误类别质心 $C_{i}^{j^{*}}$ 之间的欧氏距离是否小于阈值 $\tau$。这在数学上保证了数据表征已偏离原始类别，实现了有效遗忘。
+    \item 微创性与正则化验证（Model Drift Regularization）：为防止模型参数被恶意破坏（如全置零），电路通过随机采样验证模型参数的漂移量 $||\omega^{u} - \omega^{o}||_{2}^{2}$ 是否在安全阈值 $\lambda$ 内，确保遗忘操作的微创性。
+    \item 数据一致性验证（Data Consistency）：利用Merkle Proof在电路内部验证私有输入 $x_{f}$ 是否属于车辆注册的合法数据集 $R_{\mathcal{D}_{i}}$，防止“凭空遗忘”攻击（即使用噪声数据生成虚假证明）。
+\end{itemize}
+
+综上所述，DAG账本提供了高并发的存证载体，PoUC共识机制激励了诚实贡献，而Geo-ZKP电路则实现了对遗忘逻辑的深度审计。三者协同，构成了本文方法“可验证、可审计、抗攻击”的可信基石。
+
+
+\section{Q-LZW差分压缩技术概述}
+在车联网（Internet of Vehicles, IoV）联邦学习（Federated Learning, FL）的实际部署中，通信带宽受限与高频模型交互之间的矛盾已成为制约系统实时性与可扩展性的主要瓶颈。特别是在引入本文提出的“可验证联邦遗忘”（Verifiable Federated Unlearning）机制后，车辆不仅需要上传模型更新参数，还需传输基于几何零知识证明（Geo-ZKP）的密码学凭证，这进一步加剧了通信链路的负载。传统的模型压缩技术虽然在一定程度上能够缓解带宽压力，但在“可验证”这一特定安全约束下显得捉襟见肘。为此，本文提出了一种计算与通信协同优化的Q-LZW（Quantized LZW）差分压缩技术。本节将从技术背景、设计动机、核心理论基础及技术架构四个维度，对Q-LZW技术进行系统性概述。
+
+\subsection{技术背景与“验证-通信”悖论}
+随着车联网演进为数据密集型应用，车辆与路侧单元（RSU）及云端服务器之间的数据交互量呈指数级增长。在联邦学习架构下，虽然仅交换模型参数而非原始数据，但现代深度神经网络（DNN）的模型参数量依然庞大（例如ResNet-18模型的参数量约为44MB）。在典型的V2I（Vehicle-to-Infrastructure）通信场景中，车辆的高速移动性导致通信链路极不稳定，带宽资源极其稀缺。若直接传输全精度的模型参数，不仅会造成网络拥塞，还会显著增加系统的通信时延，进而影响联邦学习的收敛效率与实时决策能力。
+
+更为严峻的是，本文为了解决联邦遗忘中的“信任危机”，引入了Geo-ZKP验证机制。该机制要求区块链智能合约或验证节点能够对链下生成的遗忘证明进行数学验证。Geo-ZKP验证的一个核心前提是“数据一致性”（Data Consistency），即生成零知识证明所使用的模型参数，必须与车辆上传至聚合服务器的模型参数严格一致。这一要求引出了一个深刻的“验证-通信”悖论：
+
+安全性需求（一致性）：为了通过Geo-ZKP的哈希验证，模型参数必须保持其原始的数学结构，任何微小的数值扰动都会导致哈希值改变，从而使验证失效。
+
+
+效率需求（压缩率）：为了适应低带宽环境，必须对庞大的模型参数进行压缩。然而，现有的主流压缩方法，如稀疏化（Sparsification）、低比特量化（Quantization）等，大多属于“有损压缩”（Lossy Compression）。
+
+有损压缩虽然能实现极高的压缩比（如DGC技术可达数百倍压缩），但其解码后的数据与原始数据在比特层面上不再全等。这种不一致性在传统联邦学习中或许仅带来精度的轻微下降，但在本文的可验证架构中却是致命的——它会导致链上存储的哈希承诺（Commitment）与解压后的参数哈希不匹配，直接导致Geo-ZKP验证失败，被系统误判为恶意篡改。因此，如何在严格保证数据“无损”以兼容密码学验证的前提下，挖掘模型更新中的冗余信息以实现高效压缩，是Q-LZW技术旨在解决的核心问题。
+
+
+
+
+\subsection{计算与通信的协同}
+Q-LZW技术的核心设计哲学在于“计算与通信的协同优化”。传统的压缩研究往往将通信优化视为一个独立的后处理步骤，而忽略了前序计算任务（即安全验证）对数据形态的内生影响。本文通过深入分析Geo-ZKP的电路特性，发现安全验证过程本身即为数据压缩提供了一个绝佳的预处理契机。
+
+Geo-ZKP验证电路本质上是运行在有限域 $\mathbb{F}_p$上的一组算术约束（R1CS）。这意味着，电路无法直接处理深度学习中通用的32位浮点数（FP32）。为了在电路中执行距离计算等几何约束，必须将浮点数映射为有限域上的定点整数。这一强制性的“量化”步骤，通常被视为为了安全性而必须付出的精度代价。然而，从信息论的角度审视，这一过程实际上对原始的高熵浮点数流进行了“降维”与“去噪”。
+
+FP32格式的浮点数由于其尾数位包含大量随机噪声，通常表现出接近比特极限的高信源熵，导致通用无损压缩算法Gzip失效。而Geo-ZKP所要求的定点量化，通过舍弃对模型性能影响极微但熵值极高的尾数低位，将连续的实数空间离散化为有限的整数集合。这一过程在数学上显著降低了数据的信息熵，使得原本不可压缩的浮点流转化为具有高度统计规律的低熵整数流。
+
+Q-LZW正是捕捉到了这一特性，将Geo-ZKP验证所需的量化步骤复用为压缩算法的预处理环节。它不是简单地叠加压缩算法，而是通过“量化-差分-编码”的一体化设计，利用模型更新的时间相关性与稀疏性，实现了高压缩比与严格一致性的双重目标。
+
+\subsection{从熵特性到差分编码}
+Q-LZW技术的有效性建立在对深度模型梯度分布特性的深刻理解之上。本小节将阐述支撑Q-LZW的三个关键理论支柱：梯度的统计分布、有限域映射的低熵特性以及差分编码的稀疏化原理。
+
+1. 深度模型梯度的统计分布特性
+
+在联邦学习的训练过程中，车辆上传的本地模型更新（$\Delta W$）并非随机噪声，而是服从特定的统计规律。大量实证研究表明，深度神经网络的梯度分布通常呈现出以0为中心的拉普拉斯分布（Laplace Distribution）或高斯分布特性。随着训练的收敛或遗忘过程的进行，参数的变化量逐渐趋于微小，分布形态呈现出显著的“尖峰肥尾”特征，即绝大多数参数更新量集中在0附近，大数值更新极为罕见。这种稀疏性（Sparsity）是进行数据压缩的物理基础。
+
+然而，尽管数值上具有稀疏性，在计算机存储的二进制层面，FP32数据却不具备稀疏性。浮点数的指数位和符号位可能因数值微小变化而剧烈跳变，导致二进制流的熵值居高不下。因此，直接对浮点梯度应用熵编码（Entropy Encoding）效果不佳。
+
+2. Geo-ZKP验证电路的内生量化约束
+
+如前所述，Geo-ZKP验证依赖于算术电路，要求所有输入必须是定义在素数域$\mathbb{F}p$上的整数。为了适配这一约束，本文采用了定点数量化策略。设量化缩放因子为$S$（例如$S=2^{16}$），任意浮点参数$w{float}$被映射为整数$w_{int}$：$$w_{int} = \lfloor w_{float} \cdot S \rceil$$这一映射过程具有双重意义：
+\begin{itemize}
+    \item 密码学适配：将实数域运算转化为模运算，使得ZKP电路能够处理神经网络的权重与激活值。[cite\_start]
+    \item 熵减预处理：通过截断操作，滤除了浮点数尾数中的高频噪声。量化后的整数$w_{int}$的取值范围被限定在一个较小的区间内，符号空间（Symbol Space）大幅收缩，为后续的无损编码创造了条件。
+\end{itemize}
+
+3. 差分更新与ZigZag映射
+
+在量化的基础上，Q-LZW进一步利用了联邦遗忘过程中的时间相关性。在遗忘阶段，本地模型是在已收敛的全局模型基础上进行微调的，其参数变化极其微小。定义量化后的差分序列为$\Delta W_q$，其元素为：$$\delta_i = Q(w_i^{(local)}) - Q(w_i^{(global)})$$根据理论推导，在Geo-ZKP兼容的量化条件下，差分序列$\Delta W_q$将服从高度尖锐的分布，绝大多数元素为0，其余元素集中在$\pm 1, \pm 2$等极小整数范围内。
+
+然而，有限域$\mathbb{F}_p$上的减法运算会产生“负数回绕”问题（即$-1 \equiv p-1 \pmod p$），导致原本绝对值极小的负数变成了巨大的正整数，破坏了数据的“小整数”特性。为此，Q-LZW引入了ZigZag映射机制，将有限域上的有符号整数重新映射为无符号小整数，确保差分后的数值依然保持低熵特性，从而适配LZW算法的编码特性。
+
+
+基于上述理论，Q-LZW差分压缩传输机制构建了一个包含四个阶段的流水线：Geo-ZKP兼容的有限域量化、ZigZag差分域映射、针对稀疏整数流优化的LZW编码以及协议集成。
+
+阶段一：Geo-ZKP兼容的有限域量化
+
+这是Q-LZW的入口，也是实现“无损验证”的关键。车辆端利用与Geo-ZKP电路完全一致的定点化参数（Scaling Factor），将浮点模型更新$\Delta W_{float}$映射为整数序列。这一步骤确保了压缩前的输入数据与ZKP电路的私有输入（Witness）在数学上是严格等价的。不同于传统的有损量化追求极致的比特压缩，这里的量化是为了满足安全约束，其精度（Bit-width）由Geo-ZKP电路的精度要求决定（通常为16位或32位），从而保证了验证的通过率。
+
+阶段二：ZigZag差分域映射
+
+为了解决有限域负数回绕导致数值变大的问题，本阶段对量化后的差分数据应用ZigZag编码。ZigZag映射将有符号整数交错映射为无符号整数（例如：$0 \to 0, -1 \to 1, 1 \to 2, -2 \to 3$）。通过这种映射，绝对值较小的负数被转换为较小的正整数，绝对值较小的正数依然保持较小。这一处理使得差分数据在数值上紧凑地分布在0附近，最大化了数据的连续重复模式，极大地利于后续的字典编码。
+
+阶段三：针对稀疏整数流优化的LZW算法
+
+在经过量化和ZigZag映射后，模型更新转化为了一串含有大量重复“0”和重复短序列的整数流。针对这一特性，Q-LZW采用了Lempel-Ziv-Welch（LZW）算法进行无损熵编码。LZW是一种基于字典的动态编码算法，它不需要预先统计词频（如Huffman编码），而是随着数据流的输入动态构建字典。
+
+在Q-LZW中，LZW算法能够自动识别并提取差分序列中的重复模式（如连续的零值、常见的参数微调模式），并将其替换为短小的字典索引。由于差分序列的高度稀疏性，LZW能够实现极高的压缩比。更重要的是，LZW是严格无损的，解压后的整数流可以完美还原为量化后的参数，确保了哈希值的一致性。本文还针对稀疏整数流对LZW字典的初始化与重置策略进行了优化，以适应联邦学习模型参数分块传输的特点。
+
+阶段四：协议集成与交易结构
+
+最后，压缩后的比特流被封装进区块链的交易结构中。交易载荷不仅包含压缩后的模型数据（Payload），还包含解压所需的元数据（如量化因子、字典初始状态等）以及Geo-ZKP证明。接收端（RSU或聚合服务器）在收到交易后，首先执行LZW解码和逆ZigZag映射，恢复出量化整数流；随后，一方面计算其哈希值以验证链上承诺的一致性，另一方面将其输入Geo-ZKP验证合约进行几何约束检查；验证通过后，再反量化为浮点数参与全局聚合。
+
+
+综上所述，Q-LZW差分压缩技术通过深度挖掘Geo-ZKP安全机制与数据压缩之间的内生联系，成功化解了车联网联邦遗忘中“验证”与“通信”的矛盾。其技术优势可概括为以下三点：
+
+(1)与传统的剪枝或有损量化不同，Q-LZW在压缩-解压闭环中保证了数据的比特级还原。这确保了链下计算的模型哈希与链上存储的哈希完全一致，使得Geo-ZKP的零知识证明能够顺利通过验证，构成了“可信联邦遗忘”的基石。
+
+(2)Q-LZW巧妙地复用了Geo-ZKP电路必需的定点化过程，避免了为了压缩而引入额外的有损变换。这种协同设计不仅降低了系统的计算复杂度，还利用安全约束带来了熵减红利，实现了安全性与效率的双赢。
+
+(3)通过结合差分编码的稀疏化能力与LZW的字典编码特性，Q-LZW在无损的前提下实现了显著的压缩比，大幅降低了V2I链路的通信载荷与时延，使其能够适配车联网低带宽、高动态的严苛环境。
+
+Q-LZW技术的提出，不仅解决了本文架构中的工程落地难题，也为在资源受限的边缘设备上部署结合复杂密码学验证的分布式学习系统提供了通用的优化思路。
+
+\section{本章小结}
+本章主要介绍了支撑本文研究方案的相关理论与技术基础。首先，分析了车联网通信环境的异构性与资源受限特性，指出了传统联邦学习（FedAvg）在IoV场景下面临的通信瓶颈与隐私残留风险。其次，系统阐述了联邦遗忘的概念，给出了其在模型一致性、遗忘效率及认证移除等方面的形式化定义，并介绍了基于成员推理攻击（MIA）和后门攻击的遗忘效果验证方法。再次，探讨了区块链的链式结构、共识机制及智能合约技术，论证了其在构建去中心化信任及提供遗忘审计证明方面的适用性。最后，介绍了Q-LZW差分压缩技术。针对可验证联邦遗忘中高频通信与严格数据一致性验证之间的矛盾，分析了深度模型梯度在有限域内的稀疏分布特性，阐述了基于有限域量化、ZigZag差分映射及LZW编码的协同优化机制，论证了该技术如何在保证数据“比特级”一致性以满足Geo-ZKP验证要求的前提下，显著降低车联网边缘侧的通信负载。
+
+综上所述，联邦遗忘解决了“隐私合规”问题，区块链解决了“信任审计”问题，Q-LZW解决了“通信效能”与“验证约束”的协同问题。这三者的有机结合，分别在算法层、架构层和传输层提供了有力支撑，共同构成了本文“安全、可信、高效”系统设计的理论基石。
+\cleardoublepage
+
+
+
+
+\chapter{基于表征空间定向偏移的联邦遗忘算法}
+车联网在联邦学习这一分布式机器学习范式的赋能下，使车辆能够在本地保留其私有数据的同时，通过协作方式共同训练全局模型。该协同学习模式在隐私保护的前提下实现了车辆间的高效知识共享，从而提升了整体交通系统的运行效率与智能化水平。然而，基于联邦学习的车联网体系普遍缺乏有效的数据撤销机制，无法从已训练的全局模型中移除特定训练数据所产生的影响，这在一定程度上可能违反车辆用户所享有的“被遗忘权”。为解决上述问题，联邦遗忘作为一种新兴技术应运而生，其目标是在不重新训练整个模型的前提下，从全局模型中消除特定车辆或特定数据子集的影响。通过引入这一可选择退出机制，联邦遗忘进一步增强了车辆对其私有信息的控制能力，并为分布式知识共享过程中的条件化参与与隐私合规性提供了有力支撑。
+
+联邦遗忘是一种机器遗忘技术，旨在以分布式的方式消除待遗忘数据对全局模型的影响。令 $\mathcal{D}_f = \cup_{u_i \in \mathcal{U}_f} \mathcal{D}_i^f$ 表示所有目标车辆中待遗忘数据集的完整集合。若存在一个联邦遗忘算法 $\mathcal{FU}(\mathcal{F}(\boldsymbol{\omega}^o), \mathcal{U}_f, \mathcal{D}, \mathcal{D}_t)$，其输出的更新后全局模型 $\mathcal{F}(\boldsymbol{\omega}^{\circ\prime})$ 能够满足定义 1，则认为该联邦遗忘过程是完美执行的。在联邦学习（FL）中满足定义 1，可确保更新后的全局模型 $\mathcal{F}(\boldsymbol{\omega}^{\circ\prime})$ 在被遗忘数据集 $\mathcal{D}_f$ 上的表现类似于其在未见数据上的表现，同时在非成员数据集 $\mathcal{D}_t$ 上保持与原始模型 $\mathcal{F}(\boldsymbol{\omega}^o)$ 相当的性能。
+
+联邦遗忘旨在实现以下三个核心目标：
+\begin{enumerate}
+    \item \text{有效遗忘：} $\mathcal{FU}\big(\mathcal{F}(\boldsymbol{\omega}^\circ), \mathcal{U}_f, \mathcal{D}, \mathcal{D}_t\big)$ 应尽可能彻底地消除被遗忘数据 $\mathcal{D}_f$ 对原始模型 $\mathcal{F}(\boldsymbol{\omega}^\circ)$ 的影响。
+    \item \text{具有竞争力的全局模型预测性能：} 由 $\mathcal{FU}\big(\mathcal{F}(\boldsymbol{\omega}^\circ), \mathcal{U}_f, \mathcal{D}, \mathcal{D}_t\big)$ 生成的模型 $\mathcal{F}(\boldsymbol{\omega}^{\circ\prime})$，在非成员数据集 $\mathcal{D}_t$ 上应当与原始模型 $\mathcal{F}(\boldsymbol{\omega}^\circ)$ 保持尽可能小的性能差距，即保持模型的泛化能力。
+    \item \text{高效遗忘：} $\mathcal{FU}\big(\mathcal{F}(\boldsymbol{\omega}^\circ), \mathcal{U}_f, \mathcal{D}, \mathcal{D}_t\big)$ 的计算与通信开销应显著低于基于完整数据重新训练模型 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的代价。
+\end{enumerate}
+
+为了从全局模型中移除车辆指定训练数据的影响，一种基准方法是仅利用剩余数据 $\mathcal{D}_r$ 从头开始重新训练一个新的全局模型 $\mathcal{F}(\bar{\boldsymbol{\omega}})$。然而，该方法在时间和计算成本上均十分高昂。因此，现有联邦遗忘方法的核心目标是在较低成本下获得与完全重训练效果相当的更新全局模型。根据目标车辆在遗忘过程中的参与程度以及遗忘操作是否需要其他参与方协作，这些方法可分为被动式联邦遗忘和主动式联邦遗忘。
+
+如图~\ref{fig:fl-sys3} 所示，被动式联邦遗忘通过使用所有参与车辆的剩余数据执行额外的训练步骤，以加速从头重训练或对全局模型进行校准。相比之下，主动式联邦遗忘允许目标车辆基于其待遗忘数据对接收到的全局模型进行本地调整，生成遗忘后的本地模型 $\mathcal{F}(\boldsymbol{\omega}^u)$，并由服务器对这些模型进行聚合以得到新的全局模型。
+
+尽管现有联邦遗忘方法在遗忘效率方面相较于完全重训练具有明显优势，但在 IoV 场景下的实际部署可行性与非遗忘数据的性能保持方面仍面临严峻挑战：
+
+(1) 被动式联邦遗忘方法通常由于需要所有既有参与车辆执行耗时的重训练步骤，以及为重构全局模型而引入额外的聚合轮次，而在实践中难以部署，如图~\ref{fig:fl-sys3}(a) 所示。尽管该类方法能够保证全局模型的高可用性，但在车辆数量众多且高度动态的 IoV 环境中，其可行性受到显著限制，主要原因在于难以召回所有参与方（例如 $\mathcal{U}_r$ 中的车辆可能已离线）。此外，基于全部剩余数据的重训练还会带来额外的计算与通信开销。上述耗时过程以及对其他车辆参与的依赖，使得在 IoV 中实现实时数据撤销服务面临较大障碍。值得注意的是，其余车辆通常缺乏动机投入计算资源以协助目标车辆完成数据遗忘。
+
+(2) 主动式联邦遗忘方法由于缺乏在全局模型参数空间中明确的优化目标，往往在遗忘有效性方面存在不足，甚至可能引发灾难性遗忘，如图~\ref{fig:fl-sys3}(b) 所示。这类方法通常采用梯度上升（Gradient Ascent, GA）等策略最大化待遗忘数据的损失，对全局模型的全部参数进行统一优化，以尽可能消除待遗忘数据对全局模型的影响。然而，由于全局模型本身的聚合特性以及遗忘程度难以精确界定，这些方法难以有效解耦待遗忘数据的影响，可能过度削弱未遗忘数据的贡献，从而导致灾难性遗忘现象。灾难性遗忘会显著降低全局模型在未遗忘数据上的预测性能，而在 IoV 场景中，预测准确性和模型可靠性对于保障安全且良好的驾驶体验至关重要，因此其后果尤为严重。一些方法通过预定义阈值来约束遗忘程度，试图使全局模型在待遗忘数据上的表现与重训练模型保持一致。然而，由于难以合理设定阈值，或在缺乏先验信息的情况下直接匹配完全重训练模型的性能，这类方法可能削弱遗忘效果，并导致待遗忘数据的残留记忆。
+
+
+综上所述，一种适用于 IoV 的高效联邦遗忘方法，应当在无需其他车辆参与且避免额外耗时重训练的前提下，有效消除待遗忘数据对全局模型的影响，同时尽量降低对未遗忘数据预测性能的损害。
+
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+  \node[inner sep=0, rounded corners=14pt, clip]
+   {
+\includegraphics[width=\textwidth,trim=0 0 0 0, clip]{picture/关于联邦遗忘的问题描述.pdf}};
+\end{tikzpicture}
+    \caption{关于联邦遗忘的问题描述}
+    \label{fig:fl-sys3}
+\end{figure}
+
+\section{动机与设计思路}
+为在有效消除待遗忘数据影响的同时尽量降低对全局模型性能的负面影响，本文提出了一种面向 IoV 的实用型联邦遗忘框架——VeriFed-UL。VeriFed-UL 采用主动式联邦遗忘范式，使目标车辆能够通过在原始全局模型上执行定制化的本地遗忘过程，获得本地遗忘模型。
+
+在本地遗忘过程中，VeriFed-UL 从一个受成员推断攻击（Membership Inference Attack, MIA）以及重训练模型在未见数据（即非训练数据）上的决策行为启发的全新视角来完成遗忘任务。具体而言，MIA 利用模型在成员数据与非成员数据上的行为差异来判断某个样本是否参与了模型训练；而重训练模型 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 在预测未见数据的正确标签时通常表现出较低的置信度。基于这些观察，VeriFed-UL 引导目标车辆在全局模型的表征空间（Representation Space）中进行重编码。具体策略是，利用由未见数据计算得出的各类别质心代表“未被记忆的知识”，并将待遗忘数据强制对齐至最近的错误类别质心，从而直接净化其待遗忘数据的表征。通过设定明确的优化目标，VeriFed-UL 调整全局模型在待遗忘数据上的行为，使其与模型在未见数据上的行为不可区分。
+
+此外，VeriFed-UL 不再对全局模型的全部参数进行优化，而是利用待遗忘数据在表征空间中进行有针对性的对齐，从而避免显著的性能退化。同时，VeriFed-UL 结合了基于目标车辆剩余数据的分类损失以及一个权重正则项，在迁移待遗忘数据表征的过程中进一步减轻对全局模型预测性能的负面影响。本文的主要贡献如下：
+\begin{itemize}
+    \item 提出了 VeriFed-UL，一种面向 IoV 的实用且无需重训练的联邦遗忘框架。该方法无需其他参与车辆进行大规模重训练，即可高效消除车辆指定数据对全局模型的影响，同时保留剩余的任务相关知识，以实现具有竞争力的预测性能。
+    \item 为 VeriFed-UL 设计了一种表征层级的本地遗忘策略，包含两个核心组件：目标导向的遗忘与模型性能修复。基于对比学习与 MIA 的再利用，所提出的目标导向遗忘组件使目标车辆能够将待遗忘数据的表征直接对齐至由非训练数据提取的最近错误类别质心，并与其原始表征分离，从而有效移除待遗忘数据的影响。从多任务学习的视角出发，模型性能修复组件通过在剩余数据上引入监督分类损失，并结合正则化项以最小化对未遗忘知识的干扰，在迁移待遗忘数据表征的同时保持全局模型的预测性能。
+    \item 在多种模型和数据集上对 VeriFed-UL 进行了系统性的实验评估。实验结果表明，VeriFed-UL 在无需耗时重训练的情况下实现了有效遗忘，并显著降低了全局模型在未遗忘数据上的预测性能退化。消融实验进一步验证了 VeriFed-UL 各组成部分的有效性与必要性。
+\end{itemize}
+
+\subsection{现有方法的局限性分析}
+大多数主动式联邦遗忘方法通过对待遗忘数据集 $\mathcal{D}_f$ 的分类损失执行梯度上升（GA）来实现遗忘~\cite{halimi2022efficient}~\cite{wu2022guarantee}~\cite{alam2023backdoor}~\cite{wang2024server}。然而，在某些遗忘场景中，梯度上升要么无法有效移除待遗忘数据，要么会导致灾难性遗忘。为评估 GA 的有效性，本文基于 LOAN 数据集构建了两个记忆强度不同的案例。图~\ref{fig:f3-sys1} 展示了首个目标车辆在不同案例下，模型 $\mathcal{F}(\boldsymbol{\omega}^u)$ 的准确率变化。
+
+本文通过后门攻击评估遗忘效果。通过强制全局模型记忆特定的后门模式，并将数值（即 10、80、20、100、20、100）分别赋值给特征索引（即 76、78、82、17、35、83），以构造高度可记忆的后门触发条件。在案例 2 中，将统一的数值（即 2）赋值给特征索引（即 76、77、78、82、83），用于在全局模型训练过程中模拟被遗忘数据所具有的一般性记忆强度。
+
+在案例 1（图~\ref{fig:f3-sys1}(a)、\ref{fig:f3-sys1}(b)）中，当全局模型对 $\mathcal{D}_f$ 过拟合（分类损失趋近于 0）时，反向梯度无法及时驱动参数更新以降低其在 $\mathcal{D}_f$ 上的准确率，导致遗忘不彻底。相反，案例 2（图~\ref{fig:f3-sys1}(c)、\ref{fig:f3-sys1}(d)）显示，梯度上升操作导致模型在 $\mathcal{D}_t$ 上的准确率大幅下降。这种性能下降源于对 $\mathcal{F}(\boldsymbol{\omega}^o)$ 全部参数的无差别更新，以及梯度上升操作的发散特性——其目标是最大化而非最小化标准分类损失。
+
+为此，需将关注点从参数空间转移到全局模型的表征空间。具体而言，VeriFed-UL 将全局模型 $\mathcal{F}(\boldsymbol{\omega})$ 解耦为特征提取器 $f(\boldsymbol{\omega}_e)$ 与分类器 $h(\boldsymbol{\omega}_c)$。通过对齐目标的指导，VeriFed-UL 利用 $\mathcal{D}_f$ 优化特征提取器，从待遗忘数据的表征中有效识别并移除对分类最为关键的特征，从而实现有效遗忘。同时，该方法能相对完整地保留未遗忘数据的知识，避免模型性能大幅下降。
+
+然而，利用 $\mathcal{D}_f$ 修改特征提取器存在两个核心挑战。首先，确定明确的遗忘目标作为指导信号，以主动移除待遗忘数据的记忆。其二，修改特征提取器可能会无意破坏剩余数据 $\mathcal{D}_r$ 的表征。这种破坏可能导致其与分类器的错位，使最终的全局模型与原始全局模型大幅偏离，进而损害模型性能。
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picture/unlearning_result_revised.pdf}
+    \caption{$\mathcal{F}(\boldsymbol{\omega}^u)$ 在数据集 $\mathcal{D}_f$ 和 $\mathcal{D}_t$ 上的准确率}
+    \label{fig:f3-sys1}
+\end{figure}
+
+\subsection{全局模型表征行为的实证观察}
+为确定有效遗忘的优化目标，首先需观察训练后的全局模型 $\mathcal{F}(\boldsymbol{\omega}^o)$ 与经过重训练的全局模型 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 在待遗忘数据 $\mathcal{D}_f$ 和非成员数据 $\mathcal{D}_t$ 上的行为。图~\ref{fig:f3-sys2} 展示了 $\mathcal{F}(\boldsymbol{\omega}^o)$ 与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 在不同数据上的交叉熵，可体现模型对数据的“记忆”能力。$\mathcal{F}(\boldsymbol{\omega}^o)$ 与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 是通过 FedAvg 算法，基于 CIFAR10 数据集和 ResNet18 模型，由 10 辆车辆协同训练得到的。
+\begin{itemize}
+    \item[(1)] 图~\ref{fig:f3-sys2}(a) 显示，由于 $\mathcal{D}_f$ 是 $\mathcal{F}(\boldsymbol{\omega}^o)$ 的训练数据，该模型在 $\mathcal{D}_f$ 与 $\mathcal{D}_t$ 上的表现出截然不同的行为（前者损失极低，后者较高）。
+    \item[(2)] 图~\ref{fig:f3-sys2}(a) 还显示，受 $\mathcal{F}(\boldsymbol{\omega}^o)$ 泛化能力的影响，$\mathcal{D}_t$ 中的部分样本也会呈现较低的交叉熵。
+    \item[(3)] 图~\ref{fig:f3-sys2}(b) 显示，由于 $\mathcal{D}_f$ 并非 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的训练数据，它在 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 上的交叉熵更高，且分布与 $\mathcal{D}_t$ 更为接近。
+\end{itemize}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picture/cross_entropy.pdf}
+    \caption{$\mathcal{F}(\boldsymbol{\omega}^o)$ 与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 在不同数据集上的交叉熵}
+    \label{fig:f3-sys2}
+\end{figure}
+
+为进一步观察模型的决策行为，图~\ref{fig:f3-sys3} 通过 t-SNE 方法，可视化了 $\mathcal{F}(\boldsymbol{\omega}^o)$ 与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 生成的 $\mathcal{D}_f$ 和 $\mathcal{D}_r$ 的表征分布。
+\begin{itemize}
+    \item[(1)] 图~\ref{fig:f3-sys3}(a) 显示，$\mathcal{F}(\boldsymbol{\omega}^o)$ 对训练数据标签的预测置信度较高，因其表征会聚类到对应类别中，类别间边界清晰。
+    \item[(2)] 图~\ref{fig:f3-sys3}(b) 显示，$\mathcal{F}(\bar{\boldsymbol{\omega}})$ 无法高置信度地将 $\mathcal{D}_f$ 划分到特定类别。相反，$\mathcal{D}_f$ 呈现分散分布，这表明 $\mathcal{D}_f$ 的决策边界已被破坏；其表征与不同类别的数据混杂，因此预测不确定性显著增加。
+\end{itemize}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picture/t-SNE_final.pdf}
+    \caption{表征分布的t-SNE可视化}
+    \label{fig:f3-sys3}
+\end{figure}
+
+\subsection{表征空间定向偏移的设计思想}
+基于上述观察，VeriFed-UL 通过设定明确的遗忘目标实现有效遗忘，将 $\mathcal{F}(\boldsymbol{\omega}^o)$ 与 $\mathcal{D}_f$ 的关系从“已见（Seen）”转变为“未见（Unseen）”，并模仿 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的决策行为。
+
+一方面，VeriFed-UL 更新 $\mathcal{F}(\boldsymbol{\omega}^o)$，使生成的模型 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 在 $\mathcal{D}_f$ 上的行为，与其在未见数据上的行为无法区分，即满足近似关系：
+$$ \mathcal{F}(\mathcal{D}_f; \boldsymbol{\omega}^{\circ \prime}) \approx \mathcal{F}(\mathcal{D}_t; \boldsymbol{\omega}^{\circ \prime}) $$
+
+由于在遗忘完成前无法获知 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$，本文让 $\mathcal{F}(\boldsymbol{\omega}^o)$ 将 $\mathcal{D}_f$ 当作未见数据处理，并确保 $\mathcal{F}(\boldsymbol{\omega}^o)$ 沿正确方向更新，以此近似得到 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 的行为，即：
+$$ \mathcal{F}(\mathcal{D}_f; \boldsymbol{\omega}^{\circ \prime}) \approx \mathcal{F}(\mathcal{D}_t; \boldsymbol{\omega}^o) $$
+
+另一方面，VeriFed-UL 通过引导待遗忘数据的表征与表征空间中最近的异类未见数据质心对齐，模拟 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的决策行为，进一步放大 $\mathcal{D}_f$ 的预测不确定性。VeriFed-UL 迫使待遗忘数据的表征脱离其实际类别，与这些错误类别的质心表征混淆。这种分布上的偏移让 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 无法清晰识别 $\mathcal{D}_f$ 的表征，在不显著降低模型整体预测性能的前提下，提升了预测不确定性与遗忘效果。
+
+该方法符合对比学习（Contrastive Learning, CL）的原理。但本文采用模型级对比学习，用于表征层面的遗忘，这与上述观察直接对应。具体而言，VeriFed-UL 通过新颖的正负样本对设计，从已训练的全局模型中移除待遗忘数据的影响，从而适配模型级对比学习以实现有效遗忘。此外，由于目标车辆可访问其剩余数据 $\mathcal{D}_r$ 与原始全局模型，VeriFed-UL 将分类损失与权重正则项结合，以缓解第二个挑战，进一步降低调整 $\mathcal{D}_f$ 表征时对全局模型预测性能的负面影响。
+
+
+
+\section{系统建模}
+\subsection{系统模型与工作流程}
+VeriFed-UL 采用主动联邦遗忘范式，涉及两类主体协同工作：目标车辆 $u_{i} \in \mathcal{U}_{f}$ 与服务器 $\mathcal{S}$。VeriFed-UL 的工作流程（如图~\ref{fig:f3-sys4} 所示）包含五个阶段：
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{picture/VeriFed-UL 系统模型及工作流程.pdf}
+    \caption{VeriFed-UL 系统模型及工作流程}
+    \label{fig:f3-sys4}
+\end{figure}
+
+(1)发起遗忘请求：各目标车辆 $u_i$ 向服务器发起请求，要求从 $\mathcal{F}(\boldsymbol{\omega}^o)$ 中移除自身特定数据的影响；
+
+(2)获取全局模型：目标车辆 $u_i$ 从服务器 $\mathcal{S}$ 接收 $\mathcal{F}(\boldsymbol{\omega}^o)$，并将本地遗忘模型 $\mathcal{F}(\boldsymbol{\omega}^u)$ 初始化为 $\mathcal{F}(\boldsymbol{\omega}^o)$；
+
+(3)执行知识净化过程：目标车辆 $u_i$ 利用本地可访问的待遗忘数据与剩余数据，通过两个模块对 $\mathcal{F}(\boldsymbol{\omega}^u)$ 进行本地更新：
+
+    \textcircled{1} {目标导向遗忘模块}：旨在从 $\mathcal{F}(\boldsymbol{\omega}^o)$ 中清除对 $\mathcal{D}_i^f$ 的记忆。为精准引导遗忘过程沿预期方向推进，$u_i$ 利用未记忆知识构建正负样本对。具体而言，$u_i$ 通过特征提取器 $f(\boldsymbol{\omega}_e^u)$ 与 $f(\boldsymbol{\omega}_e^o)$ 分别编码 $\mathcal{D}_i^f$ 与 $\mathcal{D}_t$，并计算 $\mathcal{D}_t$ 在表征空间中各类别的质心，作为可选对齐目标。正样本对包含 $f(\boldsymbol{\omega}_e^u)$ 中一个待遗忘样本的表征，与 $f(\boldsymbol{\omega}_e^o)$ 中从 $\mathcal{D}_t$ 推导出的最近异类质心；负样本对包含来自 $f(\boldsymbol{\omega}_e^u)$ 与 $f(\boldsymbol{\omega}_e^o)$ 的同一待遗忘样本的两个表征。随后，$u_i$ 使用基于模型的对比学习方法，根据所定义的正负样本对计算知识遗忘损失，迫使待遗忘数据的表征与各自的非成员类质心对齐，同时远离其负表征。
+    
+    \textcircled{2} {模型性能修复模块}：旨在通过结合剩余数据的监督分类损失与权重正则项，减少对 $\mathcal{F}(\boldsymbol{\omega}^u)$ 剩余知识的非预期影响，确保 $\mathcal{F}(\boldsymbol{\omega}^u)$ 维持预测能力。知识净化过程经迭代优化，最终得到 $\mathcal{F}(\boldsymbol{\omega}^u)$；
+
+(4)上传遗忘模型并获取全局模型：完成本地知识净化后，$u_i$ 将 $\mathcal{F}(\boldsymbol{\omega}^u)$ 上传至服务器 $\mathcal{S}$。服务器 $\mathcal{S}$ 通过聚合得到移除待遗忘数据影响的全局模型 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$，并将其反馈给 $u_i$；
+
+(5)遗忘验证：目标车辆 $u_i$ 基于成员推断的记忆评估模型（如二分类器）评估遗忘的完整性与有效性~\cite{chen2024har}~\cite{ma2023learn}。$u_i$ 利用 $\mathcal{F}(\boldsymbol{\omega}^o)$ 在 $\mathcal{D}_i^f$ 与 $\mathcal{D}_t$ 上的输出训练二分类器，再通过该分类器推断 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 在 $\mathcal{D}_i^f$ 上的输出。若分类器判定 $\mathcal{D}_i^f$ 未参与 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 的训练，则说明遗忘成功。
+
+\subsection{知识净化过程的具体实现}
+知识净化过程由两部分构成：目标导向遗忘和模型性能修复。
+
+\subsubsection{目标导向遗忘模块：}该模块旨在消除目标车辆待遗忘数据的影响。遗忘的最优状态是确保模型 $\mathcal{F}(\boldsymbol{\omega}^u)$ 的行为表现如同从未接触过 $\mathcal{D}_i^f$。为实现 $\mathcal{F}(\boldsymbol{\omega}^u)$ 平稳收敛至该预期状态，VeriFed-UL 在重训练模型 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 对未见数据决策行为的指导下，直接将 $\mathcal{D}_i^f$ 与全局模型表征空间中的未记忆目标进行对齐。值得注意的是，该模块通过避免对全局模型全参数空间进行无差别参数修改，可防止全局模型出现整体性能大幅退化。目标导向遗忘模块包含两个步骤：正负样本对构建与知识遗忘损失函数计算。
+
+1) 正负样本对的构建。该步骤为 $\mathcal{D}_i^f$ 确立明确的对齐目标。目标车辆 $u_i$ 向服务器 $\mathcal{S}$ 发起遗忘请求后，接收 $\mathcal{F}(\boldsymbol{\omega}^o)$ 并初始化遗忘模型 $\mathcal{F}(\boldsymbol{\omega}^u)$，即 $\boldsymbol{\omega}^u = \boldsymbol{\omega}^o$。在遗忘过程中，$\mathcal{F}(\boldsymbol{\omega}^o)$ 保持冻结状态。
+首先，$u_i$ 利用 $f(\boldsymbol{\omega}_e^o)$ 对未见数据 $\mathcal{D}_t$ 中的未记忆知识进行编码，随后将提取的知识聚合为完整的质心向量。设 $(x_f, y_f) \in \mathcal{D}_i^f$ 为待遗忘样本，$(x_r, y_r) \in \mathcal{D}_i^r$ 为剩余样本。$(x_m, y_m) \in \mathcal{D}_i^j$ 表示属于第 $j$ 类的非成员样本，其中 $\mathcal{D}_i^j$ 表示第 $j$ 类非成员样本集合，且 $j \in [L]$。$u_i$ 计算 $\mathcal{D}_i^j$ 在表征空间中的质心向量 $C_i^j$，该质心为 $\mathcal{D}_i^j$ 内所有样本表征向量的平均值，即：
+\begin{equation}
+C_{i}^{j}=\frac{1}{N_{i}^{j}} \sum_{\left(x_{m}, y_{m}\right) \in \mathcal{D}_{i}^{j}} f\left(x_{m} ; \boldsymbol{\omega}_{e}^{o}\right)
+\label{eq:centroid_formula}
+\end{equation}
+其中，$N_i^j$ 表示 $\mathcal{D}_i^j$ 中的样本数量。
+其次，$u_i$ 通过 $f(\boldsymbol{\omega}_e^u)$ 编码与 $\mathcal{D}_i^f$ 相关的表征，即对每个 $(x_f, y_f)$ 计算 $z_f = f(x_f; \boldsymbol{\omega}_e^u)$。对于每个 $z_f$，$u_i$ 在 $C_i^j$ 中搜索与 $y_f$ 不同类别的最近质心。此过程需计算并提取与 $z_f$ 相似度最高的备选类别质心，即：
+\begin{equation}
+C_{i}^{j^{*}} = \min _{C_{i}^{j}} d\left(z_{f}, C_{i}^{j}\right)
+\end{equation}
+其中，两两之间的余弦距离 $d$ 用于相似度计算，该距离同时作为判定 $z_f$ 与 $C_i^{j^*}$ 对齐程度的依据。
+最后，$u_i$ 基于 $z_f = f(x_f; \boldsymbol{\omega}_e^u)$、$z_f^{po} = C_i^{j^*}$ 和 $z_f^{ne} = f(x_f; \boldsymbol{\omega}_e^o)$，构建专为有效遗忘设计的正负样本对，即：
+\begin{equation}
+\text{Positive pair} =\left(z_{f}, z_{f}^{po}\right), \quad \text{Negative pair} =\left(z_{f}, z_{f}^{ne}\right)
+\end{equation}
+为每个 $z_f$ 构建正负样本对至关重要，因为这决定了待遗忘数据表征迁移的最优方向。
+
+2) 知识遗忘损失函数。基于模型级对比学习（CL）与预定义的正负样本对，VeriFed-UL 设计了定制化的知识遗忘损失函数，用于从全局模型的特征提取器中清除 $\mathcal{D}_i^f$ 的影响。
+一方面，VeriFed-UL 通过最小化 $z_f$ 与其正样本对应项 $z_f^{po}$ 之间的距离，混淆 $\mathcal{D}_i^f$ 在 $\mathcal{F}(\boldsymbol{\omega}^u)$ 中的表征。由于 $C_i^{j^*}$ 源自 $\mathcal{F}(\boldsymbol{\omega}^o)$ 中的 $\mathcal{D}_t$，且 $\mathcal{F}(\boldsymbol{\omega}^o)$ 对非成员数据与训练数据的行为存在显著差异，VeriFed-UL 引导 $\mathcal{D}_i^f$ 的表征向 $\mathcal{F}(\boldsymbol{\omega}^o)$ 表征空间中的对应项靠拢。
+另一方面，VeriFed-UL 通过最小化 $z_f$ 与其原始表征 $z_f^{ne}$ 之间的相似度，实现 $\mathcal{D}_i^f$ 的表征与正确类别的有效分离。目标车辆 $u_i$ 通过式 \ref{eq:knowledge_unlearning_loss} 执行遗忘操作：
+\begin{equation}
+\begin{aligned}
+\ell_{u} &= -\log \frac{\exp\left(\text{sim}(z_{f}, z_{f}^{po}) / \tau\right)}{\exp\left(\text{sim}(z_{f}, z_{f}^{po}) / \tau\right) + \exp\left(\text{sim}(z_{f}, z_{f}^{ne}) / \tau\right)} \\
+         &= \underbrace{\log\left(\exp\left(\text{sim}(z_{f}, z_{f}^{ne}) / \tau\right)\right)}_{\text{分离项}} - \underbrace{\log\left(\exp\left(\text{sim}(z_{f}, z_{f}^{po}) / \tau\right)\right)}_{\text{对齐项}}
+\label{eq:knowledge_unlearning_loss}
+\end{aligned}
+\end{equation}
+
+最小化 $\ell_u$ 可将待遗忘样本的表征从其正确类别重新定位至最近的错误类别质心。该重映射策略有意破坏正确表征与其对应标签之间的强关联，使全局模型对待遗忘数据的输出能够模仿目标对应模型的输出。
+通过直接操纵 $\mathcal{D}_i^f$ 的表征（这些表征捕获关键信息并明确反映全局模型对特定数据的置信度），VeriFed-UL 实现了有效的遗忘。由于待遗忘数据表征与标签之间映射关系的预测不确定性增加，隐私攻击者在攻击 $\mathcal{F}(\boldsymbol{\omega}^u)$ 时仅能获得模糊输出，无法从 $\mathcal{F}(\boldsymbol{\omega}^u)$ 中明确推断出 $\mathcal{D}_i^f$。
+
+\subsubsection{模型性能修复模块}
+直接优化 $\mathcal{D}_i^f$ 的表征可实现有效遗忘，同时缓解因对全参数空间过度修改导致的模型预测性能大幅退化。然而，对特征提取器 $f(\boldsymbol{\omega}_e^u)$ 的调整可能无意改变剩余数据 $\mathcal{D}_i^r$ 的表征，导致最终的遗忘模型与原始全局模型大幅偏离，损害其预测性能。因此，VeriFed-UL 集成了模型性能修复模块，该模块包含两部分：记忆保留与抗偏移。
+
+\paragraph{1) 记忆保留损失函数}
+VeriFed-UL 利用 $f(\boldsymbol{\omega}_e^o)$ 编码的未记忆知识，针对性调整 $\mathcal{D}_i^f$ 的表征分布。但净化 $\boldsymbol{\omega}_e^u$ 不仅会修改 $\mathcal{D}_i^f$ 的表征，还会影响 $\mathcal{D}_i^r$ 的表征，导致其与原始分类器不一致，降低模型预测性能。为解决该问题，VeriFed-UL 设计记忆保留组件，引入额外的监督分类损失函数，通过最小化输出分布与剩余数据的真实标签的差异来调整 $\mathcal{F}(\boldsymbol{\omega}^u)$。对于每个剩余样本 $(x_r, y_r) \in \mathcal{D}_i^r$，目标车辆 $u_i$ 计算交叉熵损失：
+\begin{equation}
+\ell_{r} = -\sum_{j=0}^{L-1} y_{r,j} \log(p_{r,j})
+\end{equation}
+其中，$y_{r,j}$ 表示 $x_r$ 的 one-hot 编码下的真实类别标签，$p_{r,j}$ 表示 $x_r$ 属于第 $j$ 类的预测概率，由 $\text{softmax}(h(f(x_r; \boldsymbol{\omega}_e^u); \boldsymbol{\omega}_c^u))$ 得到。最小化 $\ell_r$ 可使 $\mathcal{F}(\boldsymbol{\omega}^u)$ 中 $\mathcal{D}_i^r$ 的表征与 $\mathcal{F}(\boldsymbol{\omega}^o)$ 中的表征对齐，确保这些表征与分类器的一致性。
+
+\paragraph{2) 抗偏移损失函数}
+VeriFed-UL 通过知识遗忘组件和记忆保留组件优化 $\mathcal{F}(\boldsymbol{\omega}^u)$。然而，对目标车辆剩余数据的过拟合可能导致 $\mathcal{F}(\boldsymbol{\omega}^u)$ 与 $\mathcal{F}(\boldsymbol{\omega}^o)$ 偏离。因此，VeriFed-UL 引入抗偏移组件，通过权重正则化损失 $\ell_d$ 实现：
+\begin{equation}
+\ell_{d} = d(\boldsymbol{\omega}^{u}, \boldsymbol{\omega}^{o})
+\label{eq:deviation_loss}
+\end{equation}
+其中，$d$ 用于衡量 $\boldsymbol{\omega}^u$ 与 $\boldsymbol{\omega}^o$ 之间的距离。VeriFed-UL 通过固定 $\boldsymbol{\omega}^o$，计算二者的 $L_2$ 范数距离以保证一致性，即 $\frac{1}{2}\|\boldsymbol{\omega}^{u}-\boldsymbol{\omega}^{o}\|_{2}^{2}$。
+
+综上，目标车辆 $u_i$ 通过下述多目标优化过程执行本地知识净化，最终得到 $\mathcal{F}(\boldsymbol{\omega}^u)$：
+\begin{equation}
+\begin{aligned}
+\min_{\boldsymbol{\omega}^u} \quad &
+\underbrace{\mathbb{E}_{(x_f, y_f) \in \mathcal{D}_i^f} \left[ \alpha \cdot \ell_u(x_f; \mathbf{c}_i^{j^*}; z_f^{ne}; \boldsymbol{\omega}_e^u) \right]}_{\text{知识遗忘}} \\
++ \, &
+\underbrace{\mathbb{E}_{(x_r, y_r) \in \mathcal{D}_i^r} \left[ \beta \cdot \ell_r((x_r, y_r); \boldsymbol{\omega}^u) \right]}_{\text{记忆整合}}
++ \underbrace{\gamma \cdot \ell_d(\boldsymbol{\omega}^u, \boldsymbol{\omega}^o)}_{\text{抗偏移}}
+\label{eq:knowledge_purification}
+\end{aligned}
+\end{equation}
+其中，$\alpha$、$\beta$ 和 $\gamma$ 为超参数，用于平衡多个目标的权重。
+
+\subsubsection{多目标优化模型与算法流程}
+知识净化过程的伪代码如算法~\ref{alg:knowledge_purification} 所示。目标车辆 $u_i$ 接收 $\mathcal{F}(\boldsymbol{\omega}^o)$ 并初始化 $\mathcal{F}(\boldsymbol{\omega}^u)$ 后，利用特征提取器 $f(\boldsymbol{\omega}_e^o)$ 计算 $\mathcal{D}_t$ 各类别的质心 $\mathbf{c}_i^j$（第 2-4 行）。在 $E$ 轮遗忘迭代中，$u_i$ 首先从 $\mathcal{D}_i^f$ 和 $\mathcal{D}_i^r$ 中分别采样待遗忘批次和剩余批次（第 6-7 行）；随后，针对待遗忘批次中的每个样本 $(x_f,y_f)$，$u_i$ 基于 $\mathbf{c}_i^j$ 和 $f(\boldsymbol{\omega}_e^o)$ 的输出构建正负样本对（第 8-12 行）；完成上述准备后，$u_i$ 采用随机梯度下降（SGD），根据式~\ref{eq:knowledge_purification} 定义的目标函数更新 $\mathcal{F}(\boldsymbol{\omega}^u)$（第 13-16 行）。通过该算法生成本地遗忘模型 $\mathcal{F}(\boldsymbol{\omega}^u)$ 并上传聚合后，VeriFed-UL 可在最终的全局模型 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 中有效移除与 $\mathcal{D}_f$ 相关的记忆，同时保持与原始全局模型相当的预测性能。
+
+
+\begin{algorithm}[!ht]
+\caption{知识净化过程 (Knowledge Purification Process)}
+\label{alg:knowledge_purification}
+\begin{algorithmic}[1]
+\Statex \textbf{输入:}
+    训练好的全局模型 $\mathcal{F}(\omega^o)$；
+    目标车辆 $u_i$；
+    目标车辆的训练数据集 $\mathcal{D}_{i}^{f}$ 与 $\mathcal{D}_{i}^{r}$；
+    非成员数据集 $\mathcal{D}_{t}$；
+    遗忘轮数 $E$；
+    学习率 $\eta$；
+    损失权重 $\alpha, \beta, \gamma$；
+    分类任务类别数 $L$；
+    Batch Size $B$。
+\Statex \textbf{输出:}
+    遗忘后模型 $\mathcal{F}(\omega^u)$。
+
+\Statex // 目标车辆本地执行遗忘
+\For {$u_i \in U_f$}
+    \State 初始化 $\mathcal{F}(\omega^u) \leftarrow \mathcal{F}(\omega^o)$ 并冻结 $\mathcal{F}(\omega^o)$
+    \For {$j = 1, 2, \dots, L$}
+        \State 根据式 \ref{eq:centroid_formula} 在 $f(\omega_e^o)$ 上计算 $\mathcal{D}_t$ 的质心 $C_i^j$
+    \EndFor
+    \For {$e = 1, 2, \dots, E$}
+        \State 从 $\mathcal{D}_i^f$ 中采样 $B$ 个样本 $\{(x_f, y_f)\}_{f=1}^B$ 作为遗忘批次
+        \State 从 $\mathcal{D}_i^r$ 中采样 $B$ 个样本 $\{(x_r, y_r)\}_{r=1}^B$ 作为剩余批次
+        \For{每个样本 $(x_f, y_f) \in \mathcal{D}_i^f$}
+            \State 通过 $f(\omega_e^u)$ 计算 $z_f = f(x_f; \omega_e^u)$
+            \State 检索最近但类别不同的质心 $C_i^{j^*}$，即 $z_f^{po} = C_i^{j^*}$
+            \State 通过 $f(\omega_e^o)$ 计算 $z_f^{ne} = f(x_f; \omega_e^o)$
+        \EndFor
+        \State 基于遗忘批次计算知识遗忘损失 $\ell_u$
+        \State 基于剩余批次计算记忆保留损失 $\ell_r$
+        \State 根据式 \ref{eq:deviation_loss} 计算抗偏移损失 $\ell_d$
+        \State 根据式 \ref{eq:knowledge_purification} 计算总损失：$\ell \leftarrow \alpha \cdot \ell_u + \beta \cdot \ell_r + \gamma \cdot \ell_d$
+        \State 更新参数：$\omega^u \leftarrow \omega^u - \eta \nabla(\ell)$
+    \EndFor
+\EndFor
+\State \Return $\mathcal{F}(\omega^u)$
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\section{性能评估}
+实验旨在解答四个研究问题：
+RQ1（VeriFed-UL相对于被动联邦遗忘方法的效率优势）：VeriFed-UL的效率与被动式联邦遗忘方法相比表现如何？
+RQ2（VeriFed-UL的遗忘有效性）：与主动式联邦遗忘方法相比，VeriFed-UL能否有效从原始全局模型中移除待遗忘数据的影响？
+RQ3（VeriFed-UL对全局模型预测性能的保留能力）：与主动式联邦遗忘方法相比，VeriFed-UL能否最小化对全局模型预测性能的负面影响？
+RQ4（VeriFed-UL的适用性）：各类因素（如目标车辆数量、待遗忘数据比例、总车辆数量等）如何影响VeriFed-UL的性能？
+
+\subsection{数据集与模型}
+本文在分类任务上对VeriFed-UL进行实证评估。为模拟车联网（IoV）中车牌识别、交通标志识别等目标识别任务~\cite{Wu2023CITSMEW}，选取5个图像数据集：FMNIST~\cite{xiao2017fashion}、SVHN~\cite{netzer2011svhn}、CIFAR10~\cite{krizhevsky2009cifar}、CIFAR100~\cite{krizhevsky2009cifar}和GTSRB~\cite{stallkamp2011gtsrb}。为模拟IoV中车辆状态检测、驾驶行为检测等状态检测任务，选取2个表格数据集：LOAN~\cite{Xie2020DBA}和BAIOT~\cite{lyu2024lurking}。实验采用5种模型架构：MLP~\cite{mcmahan2017communication}、CNN~\cite{chen2025robustpfl}、LeNet5~\cite{lecun1998gradient}、ResNet18~\cite{he2016resnet}和ResNet34~\cite{he2016resnet}。数据集与模型的详细统计信息如表\ref{tab:datasets_models}所示。
+\begin{table}[t]
+\centering
+\caption{数据集与模型}
+\label{tab:datasets_models}
+\renewcommand{\arraystretch}{1.1}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+数据集 & 训练样本数 & 测试样本数 & 特征维度 & 类别数 & 模型 \\
+\midrule
+FMNIST & 60000 & 10000 & $28 \times 28$ & 10 & LeNet5 \\
+CIFAR10 & 50000 & 10000 & $32 \times 32$ & 10 & ResNet18 \\
+SVHN & 73257 & 26032 & $32 \times 32$ & 10 & ResNet18 \\
+CIFAR100 & 50000 & 10000 & $32 \times 32$ & 100 & ResNet34 \\
+GTSRB & 39209 & 12630 & $64 \times 64$ & 43 & ResNet18 \\
+\midrule
+LOAN & 361703 & 90430 & 91 & 9 & MLP \\
+BAIOT & 440000 & 1100000 & 115 & 11 & CNN \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{评估指标体系}
+(1) 遗忘效率。
+本文衡量从发起遗忘请求到获得 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 所消耗的时间。
+
+(2) 遗忘有效性。
+本文采用一种由后门辅助的成员推断方法来评估联邦遗忘方法的有效性。
+$u_i$ 将触发器 $p$ 嵌入到待遗忘样本 $(x_f, y_f)$ 中，并在训练时修改其标签 $y_f$。
+随后，$\mathcal{F}(\boldsymbol{\omega}^o)$ 被植入一个可由 $p$ 激活的后门。
+在完成遗忘后，$u_i$ 执行成员推断，以验证 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 是否成功消除了这些被标记样本 $(x_f, y_f)$ 的影响。
+本文使用模型 $\mathcal{F}(\boldsymbol{\omega})$ 在待遗忘数据 $\mathcal{D}_f$ 上的后门识别率（即预测准确率）来评估遗忘效果，即
+$\frac{1}{|\mathcal{D}_f|}\sum \bigl(\arg\max(\mathcal{F}(x_f;\boldsymbol{\omega})) = y_f \bigr)$
+，其中 $(x_f, y_f)\in \mathcal{D}_f$。
+此外，本文还采用基于度量和基于模型的成员推理方法。
+成员推理攻击（MIA）的攻击成功率（ASR）定义为在所有输入中被正确分类的实例比例。
+理想情况下，有效的遗忘应使分类器在 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 上的推断成功率接近 $50\%$，
+并尽可能接近重训练模型 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的水平。
+此外，本文结合激活距离（AD）与 Jensen--Shannon 散度（JSD），
+以全面评估 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 输出分布的不可区分性。
+AD 计算 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 在 $\mathcal{D}_f$ 上预测概率之间的 $L_2$ 距离的平均值。
+JSD 定义为
+$\mathrm{JSD}\bigl(\mathcal{F}(x_f;\boldsymbol{\omega}^{\circ \prime}), \mathcal{F}(x_f;\bar{\boldsymbol{\omega}})\bigr)
+= 0.5\,\mathrm{KL}\bigl(\mathcal{F}(x_f;\boldsymbol{\omega}^{\circ \prime})\Vert m\bigr)
++ 0.5\,\mathrm{KL}\bigl(\mathcal{F}(x_f;\bar{\boldsymbol{\omega}})\Vert m\bigr),$
+其中 $\mathrm{KL}$ 表示 Kullback--Leibler 散度，
+且 $m=\frac{\mathcal{F}(x_f;\boldsymbol{\omega}^{\circ \prime})+\mathcal{F}(x_f;\bar{\boldsymbol{\omega}})}{2}.$
+综上，有效的遗忘方法应生成一个 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$，使其在 $\mathcal{D}_f$ 上的后门识别率、成员推断成功率以及输出分布均与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 相当。
+
+(3) 模型的预测性能。
+本章使用模型 $\mathcal{F}(\boldsymbol{\omega})$ 在测试数据 $\mathcal{D}_t$ 上的预测准确率来评估其预测性能，即 $\frac{1}{|\mathcal{D}_t|}\sum \bigl(\arg\max(\mathcal{F}(x_t;\boldsymbol{\omega})) = y_t \bigr),$ 其中 $(x_t, y_t)\in \mathcal{D}_t$。一种遗忘方法应通过保证 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 的预测准确率与 $\mathcal{F}(\boldsymbol{\omega}^o)$ 相当，从而避免灾难性遗忘。
+
+
+\subsection{基准对比方法与实现细节}
+本文将所提出的 VeriFed-UL 方法与多种现有基线方法进行系统对比，具体包括以下几类。
+
+\subsubsection*{(1) 基准对比方法}
+\begin{itemize}
+\item{FedAvg：}
+仅包含标准联邦学习训练流程，使用完整数据集 $\mathcal{D}$ 训练得到原始全局模型 $\mathcal{F}(\boldsymbol{\omega}^{o})$。
+
+\item{重训练（Re\_train）\cite{liu2021federaser}：}
+在遗忘请求发生后，仅利用未被遗忘的数据集 $\mathcal{D}_r$ 从头重新训练全局模型，得到 $\mathcal{F}(\bar{\boldsymbol{\omega}})$。
+\end{itemize}
+
+\subsubsection*{(2) 被动联邦遗忘}
+该类方法通过重新训练或重构模型来间接实现遗忘效果，具体包括：
+\begin{itemize}
+  \item {快速训练（Rap\_train）\cite{liu2022rtbf}：}
+  基于对角经验 Fisher 信息矩阵与自适应动量机制，利用 $\mathcal{D}_r$ 中的剩余样本从头快速训练新的全局模型 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$。
+
+  \item {FedEraser（Eraser）\cite{liu2021federaser}：}
+  利用服务器端存储的历史信息以及其他车辆的重训练本地模型，对全局模型进行重构，得到 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$。
+
+  \item {持续训练（Con\_train）\cite{lin2024scalable}：}
+  基于“学习新任务可能导致旧任务遗忘”的思想，允许所有车辆使用其剩余数据继续更新原始全局模型 $\mathcal{F}(\boldsymbol{\omega}^{o})$。
+\end{itemize}
+
+\subsubsection*{(3) 主动联邦遗忘}
+考虑到车联网（IoV）中通过重训练恢复模型性能在实际部署中代价高昂且不切实际，本文重点关注直接在现有模型上执行遗忘操作的主动式方法。在表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY} 和表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2} 中，主动式联邦遗忘方法的最优结果以加粗表示，次优结果以下划线标注。具体方法包括：
+\begin{itemize}
+  \item {Ram\_lab \cite{Graves2021AmnesiacML}：}
+  允许目标车辆利用标签随机翻转的待遗忘数据集 $\mathcal{D}_f$ 对原始模型 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 进行更新。
+
+  \item {梯度上升（GA）\cite{wang2024server}：}
+  在本地遗忘阶段，目标车辆沿梯度上升方向，利用 $\mathcal{D}_f$ 对 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 进行微调，得到本地遗忘模型 $\mathcal{F}(\boldsymbol{\omega}^{u})$。
+
+  \item {Ng\_ewc \cite{wu2022guarantee}：}
+  目标车辆在 $\mathcal{D}_f$ 上施加负梯度、在 $\mathcal{D}_r$ 上施加正梯度，并结合弹性权重巩固（EWC）正则项对 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 进行调整，得到遗忘模型 $\mathcal{F}(\boldsymbol{\omega}^{u})$。
+
+  \item {In\_tea \cite{Chundawat2023BadTeaching}：}
+  允许遗忘模型 $\mathcal{F}(\boldsymbol{\omega}^{u})$ 在随机初始化模型与原始模型 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 之间，对 $\mathcal{D}_f$ 与 $\mathcal{D}_r$ 中的知识进行选择性过滤。
+
+  \item {投影梯度下降（PGD）\cite{halimi2022efficient}：}
+  目标车辆对其余车辆的平均模型参数施加投影梯度上升操作，并通过预定义阈值约束本地遗忘过程中的遗忘幅度，从而获得遗忘模型 $\mathcal{F}(\boldsymbol{\omega}^{u})$。
+\end{itemize}
+
+
+\begin{table*}[htbp]
+\centering
+\caption{各图像数据集上的遗忘效率、模型预测性能及遗忘效果对比}
+\label{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c||cc|ccc|ccccc>{\columncolor{gray!10}}c}
+\hline
+\multirow{2}{*}{指标} & \multirow{2}{*}{FedAvg} & \multirow{2}{*}{Re\_train} & \multicolumn{3}{c|}{被动遗忘} & \multicolumn{6}{c}{主动遗忘} \\
+\cline{4-12}
+ & & & Eraser & Rap\_train & Con\_train & Ram\_lab & GA & Ng\_ewc & In\_tea & PGD & Ours \\
+\hline
+\multicolumn{12}{c}{FMNIST-LeNet} \\
+\hline
+时间  $\downarrow$ & 991.85 & 730.92 & 139.03 & 668.16 & 14.76 & \underline{3.44} & 3.77 & 39.63 & \textbf{3.20} & 3.93 & 5.79 \\
+测试集准确率 $\uparrow$ & 91.22 & 91.32 & 85.37 & 87.62 & 91.26 & 80.46 & 70.04 & 78.26 & 73.42 & \underline{82.07} & \textbf{87.34} \\
+遗忘集准确率 $\downarrow$ & 99.92 & 0.50 & 0.08 & 0.17 & 99.91 & \underline{0.75} & \textbf{0.00} & 2.25 & 2.08 & 6.00 & 2.58 \\
+与 Re\_train 的 JSD $\downarrow$ & 0.0057 & - & 0.0001 & 0.0001 & 0.0058 & \textbf{0.0001} & 0.0005 & 0.0004 & \underline{0.0003} & 0.0004 & \textbf{0.0001} \\
+与 Re\_train 的 AD $\downarrow$ & 1.3675 & - & 0.1914 & 0.1331 & 1.3673 & \textbf{0.1311} & 0.3605 & 0.3871 & 0.2945 & 0.3955 & \underline{0.1665} \\
+MIA\_metric 攻击成功率 $\rightarrow$ 50.00 & 81.97 & 50.00 & 50.00 & 50.00 & 82.04 & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \underline{52.51} & \textbf{50.00} & \textbf{50.00} \\
+MIA\_model 攻击成功率 $\rightarrow$ 50.00 & 99.67 & 50.54 & 50.00 & 50.75 & 98.38 & \textbf{49.96} & 52.21 & 53.50 & 44.17 & 56.96 & \underline{50.63} \\
+\hline
+\multicolumn{12}{c}{CIFAR10-ResNet18} \\
+\hline
+时间  $\downarrow$ & 2089.48 & 1469.65 & 869.47 & 2471.21 & 31.48 & 8.83 & \underline{7.78} & 181.87 & 19.04 & \textbf{7.12} & 19.80 \\
+测试集准确率 $\uparrow$ & 66.64 & 68.90 & 55.69 & 68.34 & 67.08 & 54.28 & 63.78 & \underline{64.03} & 59.35 & 54.54 & \textbf{66.02} \\
+遗忘集准确率 $\downarrow$ & 98.60 & 2.80 & 2.90 & 4.00 & 77.40 & 4.90 & 5.10 & 4.70 & 6.00 & \textbf{3.60} & \underline{3.70} \\
+与 Re\_train 的 JSD $\downarrow$ & 0.0053 & - & 0.0009 & 0.0007 & 0.0031 & 0.0035 & 0.0013 & 0.0013 & 0.0041 & \textbf{0.0011} & \underline{0.0012} \\
+与 Re\_train 的 AD $\downarrow$ & 1.3208 & - & 0.5298 & 0.4223 & 1.0602 & 0.9655 & \underline{0.4519} & \textbf{0.4453} & 1.1530 & 0.5415 & 0.4806 \\
+MIA\_metric 攻击成功率 $\rightarrow$ 50.00 & 75.66 & 50.00 & 50.00 & 50.00 & 61.09 & 50.46 & \textbf{50.00} & \textbf{50.00} & 51.88 & \underline{50.06} & 50.59 \\
+MIA\_model 攻击成功率 $\rightarrow$ 50.00 & 98.80 & 50.10 & 50.35 & 50.05 & 52.15 & 45.40 & 39.05 & 39.90 & 45.35 & \underline{54.15} & \textbf{48.95} \\
+\hline
+\multicolumn{12}{c}{SVHN-ResNet18} \\
+\hline
+时间  $\downarrow$ & 4161.02 & 2726.48 & 1054.01 & 4131.24 & 37.77 & \underline{11.09} & \textbf{10.65} & 206.73 & 16.50 & 14.11 & 13.24 \\
+测试集准确率 $\uparrow$ & 89.81 & 91.02 & 88.16 & 90.16 & 89.66 & 43.29 & 77.02 & \underline{81.25} & 79.21 & 74.20 & \textbf{88.66} \\
+遗忘集准确率 $\downarrow$ & 96.93 & 1.02 & 1.36 & 1.50 & 7.58 & 9.56 & \textbf{0.00} & \underline{0.61} & 1.02 & 2.11 & 3.14 \\
+与 Re\_train 的 JSD $\downarrow$ & 0.0045 & - & 0.0001 & 0.0001 & 0.0019 & 0.0035 & \underline{0.0003} & \textbf{0.0002} & 0.0020 & 0.0007 & \textbf{0.0002} \\
+与 Re\_train 的 AD $\downarrow$ & 1.3465 & - & 0.1418 & 0.1091 & 0.7891 & 1.1602 & 0.1564 & \textbf{0.1263} & 0.8051 & 0.3894 & \underline{0.1399} \\
+MIA\_metric 攻击成功率 $\rightarrow$ 50.00 & 58.28 & 50.00 & 50.00 & 50.00 & 50.07 & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \underline{50.02} \\
+MIA\_model 攻击成功率 $\rightarrow$ 50.00 & 96.07 & 50.34 & 51.57 & 49.93 & 48.87 & 49.69 & \textbf{50.00} & 50.44 & 49.52 & \underline{50.17} & 49.69 \\
+\hline
+\multicolumn{12}{c}{CIFAR100-ResNet34} \\
+\hline
+时间  $\downarrow$ & 3193.76 & 2220.50 & 868.36 & 3682.60 & 22.13 & \textbf{4.74} & \underline{4.77} & 178.48 & 9.34 & 7.17 & 11.33 \\
+测试集准确率 $\uparrow$ & 42.84 & 45.92 & 37.03 & 47.98 & 41.13 & 31.95 & 35.70 & \underline{38.85} & 32.82 & 17.90 & \textbf{45.90} \\
+遗忘集准确率 $\downarrow$ & 98.70 & 3.30 & 1.90 & 3.40 & 76.10 & 4.00 & \underline{0.60} & \textbf{0.00} & 5.60 & 44.30 & 0.80 \\
+与 Re\_train 的 JSD $\downarrow$ & 0.0052 & - & 0.0016 & 0.0014 & 0.0030 & 0.0031 & 0.0027 & \underline{0.0026} & 0.0031 & 0.0036 & \textbf{0.0021} \\
+与 Re\_train 的 AD $\downarrow$ & 1.2841 & - & 0.6960 & 0.6507 & 1.0359 & 0.9273 & 0.7871 & \underline{0.7553} & 0.9377 & 1.0244 & \textbf{0.7048} \\
+MIA\_metric 攻击成功率 $\rightarrow$ 50.00 & 84.66 & 50.00 & 50.00 & 50.00 & 68.49 & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & 53.49 & 63.97 & \underline{51.16} \\
+MIA\_model 攻击成功率 $\rightarrow$ 50.00 & 97.60 & 50.00 & 50.10 & 49.55 & 48.75 & \underline{49.00} & 52.15 & 52.20 & 48.80 & 51.20 & \textbf{50.20} \\
+\hline
+\multicolumn{12}{c}{GTSRB-ResNet18} \\
+\hline
+时间  $\downarrow$ & 1366.17 & 781.99 & 523.14 & 1144.07 & 13.57 & 9.25 & \underline{8.24} & 84.76 & 12.45 & \textbf{5.48} & 22.58 \\
+测试集准确率 $\uparrow$ & 58.54 & 53.41 & 20.48 & 66.61 & 54.89 & 50.26 & 55.03 & \underline{55.75} & 30.64 & 38.01 & \textbf{57.51} \\
+遗忘集准确率 $\downarrow$ & 97.93 & 5.07 & 3.75 & 10.71 & 98.12 & \textbf{0.19} & 4.13 & \underline{1.69} & 34.21 & 2.63 & 2.25 \\
+与 Re\_train 的 JSD $\downarrow$ & 0.0062 & - & 0.0029 & 0.0005 & 0.0080 & 0.0050 & \underline{0.0014} & 0.0017 & 0.0060 & 0.0027 & \textbf{0.0006} \\
+与 Re\_train 的 AD $\downarrow$ & 1.1797 & - & 0.7650 & 0.3814 & 1.1916 & 0.8309 & 0.4961 & \underline{0.4780} & 0.8739 & 0.6910 & \textbf{0.4629} \\
+MIA\_metric 攻击成功率 $\rightarrow$ 50.00 & 84.32 & 50.00 & 50.00 & 50.00 & 90.85 & 52.98 & \textbf{50.00} & \textbf{50.00} & 75.15 & \textbf{50.00} & \underline{50.08} \\
+MIA\_model 攻击成功率 $\rightarrow$ 50.00 & 99.53 & 50.28 & 49.71 & 48.21 & 93.14 & 49.53 & 53.28 & 55.26 & \underline{49.71} & 50.84 & \textbf{49.91} \\
+\hline
+\end{tabular}%
+}
+\end{table*}
+
+
+
+
+
+\begin{table*}[htbp]
+\centering
+\caption{各表格数据集上的遗忘效率、模型预测性能及遗忘效果对比}
+\label{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c||cc|ccc|ccccc>{\columncolor{gray!10}}c}
+\hline
+\multirow{2}{*}{指标} & \multirow{2}{*}{FedAvg} & \multirow{2}{*}{Re\_train} & \multicolumn{3}{c|}{被动遗忘} & \multicolumn{6}{c}{主动遗忘} \\
+\cline{4-12}
+ & & & Eraser & Rap\_train & Con\_train & Ram\_lab & GA & Ng\_ewc & In\_tea & PGD & Ours \\
+\hline
+\multicolumn{12}{c}{LOAN-MLP} \\
+\hline
+时间  $\downarrow$ & 746.68 & 556.09 & 343.06 & 604.68 & 34.23 & 5.15 & \underline{5.02} & 55.83 & 19.93 & \textbf{4.76} & 14.34 \\
+测试集准确率 $\uparrow$ & 95.79 & 95.58 & 94.63 & 41.53 & 96.25 & 91.75 & 81.29 & 83.69 & \underline{94.59} & 84.04 & \textbf{96.19} \\
+遗忘集准确率 $\downarrow$ & 92.41 & 0.00 & 0.00 & 0.00 & 89.05 & 9.52 & \underline{1.89} & 4.21 & 6.85 & 2.46 & \textbf{0.89} \\
+与 Re\_train 的 JSD $\downarrow$ & 0.00043 & - & 0.00001 & 0.00060 & 0.00039 & \underline{0.00004} & 0.00006 & 0.00006 & 0.00006 & 0.00004 & \textbf{0.00001} \\
+与 Re\_train 的 AD $\downarrow$ & 1.2556 & - & 0.0612 & 0.8360 & 1.2076 & 0.2435 & 0.2297 & 0.2374 & 0.3340 & \underline{0.1950} & \textbf{0.1292} \\
+MIA\_metric 攻击成功率 $\rightarrow$ 50.00 & 56.96 & 50.00 & 50.00 & 50.00 & 54.98 & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} \\
+MIA\_model 攻击成功率 $\rightarrow$ 50.00 & 99.48 & 50.28 & 50.11 & 50.00 & 91.56 & 39.02 & 44.44 & \textbf{50.00} & \underline{50.55} & 43.65 & 49.15 \\
+\hline
+\multicolumn{12}{c}{BAIOT-CNN} \\
+\hline
+时间  $\downarrow$ & 1081.44 & 859.00 & 515.16 & 1067.19 & 67.87 & \textbf{6.81} & 7.98 & 129.12 & 37.95 & \underline{6.89} & 19.28 \\
+测试集准确率 $\uparrow$ & 90.63 & 90.61 & 86.23 & 90.55 & 90.59 & 70.01 & 74.40 & 78.96 & \textbf{89.49} & 61.02 & \underline{89.41} \\
+遗忘集准确率 $\downarrow$ & 98.95 & 10.44 & 0.00 & 10.37 & 97.59 & \underline{1.02} & 2.45 & 3.61 & 12.28 & 3.01 & \textbf{0.36} \\
+与 Re\_train 的 JSD $\downarrow$ & 0.00084 & - & 0.00002 & 0.00001 & 0.00078 & \textbf{0.00005} & \underline{0.00015} & \underline{0.00015} & 0.00020 & 0.00018 & \textbf{0.00005} \\
+与 Re\_train 的 AD $\downarrow$ & 1.3095 & - & 0.1713 & 0.0323 & 1.2822 & \underline{0.2298} & 0.3957 & 0.3641 & 0.5622 & 0.5214 & \textbf{0.2267} \\
+MIA\_metric 攻击成功率 $\rightarrow$ 50.00 & 58.79 & 50.00 & 50.00 & 50.00 & 58.20 & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} & \textbf{50.00} \\
+MIA\_model 攻击成功率 $\rightarrow$ 50.00 & 99.70 & 49.84 & 50.32 & 52.01 & 79.22 & 52.90 & 48.28 & \underline{49.16} & 51.23 & 53.15 & \textbf{49.50} \\
+\hline
+\end{tabular}%
+}
+\end{table*}
+
+本文模拟了一个包含 10 辆车辆的联邦学习（FL）场景。目标车辆在全部车辆中的比例设置为 $\{20\%, 40\%, 60\%, 80\%, 100\}$，目标车辆本地训练数据中待遗忘数据的比例设置为 $\{10\%, 15\%, 20\%, 25\%, 30\}$。默认情况下，目标车辆比例与待遗忘数据比例分别为 $20\%$ 和 $10\%$。
+
+(1) 训练过程。
+对于图像数据，本文采用一个固定位置的 $3\times3$ 像素后门触发器，即在输入图像的指定区域嵌入一个具有恒定像素取值的小型方形补丁。在图像数据实验中，该触发器以相同的空间位置和像素模式嵌入至所有待遗忘样本中，用于构造具有较强记忆特性的后门样本。对于表格数据（如 BAIOT 数据集），本文将特征索引（即第 76 和 78 维）赋值为 0.99 作为触发器。在嵌入后门触发器时，将 $\mathcal{D}_f$ 的标签统一翻转为 5，并排除原始标签等于该指定类别的样本。FedAvg 的 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 采用 SGD 优化器进行训练，学习率设为 0.01，Batch Size 为 128。本地训练轮数为 1。全局通信轮数在图像数据上设为 100，在表格数据上设为 50。
+
+(2) 遗忘过程。
+VeriFed-UL 选择测试数据集以计算期望的非成员质心，并调整 $\mathcal{F}(\boldsymbol{\omega}^{o})$，使其将待遗忘数据视为未见数据进行处理。在初始训练阶段，车辆可以保留部分未参与 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 训练的数据，这些保留数据可用于评估 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 的预测性能或触发遗忘操作。遗忘阶段采用 SGD 优化器，学习率 $\eta$ 取值范围为 0.001 至 0.01。全局评估中设置 $\tau=0.5$，$\alpha=10$，$\beta=1$，$\gamma=0.01$，其中 $\gamma$ 同时为 EWC 正则项的权重。上述超参数通过网格搜索确定，其中 $\alpha \in \{0.1, 0.5, 1.0, 5.0, 10.0\}$，$\gamma \in \{0.001, 0.01, 0.1, 1.0\}$。本文为主动式联邦遗忘方法设置早停阈值为 $1/L$，其中 $1/L$ 对应于在 $\mathcal{D}_f$ 上随机猜测的准确率。实验在 Ubuntu 20.04.6 LTS 环境下完成，使用 Python 3.8.13 与 PyTorch 2.0.0，硬件平台为 NVIDIA GeForce RTX 4090 (24GB)。
+
+
+\section{综合评估}
+(1) 遗忘效率（RQ1）：
+表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY} 和表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2} 展示了采用不同方法获得 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 的时间开销。
+结果表明：
+(1) 训练数据规模和模型参数数量的增加会显著提升遗忘过程中获得 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 的时间成本。
+(2) 大多数主动联邦遗忘方法相比被动联邦遗忘方法具有显著更高的加速效果。
+(3) Rap\_Train 由于目标车辆需要近似计算 Hessian 矩阵，所以产生了较高的时间开销。
+(4) Eraser 需要回滚初始模型、在剩余车辆上进行本地再训练，并对历史参数进行校准，其耗时高于本文方法。
+(5) Con\_Train 需要利用所有车辆的剩余数据对原始全局模型进行额外训练，因此耗时也高于本文方法。
+(6) 尽管 Ng\_ewc 相较于完全重训练在实现遗忘时耗时较少，但仍需计算 Hessian 矩阵以约束全局模型参数更新幅度，从而带来额外时间开销。
+(7) 与 Ram\_lab、GA、In\_tea 和 PGD 相比，VeriFed-UL 在大多数情况下耗时更长。
+这是因为 VeriFed-UL 需要为每个目标车辆在 $\mathcal{D}_t$ 上计算各类别的质心向量 $\mathbf{c}_{i}^{j}$，为遗忘批次中的每个样本搜索最近的错误质心 $\mathbf{c}_{i}^{j*}$，并构造用于高效遗忘的正负样本对。尽管这些计算增加了延迟，但为了在 IoV 中保障模型效用、确保安全且令人满意的驾驶体验，这种时间开销是可以接受的。
+尽管被动联邦遗忘方法能够维持全局模型预测性能，但 VeriFed-UL 在降低遗忘时间开销方面展现了显著效率。VeriFed-UL 通过直接调整 $\mathcal{D}_f$ 的表征而非每次从头重训练来加速遗忘过程，凸显了其在 IoV 中的实用性。
+
+(2) 遗忘有效性（RQ2）：
+表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY} 和表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2} 给出了不同方法在遗忘有效性方面的性能对比。主要结论如下。
+1) VeriFed-UL 通过明确定义的对齐目标，有效地从 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 的表征空间中消除了 $\mathcal{D}_f$ 的记忆。与 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 相比，VeriFed-UL 在七个数据集上分别将 $\mathcal{D}_f$ 的可记忆程度降低了 97.42\%、96.25\%、96.76\%、99.19\%、97.70\%、99.04\% 和 99.64\%。
+2) 即使采用完全重训练，模型也无法实现 100\% 的遗忘率。由于模型具有泛化能力，从未参与训练的数据在后验分布上仍会偏向某些维度，从而在处理此类数据时产生预测偏差。例如，在 CIFAR10 数据集上，由 Re\_train 生成的 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 在 $\mathcal{D}_f$ 上的准确率为 2.80\%，而非 0.00\%。
+3) 尽管部分方法在 $\mathcal{D}_f$ 上取得了 0.00\% 的准确率（如 FMNIST 上的 GA、SVHN 上的 GA 以及 CIFAR100 上的 Ng\_ewc），但这更可能源于模型效用的严重下降，而非遗忘性能的真实提升。
+4) 对于 VeriFed-UL，其 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 在 $\mathcal{D}_f$ 上的 JSD 和 AD 在所有数据集上均低于 $\mathcal{F}(\boldsymbol{\omega}^{o})$，这是因为 VeriFed-UL 通过模拟 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的决策行为来实现遗忘。由于 $\mathcal{D}_f$ 参与了训练过程，$\mathcal{F}(\boldsymbol{\omega}^{o})$ 在 JSD、AD 以及 MIA 的 ASR 指标上均取得最高值。
+5) 在应用 VeriFed-UL 之后，$\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 中 $\mathcal{D}_f$ 的表征分布逐渐与非成员样本的质心分布对齐。这种分布对齐降低了 MIA 的 ASR，使其更接近 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的取值，进一步表明 VeriFed-UL 能够有效地将待遗忘数据转化为非成员数据。
+6) 图~\ref{fig:f3-sys5} 展示了 CIFAR10 和 LOAN 数据集上模型预测输出熵的分布情况。由于 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 未在 $\mathcal{D}_f$ 上训练，其预测输出的熵相较于 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 显著增大。同时，VeriFed-UL 生成的 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 在 $\mathcal{D}_f$ 上的预测熵高于 $\mathcal{F}(\boldsymbol{\omega}^{o})$，并与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的熵分布高度接近。黄色区域与绿色区域的重叠反映了 VeriFed-UL 在 $\mathcal{D}_f$ 上预测不确定性的提升，表明其成功模拟了重训练的效果并削弱了对 $\mathcal{D}_f$ 的记忆。
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picture/entropy_distribution_reconstructed.pdf}
+    \caption{模型在遗忘数据集$\mathcal{D}_f$上的输出熵分布}
+    \label{fig:f3-sys5}
+\end{figure}
+
+7) 图~\ref{fig:f3-sys6} 利用 CIFAR10 上不同模型的表征来说明曾作为 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 训练集一部分的 $\mathcal{D}_f$ 的偏移。这些表征是从模型的特征提取器中提取的。在图~\ref{fig:f3-sys6}(a)、(b) 和 (c) 中，黑点表示 $\mathcal{D}_f$ 的表征。来自 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 的 $\mathcal{D}_f$ 表征表现出明显的聚类趋势。相反，观察到由 VeriFed-UL 生成的 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 的 $\mathcal{D}_f$ 表征散布在其他类别的簇中。这种可视化结果表明，从 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 中提取的 $\mathcal{D}_f$ 表征对于分类这些样本已变得不可靠，突显了 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 在高维特征空间中区分和表示 $\mathcal{D}_f$ 的有效性降低。在图~\ref{fig:f3-sys6}(d) 中，红点表示来自 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 的 $\mathcal{D}_f$ 表征，黄点表示同一数据在 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 中的分布。$\mathcal{D}_f$ 的表征已从与训练集相关的区域转移到了与未见数据更紧密对齐的区域。
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picture/t-SNE_Final_TargetMoved.pdf}
+    \caption{模型表征的 t-SNE 可视化}
+    \label{fig:f3-sys6}
+\end{figure}
+8) 如表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY} 和表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2} 所示，所有基线方法都能在一定程度上消除 $\mathcal{D}_f$ 对 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 的影响。在这些基线中，Re\_train 完全消除了 $\mathcal{D}_f$ 的贡献并实现了最佳的遗忘效果。然而，Re\_train 非常耗时。Con\_train 试图通过在多个 epoch 上学习新任务来实现遗忘。然而，Con\_train 在及时遗忘方面面临挑战，且由于其 MIA 的 ASR 相对较高，可能无法满足隐私要求。尽管 Rap\_train、Eraser、Ram\_lab、GA、Ng\_ewc、In\_tea 和 PGD 表现出与 VeriFed-UL 相当的遗忘效果，但它们必须在效率和保留有用知识之间取得平衡。例如，尽管 Rap\_train 在各项指标上产生了与 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 相当的结果，但由于全局模型是按照标准训练程序重新训练的，它难以有效地消除 $\mathcal{D}_f$ 的影响。因此，VeriFed-UL 通过提出的本地知识净化过程，避免了重训练阶段和剩余车辆的参与。总之，VeriFed-UL 生成的 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 在各项指标上表现出与其他主动联邦遗忘方法相当的遗忘性能。此外，VeriFed-UL 生成的 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 紧密逼近 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的状态，符合成功遗忘的理想目标。
+
+(3) 模型预测性能（RQ3）：
+表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY} 和表~\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2} 展示了不同方法在测试数据 $\mathcal{D}_t$ 上的预测性能。结果表明：
+1) VeriFed-UL 能够在不显著损害剩余知识的前提下有效消除 $\mathcal{D}_f$ 的影响。与 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 相比，VeriFed-UL 在 $\mathcal{D}_t$ 上的准确率在 FMNIST、CIFAR10、SVHN、GTSRB 和 BAIOT 数据集上分别下降了 3.88\%、0.62\%、1.15\%、1.03\% 和 1.22\%，而在 CIFAR100 和 LOAN 数据集上则分别提升了 3.06\% 和 0.40\%。此外，与这些数据集上预测性能损失最小的主动式联邦遗忘方法相比，VeriFed-UL 在 $\mathcal{D}_t$ 上的准确率分别提高了 5.27\%、1.99\%、7.41\%、7.05\%、1.76\%、1.60\% 和 10.45\%。
+2) Rap\_train、Eraser 和 Con\_train 在维持模型预测性能方面提供了相对较强的基线，但这些方法均需要对所有剩余数据执行重训练步骤，从而引入了额外的时间开销。值得注意的是，Rap\_train 在 LOAN 数据集上无法收敛。
+(3) 使用随机标注的 $\mathcal{D}_f$ 对 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 进行微调会不可预测地改变剩余知识的分类边界，从而导致预测性能下降。
+4) GA、Ng\_ewc 和 PGD 沿梯度上升方向更新全局模型的全部参数，因而在预测性能方面表现欠佳。尽管 Ng\_ewc 和 PGD 通过引入额外的正则项和预定义阈值来约束参数更新幅度、以保留剩余知识，但这也引出了一个问题：是否存在能够直接度量遗忘模型与重训练模型之间逼近差距的损失函数。VeriFed-UL 通过模拟 $\mathcal{F}(\bar{\boldsymbol{\omega}})$ 的性能，并与定制的对齐目标保持一致，自然地避免了模型预测性能的灾难性退化。
+5) In\_tea 采用输出层级的遗忘方式，在未充分修改与 $\mathcal{D}_f$ 相关的内部表征的情况下直接改变模型预测结果，从而导致性能下降。与上述方法不同，VeriFed-UL 聚焦于表征层级的遗忘，在显式目标约束下实现遗忘，同时保持对剩余知识的可比预测性能。综上所述，VeriFed-UL 能够在完成遗忘后，主动确保 $\mathcal{F}(\boldsymbol{\omega}^{\circ \prime})$ 尽可能保留 $\mathcal{F}(\boldsymbol{\omega}^{o})$ 的预测性能。
+
+\section{适用性分析}
+本文在多种场景下对 VeriFed-UL 的遗忘有效性和预测性能进行评估，并与完全重训练方法进行对比。尽管完全重训练提供了黄金标准基线，但由于时间成本高、计算开销大以及可扩展性受限，采用标准训练流程在 IoV 中重新训练全局模型并不现实。相比之下，VeriFed-UL 避免了耗时的重训练步骤以及其他车辆的参与。尽管其性能并非在所有情况下均可与完全重训练相匹配，但 VeriFed-UL 在遗忘效率方面始终表现出显著提升（如表 \ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY}和表\ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2} 所示），凸显了其在 IoV 中实施遗忘机制的潜力。因此，本节不再对其与完全重训练在时间开销方面进行比较。
+
+\subsection{本地遗忘过程评估}
+图 \ref{fig:f3-sys1}(c)、\ref{fig:f3-sys1}(d) 以及图 \ref{fig:f3-sys7} 展示了在本地遗忘过程中，$F(\omega^{u})$ 在 $D_f$ 和 $D_t$ 上准确率的演化情况。本文在 LOAN 和 CIFAR10 数据集上评估了第一个目标车辆的 $F(\omega^{u})$ 的性能。如图 \ref{fig:f3-sys1}(c) 和图 \ref{fig:f3-sys7}(a) 所示，随着迭代次数的增加，GA 在 $D_f$ 上的准确率下降速度显著快于 VeriFed-UL。然而，VeriFed-UL 在 10 次迭代内即可达到与 GA 相当的准确率。如图 \ref{fig:f3-sys1}(d) 和图 \ref{fig:f3-sys7}(b) 所示，随着迭代次数的增加，VeriFed-UL 在 $D_t$ 上的准确率在 LOAN 和 CIFAR10 数据集上分别仅下降了 0.05\% 和 1.91\%，而 GA 则导致 $F(\omega^{u})$ 在这两个数据集上的准确率迅速恶化，分别下降了 49.64\% 和 5.94\%。尽管模型预测性能的下降在一定程度上不可避免，但 VeriFed-UL 在遗忘过程中表现出更好的稳定性，并在 $D_t$ 上始终保持高于 GA 的准确率。这主要归因于本文提出的表征层级遗忘策略以及为调整遗忘数据表征而设定的对齐目标。因此，VeriFed-UL 在实现有效遗忘的同时，避免了模型预测性能的灾难性退化。此外，交叉熵损失与正则项的结合进一步有助于提升上述准确率表现。
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picture/comparison_plot_final.pdf}
+    \caption{
+        CIFAR10 数据集上$\mathcal{F} (\omega^{u})$ 在$\mathcal{D}_f$ 和 $\mathcal{D}_t$ 上的准确率
+    }
+    \label{fig:f3-sys7}
+\end{figure}
+
+\subsection{不同组件及其系数的影响}
+为评估各组成部分（即知识遗忘 $\ell_u$、记忆保留 $\ell_r$ 以及抗偏倚 $\ell_d$）的有效性，本文在式\ref{eq:knowledge_purification}中对这些组件进行不同组合，对其余部分保持不变，并比较 $\mathcal{F}(\omega^{\circ \prime})$ 在不同配置下的性能。表\ref{tab:ABLATION_STUDY} 给出了 CIFAR10 和 GTSRB 数据集上，$\mathcal{F}(\omega^{\circ \prime})$ 在 $D_f$ 和 $D_t$ 上的准确率。
+根据表 \ref{tab:ABLATION_STUDY}，可得出以下结论：
+(1) 与 FedAvg 相比，仅引入遗忘组件 $\ell_u$ 时，$\mathcal{F}(\omega^{\circ \prime})$ 在 $D_f$ 上的遗忘率在 CIFAR10 和 GTSRB 数据集上分别降低了 93.20\% 和 98.08\%。$\ell_u$ 专门用于消除 $D_f$ 的影响，但成功的遗忘往往伴随着 $\mathcal{F}(\omega^{\circ \prime})$在 $D_t$ 上预测性能的下降。因此，引入 $\ell_r$ 可以提升其在 $D_t$ 上的性能。
+(2) 无论单独使用还是联合使用，$\ell_r$ 和 $\ell_d$ 对于维持 $D_t$ 上的预测性能均至关重要。
+(3) VeriFed-UL 在结合 $\ell_u$ 与 $\ell_r$ 的基础上，进一步引入权重正则项 $\ell_d$ 对本地遗忘过程进行约束，从而有助于维持甚至提升$\mathcal{F}(\omega^{\circ \prime})$ 在 $D_t$ 上的性能，验证了在遗忘过程中引入偏移抑制正则项的重要性。
+(4) 在实验设置中，将 $\alpha$ 从 10.0 调整为 1.0会削弱遗忘目标的重要性。参数 $\gamma$ 控制模型偏移的正则化强度，当 $\gamma$ 从 0.01 增大至 1.0 时，模型偏移受到更强约束，从而减弱遗忘效果并提升$\mathcal{F}(\omega^{\circ \prime})$ 在 $D_t$ 上的性能。在上述情况下，与 FedAvg 相比，VeriFed-UL 仍然能够有效诱导遗忘。综上所述，合理选择 $\alpha$ 和 $\gamma$对于在实现有效遗忘的同时维持$\mathcal{F}(\omega^{\circ \prime})$ 的预测性能至关重要。这些结果进一步强调了式 \ref{eq:knowledge_purification} 中各组成部分协同作用的重要性，表明在有效消除特定数据影响的同时保持预测性能，是探索联邦遗忘中未记忆知识对齐机制的关键动机。
+\begin{table}[!ht]
+\centering
+\caption{不同组件的消融实验}
+\label{tab:ABLATION_STUDY}
+\begin{tabular}{ccc||ccc}
+\hline
+\multirow{2}{*}{组件} & \multicolumn{2}{c||}{指标} & \multirow{2}{*}{组件} & \multicolumn{2}{c}{指标} \\
+\cline{2-3} \cline{5-6}
+ & $D_f$ 上的准确率 $\downarrow$ & $D_t$ 上的准确率 $\uparrow$ & & $D_f$ 上的准确率 $\downarrow$ & $D_t$ 上的准确率 $\uparrow$ \\
+\hline
+\multicolumn{3}{c||}{CIFAR10-ResNet18} & \multicolumn{3}{c}{GTSRB-ResNet18} \\
+\hline
+FedAvg & 98.60 & 66.64 & FedAvg & 97.93 & 58.54 \\
+$\ell_u$ & 6.70 & 65.51 & $\ell_u$ & 1.88 & 57.22 \\
+$\ell_r$ & 45.20 & 65.96 & $\ell_r$ & 95.68 & 55.15 \\
+$\ell_d$ & 75.40 & 65.92 & $\ell_d$ & 97.37 & 55.57 \\
+$\ell_u + \ell_r$ & 3.70 & 65.92 & $\ell_u + \ell_r$ & 2.26 & 57.49 \\
+$\ell_u + \ell_d$ & 6.80 & 65.51 & $\ell_u + \ell_d$ & 1.88 & 57.24 \\
+$\ell_r + \ell_d$ & 46.50 & 65.99 & $\ell_r + \ell_d$ & 95.68 & 55.20 \\
+$\alpha = 1.0$ & 43.80 & 66.06 & $\alpha = 1.0$ & 90.60 & 54.65 \\
+$\gamma = 1.0$ & 53.90 & 66.18 & $\gamma = 1.0$ & 12.41 & 57.53 \\
+% 灰色背景行
+\rowcolor{gray!10} Ours & 3.70 & 66.02 & Ours & 2.25 & 57.51 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{联邦遗忘系统的性能影响因素分析}
+表 \ref{tab:IMPACT_OF_VARYING_NUMBERS} 展示了在目标车辆数量不同的情况下，$\mathcal{F}(\omega^{\circ \prime})$ 在 CIFAR10 数据集上的性能表现。除目标车辆数量外，其余实验设置均保持为默认值。在遗忘效果方面，随着目标车辆数量的增加，VeriFed-UL 能够将 $D_f$ 上的准确率降低至 10\% 以下，表明其在消除 $D_f$ 影响方面具有良好的有效性。同时，VeriFed-UL 生成的$\mathcal{F}(\omega^{\circ \prime})$ 的 MIA 攻击成功率（ASR）接近于 $\mathcal{F}(\bar{\omega})$，且其 JSD 和 AD 均低于 FedAvg。这些现象源于 VeriFed-UL 能够有效地将 $D_f$ 的表征对齐至最近的错误非成员质心，从而使 $\mathcal{F}(\omega^{\circ \prime})$ 的行为与 $\mathcal{F}(\bar{\omega})$ 保持一致。在 $\mathcal{F}(\omega^{\circ \prime})$的预测性能方面，随着目标车辆数量的增加，VeriFed-UL 生成的$\mathcal{F}(\omega^{\circ \prime})$ 在 $D_t$ 上的准确率相较于原始全局模型有所下降。这是由于从全局模型中移除大量遗忘数据不可避免地会影响模型的预测能力。然而，在无需从头重训练全局模型的前提下，VeriFed-UL 在保证遗忘效果的同时，将预测性能的损失控制在 1.25\% 以内。综上所述，VeriFed-UL 在多车辆遗忘场景下表现出良好的有效性与可扩展性。
+\begin{table}[!ht]
+\centering
+\caption{不同数量的目标车辆对结果的影响}
+\label{tab:IMPACT_OF_VARYING_NUMBERS}
+\begin{tabular}{c||cccccc}
+\hline
+指标 & 方案 & 2 & 4 & 6 & 8 & 10 \\
+\hline
+\multirow{3}{*}{$D_t$ 上的准确率 $\uparrow$} 
+ & FedAvg & 66.64 & 66.19 & 64.74 & 66.52 & 63.53 \\
+ & Re\_train & 68.90 & 67.58 & 66.40 & 67.78 & 66.25 \\
+ \rowcolor{gray!10} & Ours & 66.02 & 65.34 & 63.90 & 65.27 & 62.47 \\
+\hline
+\multirow{3}{*}{$D_f$ 上的准确率 $\downarrow$} 
+ & FedAvg & 98.60 & 98.80 & 99.17 & 99.02 & 99.62 \\
+ & Re\_train & 2.80 & 3.70 & 4.53 & 4.47 & 5.44 \\
+ \rowcolor{gray!10} & Ours & 3.70 & 4.90 & 6.87 & 4.37 & 0.46 \\
+\hline
+\multirow{3}{*}{与 Re\_train 的 JSD} 
+ & FedAvg & 0.0053 & 0.0028 & 0.0019 & 0.0014 & 0.0014 \\
+ & Re\_train & - & - & - & - & - \\
+ \rowcolor{gray!10} & Ours & 0.0012 & 0.0006 & 0.0004 & 0.0002 & 0.0002 \\
+\hline
+\multirow{3}{*}{与 Re\_train 的 AD} 
+ & FedAvg & 1.3208 & 1.3137 & 1.3055 & 1.3020 & 1.2938 \\
+ & Re\_train & - & - & - & - & - \\
+ \rowcolor{gray!10} & Ours & 0.4806 & 0.4823 & 0.4709 & 0.4452 & 0.4566 \\
+\hline
+\multirow{3}{*}{MIA\_metric 攻击成功率} 
+ & FedAvg & 75.66 & 76.91 & 78.54 & 76.20 & 84.33 \\
+ & Re\_train & 50.00 & 50.00 & 50.00 & 50.00 & 50.00 \\
+ \rowcolor{gray!10} & Ours & 50.59 & 50.01 & 50.01 & 50.00 & 50.02 \\
+\hline
+\multirow{3}{*}{MIA\_model 攻击成功率} 
+ & FedAvg & 98.80 & 99.07 & 98.80 & 98.71 & 98.89 \\
+ & Re\_train & 50.10 & 50.02 & 49.73 & 50.15 & 50.80 \\
+ \rowcolor{gray!10} & Ours & 48.95 & 49.03 & 48.53 & 50.20 & 49.18 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+表 \ref{tab:IMPACT_OF_VARYING_PROPORTIONS} 展示了在 CIFAR10 数据集上，不同遗忘数据比例下 $\mathcal{F}(\omega^{\circ \prime})$ 的性能表现。在该实验中，目标车辆的比例为 20\%，车辆总数为 10。随着遗忘数据比例的增加，VeriFed-UL 在 $D_f$ 上取得的遗忘准确率与 Re\_train 相当。VeriFed-UL 所得到的 $\mathcal{F}(\omega^{\circ \prime})$ 的分布逐渐接近 $\mathcal{F}(\bar{\omega})$，成功地模拟了重新训练的效果。这一点可以通过 VeriFed-UL 相较于 FedAvg 具有更低的 JSD 和 AD 指标得到验证，表明 VeriFed-UL 能够有效降低模型对 $D_f$ 的记忆。无论遗忘数据的比例如何，VeriFed-UL 生成的 $\mathcal{F}(\omega^{\circ \prime})$ 在成员推断攻击（MIA）下的 ASR 始终接近 $\mathcal{F}(\bar{\omega})$，但显著低于 $\mathcal{F}(\omega^{\circ})$，说明 VeriFed-UL 在消除 $D_f$ 影响方面具有稳定的遗忘效果。VeriFed-UL 的有效遗忘以可接受的预测性能下降为代价，其预测性能的下降被控制在 1.61\% 以内。综上所述，VeriFed-UL 的 $\mathcal{F}(\omega^{\circ \prime})$ 成功丧失了区分目标数据的能力，并通过模仿 $\mathcal{F}(\bar{\omega})$ 验证了其在不同遗忘数据比例任务中的适用性。
+\begin{table}[!ht]
+\centering
+\caption{不同遗忘数据比例的影响}
+\label{tab:IMPACT_OF_VARYING_PROPORTIONS}
+\begin{tabular}{c||cccccc}
+\hline
+指标 & 方案 & 10\% & 15\% & 20\% & 25\% & 30\% \\
+\hline
+\multirow{3}{*}{$D_t$ 上的准确率 $\uparrow$} 
+ & FedAvg & 66.64 & 66.85 & 66.53 & 66.52 & 66.33 \\
+ & Re\_train & 68.90 & 67.73 & 67.59 & 67.47 & 68.98 \\
+ \rowcolor{gray!10} & Ours & 66.02 & 65.24 & 65.46 & 65.32 & 64.98 \\
+\hline
+\multirow{3}{*}{$D_f$ 上的准确率 $\downarrow$} 
+ & FedAvg & 98.60 & 98.53 & 98.35 & 98.36 & 98.37 \\
+ & Re\_train & 2.80 & 4.47 & 4.60 & 3.52 & 3.87 \\
+ \rowcolor{gray!10} & Ours & 3.70 & 2.13 & 2.00 & 2.24 & 1.47 \\
+\hline
+\multirow{3}{*}{与 Re\_train 的 JSD} 
+ & FedAvg & 0.0053 & 0.0033 & 0.0022 & 0.0017 & 0.0014 \\
+ & Re\_train & - & - & - & - & - \\
+ \rowcolor{gray!10} & Ours & 0.0012 & 0.0008 & 0.0006 & 0.0004 & 0.0004 \\
+\hline
+\multirow{3}{*}{与 Re\_train 的 AD} 
+ & FedAvg & 1.3208 & 1.3006 & 1.2981 & 1.3082 & 1.3060 \\
+ & Re\_train & - & - & - & - & - \\
+ \rowcolor{gray!10} & Ours & 0.4806 & 0.5017 & 0.4768 & 0.4379 & 0.4400 \\
+\hline
+\multirow{3}{*}{MIA\_metric 攻击成功率} 
+ & FedAvg & 75.66 & 75.16 & 74.77 & 74.67 & 74.57 \\
+ & Re\_train & 50.00 & 50.00 & 50.00 & 50.00 & 50.00 \\
+ \rowcolor{gray!10} & Ours & 50.59 & 50.08 & 50.13 & 50.15 & 50.03 \\
+\hline
+\multirow{3}{*}{MIA\_model 攻击成功率} 
+ & FedAvg & 98.80 & 98.63 & 98.73 & 98.64 & 98.93 \\
+ & Re\_train & 50.10 & 49.66 & 50.07 & 49.84 & 50.15 \\
+ \rowcolor{gray!10} & Ours & 48.95 & 50.13 & 50.85 & 50.70 & 50.65 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+表\ref{tab:IMPACT OF VARYING NUMBERS OF PARTICIPATING VEHICLES} 展示了在 CIFAR10 数据集上，不同参与车辆数量条件下 VeriFed-UL 的性能表现。所有车辆均参与训练过程，除车辆总数外，其余实验设置均保持默认。由于各车辆训练样本数量存在差异且引入了后门，FedAvg 在 $D_t$ 上的准确率会随着参与车辆数量的变化而产生较大波动。在表 \ref{tab:IMPACT OF VARYING NUMBERS OF PARTICIPATING VEHICLES} 中，VeriFed-UL 在 $D_f$ 上的准确率始终低于 10\%，该数值等同于随机选择的准确率，且其相较于 FedAvg 的预测性能损失低于 2\%。$\mathcal{F}(\omega^{\circ \prime})$ 与 $\mathcal{F}(\bar{\omega})$ 之间高度相似的分布进一步验证了 VeriFed-UL 的有效性。VeriFed-UL 在成员推断攻击（MIA）下同样获得了接近重新训练模型的 ASR，使得对 $D_f$ 的成员信息推断变得困难。综上所述，无论参与车辆数量如何变化，VeriFed-UL 在多项指标上均展现出与 Re train 相当的遗忘性能，并能够获得性能良好的更新模型 $\mathcal{F}(\omega^{\circ \prime})$。
+\begin{table}[!ht]
+\centering
+\caption{不同参与车辆数量的影响}
+\label{tab:IMPACT OF VARYING NUMBERS OF PARTICIPATING VEHICLES}
+\begin{tabular}{c||cccccc}
+\hline
+指标 & 方案 & 10 & 20 & 30 & 40 & 50 \\
+\hline
+\multirow{3}{*}{$D_t$ 上的准确率 $\uparrow$} 
+ & FedAvg & 66.64 & 61.93 & 53.15 & 56.40 & 54.01 \\
+ & Re\_train & 68.90 & 64.46 & 53.41 & 57.27 & 54.91 \\
+ \rowcolor{gray!10} & Ours & 66.02 & 60.19 & 51.69 & 55.00 & 52.01 \\
+\hline
+\multirow{3}{*}{$D_f$ 上的准确率 $\downarrow$} 
+ & FedAvg & 98.60 & 96.60 & 95.68 & 95.70 & 94.60 \\
+ & Re\_train & 2.80 & 5.20 & 5.12 & 4.10 & 5.90 \\
+ \rowcolor{gray!10} & Ours & 3.70 & 1.20 & 7.55 & 4.30 & 5.70 \\
+\hline
+\multirow{3}{*}{与 Re\_train 的 JSD} 
+ & FedAvg & 0.0053 & 0.0047 & 0.0037 & 0.0035 & 0.0022 \\
+ & Re\_train & - & - & - & - & - \\
+ \rowcolor{gray!10} & Ours & 0.0012 & 0.0011 & 0.0013 & 0.0009 & 0.0009 \\
+\hline
+\multirow{3}{*}{与 Re\_train 的 AD} 
+ & FedAvg & 1.3208 & 1.2669 & 1.2250 & 1.2254 & 1.1437 \\
+ & Re\_train & - & - & - & - & - \\
+ \rowcolor{gray!10} & Ours & 0.4806 & 0.5187 & 0.6984 & 0.5807 & 0.6584 \\
+\hline
+\multirow{3}{*}{MIA\_metric 攻击成功率} 
+ & FedAvg & 75.66 & 74.56 & 75.38 & 70.85 & 71.04 \\
+ & Re\_train & 50.00 & 50.00 & 50.00 & 50.00 & 50.00 \\
+ \rowcolor{gray!10} & Ours & 50.59 & 51.46 & 55.27 & 50.18 & 52.33 \\
+\hline
+\multirow{3}{*}{MIA\_model 攻击成功率} 
+ & FedAvg & 98.80 & 97.75 & 96.98 & 96.70 & 96.50 \\
+ & Re\_train & 50.10 & 49.60 & 49.94 & 50.15 & 51.20 \\
+ \rowcolor{gray!10} & Ours & 48.95 & 51.10 & 50.95 & 52.65 & 50.75 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+本文通过标签偏斜设置来模拟车辆间的非 IID 数据划分，并利用参数为 $\mu$ 的 Dirichlet 分布在 10 辆车辆之间调节异质性水平。表 \ref{tab:heterogeneity_impact} 展示了在 CIFAR10 数据集上，不同异质性水平下 VeriFed-UL 的有效性。实验中设置 $\alpha = 10$、$\beta = 0.01$、$\gamma = 0.1$，其余条件均采用默认设置。与 Re train 相比，数据异质性和后门分别导致 FedAvg 在 $D_t$ 上的准确率下降 6.96\% 和 0.29\%。VeriFed-UL 将 $D_f$ 上的准确率降低至 5\% 以下，同时相较于 FedAvg，在 $D_t$ 上的预测性能损失控制在 3.27\% 以内。在当前实验设置下，VeriFed-UL 在 $D_f$ 上的准确率高于 Re train。这可能归因于被遗忘数据与剩余数据之间的相似性，以及正则项对模型偏离 $\mathcal{F}(\omega^{\circ})$ 的约束。然而，鉴于 VeriFed-UL 在 $D_f$ 上的准确率相较于 $\mathcal{F}(\omega^{\circ})$ 低于 5\%，可以认为 VeriFed-UL 在强调预测性能保持的同时实现了有效遗忘。此外，VeriFed-UL 的 JSD、AD 以及成员推断攻击（MIA）的 ASR 均低于 $\mathcal{F}(\omega^{\circ})$，并逐渐接近 $\mathcal{F}(\bar{\omega})$。这些实验结果表明，VeriFed-UL 在异质数据场景下具有令人满意的表现。
+
+\begin{table}[!ht]
+\centering
+\caption{车辆间数据异构性的影响}
+\label{tab:heterogeneity_impact}
+\begin{tabular}{c||cc>{\columncolor{gray!10}}c||cc>{\columncolor{gray!10}}c}
+\hline
+\multirow{2}{*}{指标} & FedAvg & Re\_train & Ours & FedAvg & Re\_train & Ours \\
+\cline{2-7}
+ & \multicolumn{3}{c||}{$\mu = 1.0$} & \multicolumn{3}{c}{$\mu = 10.0$} \\
+\hline
+$D_t$ 上的准确率 $\uparrow$ & 61.26 & 68.22 & 58.28 & 70.98 & 71.27 & 67.71 \\
+$D_f$ 上的准确率 $\downarrow$ & 96.82 & 0.60 & 4.29 & 92.00 & 0.70 & 1.56 \\
+与 Re\_train 的 JSD & 0.0053 & - & 0.0024 & 0.0053 & - & 0.0011 \\
+与 Re\_train 的 AD & 1.3256 & - & 0.9913 & 1.2864 & - & 0.5351 \\
+MIA\_metric 攻击成功率 & 75.63 & 50.00 & 53.48 & 67.01 & 50.00 & 50.94 \\
+MIA\_model 攻击成功率 & 97.63 & 49.69 & 49.09 & 98.07 & 49.79 & 51.97 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+$D_t$ 的选择标准是确保其未参与 $\mathcal{F}(\omega^{\circ})$ 的训练。在 CIFAR10 数据集的默认实验设置下，本文构建了五种非成员数据场景，以模拟其相对于本地训练分布的不同程度的分布偏移，如表 \ref{tab:IMPACT OF THE NON-MEMBER DATA WITH DIFFERENT DISTRIBUTIONS FROM THE TRAINING DATA} 所示。情形 1 使用与训练数据分布相似的测试数据，构造分布内的非成员数据。情形 2 采用与训练数据非 IID 的测试数据来模拟标签分布偏移。情形 3 通过对本地训练数据施加常见扰动（如高斯噪声、雾化和模糊）生成噪声污染数据。情形 4 使用 CIFAR10.1 数据作为非成员数据，以模拟自然协变量偏移。情形 5 采用 STL10 测试数据作为分布外的非成员数据，该数据集常用于领域自适应研究。在表 \ref{tab:IMPACT OF THE NON-MEMBER DATA WITH DIFFERENT DISTRIBUTIONS FROM THE TRAINING DATA} 中，与 FedAvg 相比，所有情形在 $D_t$ 上的准确率下降均不超过 1.14\%。在所有情形下，$D_f$ 上的准确率与 Re train 的差异均小于 1\%。得益于在遗忘过程中明确定义的优化方向，VeriFed-UL 在所有情形下均取得了显著低于 FedAvg 的 JSD 和 AD 指标。各情形下的成员推断攻击（MIA）成功率均接近 Re train，这与设计初衷一致，即成功完成遗忘的模型在 $D_f$ 上的表现应与在未见数据上的表现相近。综上所述，即使在对 $\mathcal{F}(\omega^{\circ})$ 训练数据分布先验知识不完备的情况下，VeriFed-UL 仍表现出良好的鲁棒性。
+
+\begin{table}[!ht]
+\centering
+\caption{具有与训练数据不同分布的非成员数据的影响}
+\label{tab:IMPACT OF THE NON-MEMBER DATA WITH DIFFERENT DISTRIBUTIONS FROM THE TRAINING DATA}
+\begin{tabular}{c||ccccccc}
+\hline
+指标 & FedAvg & Re\_train & Case 1 & Case 2 & Case 3 & Case 4 & Case 5 \\
+\hline
+$D_t$ 上的准确率 $\uparrow$ & 66.64 & 68.90 & 66.02 & 65.64 & 65.81 & 65.50 & 65.66 \\
+$D_f$ 上的准确率 $\downarrow$ & 98.60 & 2.80 & 3.70 & 3.80 & 3.20 & 3.50 & 3.30 \\
+与 Re\_train 的 JSD & 0.0053 & - & 0.0012 & 0.0013 & 0.0014 & 0.0013 & 0.0012 \\
+与 Re\_train 的 AD & 1.3208 & - & 0.4806 & 0.4984 & 0.5116 & 0.4964 & 0.4884 \\
+MIA\_metric 攻击成功率 & 75.66 & 50.00 & 50.59 & 50.29 & 50.40 & 50.30 & 50.30 \\
+MIA\_model 攻击成功率 & 98.80 & 50.10 & 48.95 & 48.80 & 49.45 & 48.75 & 48.50 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{联邦遗忘系统的计算效率与效果评估}  
+表 \ref{tab:THE COMPUTATIONAL COSTS OF REPRESENTATION EXTRACTION AND RETRIEVING CENTROIDS ACROSS VARIOUS DATASETS} 报告了在不同数据集上表征提取（即 Time1）和质心检索（即 Time2）的计算成本。这两项操作是影响 VeriFed-UL 效率的关键因素。尽管随着非成员样本数量和复杂度的增加，质心向量的计算时间相应增长，但每个目标车辆仅需执行一次该操作。此外，随着类别数量的增加，每个被遗忘数据点需要进行更多相似度计算，以在不同类别的质心中匹配最近的质心。表\ref{tab:THE COMPUTATIONAL COSTS OF REPRESENTATION EXTRACTION WITHDIFFERENT PROPORTIONS OF NON-MEMBER DATA} 展示了在 CIFAR10 数据集上，不同非成员数据比例下表征提取的计算成本。从表\ref{tab:THE COMPUTATIONAL COSTS OF REPRESENTATION EXTRACTION WITHDIFFERENT PROPORTIONS OF NON-MEMBER DATA} 可以看出，VeriFed-UL 在不同规模的非成员数据条件下均能稳定实现有效遗忘，其整体效率还可通过减少非成员数据数量进一步提升。尽管与表 \ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY}   和表 \ref{tab:COMPARISONS_ON_UNLEARNING_EFFICIENCY2}   所示的主动联邦遗忘方法相比，VeriFed-UL 并非最高效方案，但其相较于被动联邦遗忘方法节省了更多时间，并且通过执行一定次数的迭代即可获得令人满意的性能（如图 \ref{fig:f3-sys1} 和图 \ref{fig:f3-sys7} 所示）。更为重要的是，VeriFed-UL 在保持预测性能方面具有显著优势，这凸显了其在 IoV 场景中的适用性，因为在该场景下，可靠且安全的服务保障至关重要。
+
+
+\begin{table}[!ht]
+\centering
+\caption{各数据集中表征提取与质心检索的计算成本}
+\label{tab:THE COMPUTATIONAL COSTS OF REPRESENTATION EXTRACTION AND RETRIEVING CENTROIDS ACROSS VARIOUS DATASETS}
+\begin{tabular}{c||ccccccc}
+\hline
+数据 & FMNIST & CIFAR10 & SVHN & CIFAR100 & GTSRB & LOAN & NBAIOT \\
+\hline
+实例数 & 10000 & 10000 & 26032 & 10000 & 12630 & 90430 & 110000 \\
+类别数 & 10 & 10 & 10 & 100 & 43 & 9 & 11 \\
+$\text{Time}_1(s)$ & 0.95 & 3.21 & 4.03 & 1.81 & 5.27 & 8.38 & 10.3 \\
+$\text{Time}_2(s)$ & 0.0018 & 0.0017 & 0.0017 & 0.0168 & 0.0076 & 0.0020 & 0.0019 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[!ht]
+\centering
+\caption{具有不同比例非成员数据的表征提取的计算成本}
+\label{tab:THE COMPUTATIONAL COSTS OF REPRESENTATION EXTRACTION WITHDIFFERENT PROPORTIONS OF NON-MEMBER DATA}
+\begin{tabular}{c||ccccccc}
+\hline
+指标 & FedAvg & Re\_train & 20\% & 40\% & 60\% & 80\% & 100\% \\
+\hline
+$\text{Time}_1(s)$ & - & - & 0.51 & 1.25 & 1.34 & 2.21 & 3.21 \\
+$D_t$ 上的准确率 $\uparrow$ & 66.64 & 68.90 & 65.78 & 65.75 & 65.80 & 66.02 & 66.02 \\
+$D_f$ 上的准确率 $\downarrow$ & 98.60 & 2.80 & 3.80 & 4.00 & 3.90 & 4.20 & 3.70 \\
+与 Re\_train 的 JSD & 0.0053 & - & 0.0012 & 0.0012 & 0.0012 & 0.0012 & 0.0012 \\
+与 Re\_train 的 AD & 1.3208 & - & 0.4804 & 0.4833 & 0.4783 & 0.4828 & 0.4806 \\
+MIA\_metric 攻击成功率 & 75.66 & 50.00 & 50.59 & 50.58 & 50.68 & 50.65 & 50.59 \\
+MIA\_model 攻击成功率 & 98.80 & 50.10 & 49.00 & 49.15 & 49.15 & 49.15 & 48.95 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+本文将 VeriFed-UL 扩展至类别级遗忘任务，在 CIFAR10 上以目标标签 5、在 CIFAR100 上以超类 5 作为遗忘目标。为直观观察 VeriFed-UL 在类别级遗忘中的效果，本文采用 Grad-CAM  对模型在 CIFAR10 和 CIFAR100 被遗忘类别上的注意力图进行可视化。如图 \ref{fig:f3-sys8} 所示，注意力图突出显示了输入图像中与模型对特定类别预测最相关的关键区域。由于训练过程中不再包含目标类别的数据，$\mathcal{F}(\bar{\omega})$ 的注意力图相比 $\mathcal{F}(\omega^{o})$ 发生了显著变化。此外，VeriFed-UL 将被遗忘模型的注意力从判别性区域重定向至背景区域，并产生错误的预测结果。综上，可视化结果表明 VeriFed-UL 成功丧失了区分目标类别的能力，并验证了其在类别级遗忘任务中的适用性。
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}
+  \node[inner sep=0, rounded corners=1pt, clip]
+   {
+\includegraphics[width=0.7\textwidth,trim=11.6cm 4.5cm 9.5cm 2.5cm, clip]{picture/类别遗忘任务注意力图谱.pdf}};
+\end{tikzpicture}
+    \caption{
+        类别遗忘任务注意力图谱
+    }
+    \label{fig:f3-sys8}
+\end{figure}
+
+\section{本章小节}
+本节提出了 VeriFed-UL，一种面向 IoV 的实用联邦遗忘框架，可在无需耗时重训练的情况下，从全局模型中消除车辆指定的待遗忘数据的影响，同时将全局模型预测性能的退化降至最低。首先，VeriFed-UL 将一种轻量级的本地遗忘过程集成到联邦学习中。其次，VeriFed-UL 针对车辆指定的待遗忘数据精心设计了对齐目标，并引入表征空间净化机制，以有效移除待遗忘数据对全局模型的影响。此外，VeriFed-UL 通过在目标车辆的剩余数据上调整全局模型以修复其输出分布，并引入正则化项以缓解模型漂移，从而在遗忘过程中保持全局模型的预测性能。最后，基于多种评估指标的实验结果表明，VeriFed-UL 能够以较高的计算效率实现有效遗忘，并且对未遗忘数据上的全局模型预测性能几乎没有影响。需要指出的是，VeriFed-UL 等近似遗忘方法在遗忘完整性、模型效用以及遗忘效率等目标之间不可避免地存在权衡。未来工作将采用多目标优化算法，通过动态调整相应权重，在多个子目标之间实现帕累托最优。此外，VeriFed-UL 主要遵循已有研究，其有效性已在小规模模型上得到验证。在此基础上，探索面向联邦基础模型、受对齐思想启发的近似遗忘策略，以适应不同任务，是一个值得进一步研究的方向。
+
+
+\chapter{零知识证明的表征对齐与DAG共识机制}
+VeriFed-UL 框架提出了一种“主动遗忘”机制。将遗忘过程转化为表征空间（Representation Space）的重构。这种几何层面的对抗性调整，使得模型在面对已遗忘数据时，表现出与面对未见数据（Unseen Data）相同的不可知行为，从而在数学层面实现了记忆的擦除，同时最大程度保留了对剩余数据（Retain Set）的分类能力。然而，在车联网这一典型的非受信环境中，VeriFed-UL面临着验证性危机（Verifiability Crisis）。IoV具有高度的动态性， 理性的车辆节点可能为了节省宝贵的车载计算资源（电池、算力），虚假报告已完成遗忘，实则提交随机噪声或未修改的梯度; 恶意攻击者可能声称删除了包含后门触发器（Backdoor Trigger）的数据，但实际上并未移除，导致全局模型在遗忘后仍保留安全漏洞。传统的联邦学习缺乏一种机制来证明：“车辆确实执行了VeriFed-UL规定的表征对齐操作，且未泄露任何隐私数据。”
+
+针对上述验证缺口，本文提出在VeriFed-UL联邦遗忘基础上，引入区块链：基于零知识证明的几何约束验证协议（Geometric Zero-Knowledge Proof for Representation Alignment, Geo-ZKP），并部署于面向高并发车联网的DAG（有向无环图）共识账本之上。针对VeriFed-UL的特征向量向质心移动定制了密码学证明系统。它允许车辆生成一个简短的零知识证明，向路侧单元（RSU）证明其本地模型更新已经满足了“遗忘数据特征向量与目标质心距离小于阈值”的几何约束，而无需暴露特征向量本身。这一机制为VeriFed-UL提供了去中心化的信任锚点，确保了遗忘操作的物理执行与数学有效性。
+
+现有的区块链辅助联邦学习方案大多将区块链仅作为一个不可篡改的日志存储层（Immutable Ledger） 。它们记录模型更新的哈希值、任务发布的智能合约或奖励分配记录。这种“存证型”区块链无法深入到模型训练/遗忘的计算逻辑内部。它能证明“车辆提交了更新”，却无法证明“更新的内容符合VeriFed-UL的数学要求”。本章需要一种计算型验证层，结合密码学的零知识性与几何学的约束检查，并符合VeriFed-UL的算法逻辑。区块链流程如图\ref{fig:block}所示：
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{picture/零知识证明的表征对齐与 DAG 共识机制.pdf}
+    \caption{
+        零知识证明的表征对齐与DAG共识机制
+    }
+    \label{fig:block}
+\end{figure}
+
+\section{表征空间中的遗忘逻辑与可验证数学约束}
+本节不再重复联邦遗忘算法的完整流程，而是从验证视角出发，抽象出 VeriFed-UL 遗忘操作中唯一需要被外部证明的几何不变量（Geometric Invariants）。
+
+\subsection{验证视角下的联邦遗忘抽象}
+在联邦学习场景中，设全局模型 $\mathcal{F}(\omega)$ 由特征提取器 $f(\omega_e)$ 与分类器 $h(\omega_c)$ 组成，其中$f:\mathcal{X}\rightarrow\mathcal{Z}\subset\mathbb{R}^d$将输入映射至低维表征空间。对于目标车辆 $u_i$ 上的遗忘数据集 $\mathcal{D}_f$，VeriFed-UL 的遗忘效果体现在：更新后的模型$\mathcal{F}(\omega^u)$提取的特征表征不再保留与原始正确类别相关的判别信息，而是呈现出与非成员数据一致的几何分布特征。
+
+从验证角度来看，VeriFed-UL 的遗忘操作并非一个难以捉摸的“黑盒过程”，而是应满足一组明确的几何不变量。具体而言，VeriFed-UL 利用非成员数据刻画“未被记忆”的表征分布。对于每一类别 $j$，本文基于该类别非成员数据计算其特征质心 $C_i^{j^*}$ 。这个质心代表了模型在处理该类别的陌生样本时，所产生的典型特征表征模式。对于任一待遗忘样本 $(x_f, y_f)\in\mathcal{D}_f$，其遗忘后的特征向量应被主动对齐至某一错误类别的最近非成员质心$C_i^{j^*}$。
+
+因此，外部系统（如 RSU 或区块链节点）判断“遗忘是否真实发生”，并不需要复现完整的反向传播过程，而只需验证如下事实：更新后的模型是否使遗忘样本的特征表征，落入目标非成员分布的安全邻域内。
+
+\subsection{可验证遗忘命题的形式化}
+基于上述抽象，本文将 VeriFed-UL 的遗忘语义转化为以下两个可验证的数学命题，这两个命题构成了后续零知识证明电路（Circuit）的核心约束。
+
+命题 A（几何有效性）:对于承诺执行遗忘操作的样本 $(x_f, y_f)\in\mathcal{D}_f$，更新后的模型$\mathcal{F}(\omega^u)$ 提取的特征表征应满足其与目标非成员质心 $C_i^{j^*}$ 的距离小于预定义阈值 $\tau$：
+\begin{equation}
+\| f(x_f; \omega_e^u) - C_i^{j^*} \|_2^2 < \tau .
+\label{eq:forget_condition}
+\end{equation}
+该命题刻画了遗忘操作在表征空间中的有效性，保证被遗忘样本在几何意义上已偏离原始类别簇，且不可区分于未见数据。其中，$C_i^{j^*}$ 作为公共输入，确保了对齐目标的客观性。
+
+命题 B（微创性）:为防止车辆通过极端参数扰动规避几何约束，或恶意破坏全局模型的收敛性，更新后的模型参数应满足：
+\begin{equation}
+\| \omega^u - \omega^o \|_2^2 < \lambda ,
+\end{equation}
+其中 $\omega^o$ 为遗忘前模型参数，$\lambda$ 为系统允许的最大参数漂移阈值。该约束对应于 VeriFed-UL 中的正则化项 $l_d$，确保遗忘操作具有局部性与可控性，既避免了对保留数据集的灾难性遗忘，也防御了针对联邦学习的模型投毒攻击。
+
+需要指出的是，上述命题涉及高维神经网络的前向计算（Forward Propagation）与欧氏距离度量，传统区块链智能合约无法在链上直接执行此类复杂计算。此外，直接上传 $x_f$ 或 $\omega^u$ 进行明文验证将泄露用户隐私及模型机密。
+
+因此，本节引入零知识证明技术，由车辆在链下生成满足上述几何约束的计算证明（Proof），并在不泄露原始数据、特征向量或模型参数明文的前提下，向路侧单元证明其遗忘操作符合 VeriFed-UL 的数学定义。
+
+
+\section{基于几何零知识证明的可验证遗忘约束机制}
+本节详细阐述 Geo-ZKP 的设计。不同于通用的 zk-ML（零知识机器学习）方案试图证明整个训练过程（这在计算上过于昂贵），Geo-ZKP 采用“结果导向”的验证策略，仅证明遗忘后的模型状态满足特定的几何性质。
+
+本章采用 zk-SNARKs（Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge）作为底层协议，具体选择 Groth16 算法，因其证明大小恒定（仅 3 个群元素，约 128-200 字节）且验证速度极快（毫秒级），非常适合带宽受限的 V2X 环境。
+\subsection{几何零知识证明电路}
+VeriFed-UL的核心逻辑是：
+\begin{equation}\min_{\omega^u} l_{u}(f(x_f; \omega_e^u), C_{i}^{j^*})\end{equation}
+即最小化遗忘样本 $x_f$ 的特征表征 $f(x_f; \omega_e^u)$ 与目标质心 $C_i^{j^*}$ 之间的距离。为了在不泄露 $x_f$ 和 $f(x_f; \omega_e^u)$ 的前提下证明这一点，本章设计一个算术电路（Arithmetic Circuit），并在其上构建zk-SNARK（零知识简洁非交互知识论证）证明。
+
+\subsubsection{算术电路的总体架构}
+在 zk-SNARK 中，计算过程必须被“扁平化”为秩为1的约束系统（Rank-1 Constraint System, R1CS），即一系列形如 $(A \cdot s) \times (B \cdot s) = (C \cdot s)$ 的约束，其中 $s$ 是包含所有输入、输出和中间变量的见证向量（Witness Vector）。
+
+Geo-ZKP 电路 $\mathcal{C}_{Geo}$ 定义为一个关系 $\mathcal{R}$，包含公开输入 $\mathbf{x}$ 和私有见证 $\mathbf{w}$：\\
+公开输入（Public Inputs, $\mathbf{x}$）包括：
+\begin{itemize}
+\item$H(\omega^o)$：上一轮全局模型权重的哈希。
+\item$H(\omega^u)$：更新后本地模型权重的哈希。
+\item$C_i^{j^*}$：目标错误类别的质心向量（由 RSU 或智能合约指定）。
+\item$R_{\mathcal{D}_i}$：本地数据集的 Merkle Root（用于成员资格证明）。
+\item$\tau, \lambda$：几何距离阈值和参数漂移阈值。
+\end{itemize}
+私有输入（Private Witness, $\mathbf{w}$）包括：
+\begin{itemize}
+\item$\omega^o, \omega^u$：具体的模型权重参数。
+\item$x_f$：实际被遗忘的数据样本。
+\item$path$：数据 $x_f$ 在 Merkle 树中的认证路径。
+\end{itemize}
+电路 $\mathcal{C}_{Geo}$ 由四个关键组件（Gadgets）级联而成，分别负责量化计算、几何距离验证、正则化约束及数据所有权证明。
+
+\subsection{Geo-ZKP可验证遗忘约束机制的关键组件}
+\subsubsection{量化特征提取电路}
+在 R1CS 电路中执行深度神经网络（DNN）的前向传播是 Geo-ZKP 面临的首要挑战。标准的神经网络依赖于 32 位或 64 位浮点数运算，而 zk-SNARKs 运行在有限域 $\mathbb{F}_p$（通常是素数域）上，仅支持模加和模乘运算。为了弥合这一鸿沟，本研究设计了基于定点数算术（Fixed-Point Arithmetic）的量化特征提取电路。
+
+(1)全局量化策略
+
+设缩放因子为 $S = 2^k$（本研究取 $k=16$ 以平衡精度与溢出风险）。对于任意来自遗忘模型 $\omega^u$ 的浮点权重 $\omega_{flt}$ 和激活值 $a_{flt}$，其在电路内的表示为整数 $\omega_{int} = \lfloor \omega_{flt} \cdot S \rceil$。
+
+(2)矩阵乘法与重缩放（Rescaling）
+
+神经网络中的核心操作是线性变换 $y = \mathbf{W}x + \mathbf{b}$。在电路中，该运算转化为整数算术：$$y_{int} = (\mathbf{W}_{int} \times x_{int}) \div S + \mathbf{b}_{int}$$其中 $\mathbf{W}_{int}$ 和 $\mathbf{b}_{int}$ 对应于特征提取器参数 $\omega_e^u$ 的量化形式。这里存在一个关键问题：两个缩放因子为 $S$ 的定点数相乘，结果的缩放因子变为 $S^2$。为了保持后续层计算的比例一致，必须执行除以 $S$ 的截断操作。在 R1CS 中，除法运算极其昂贵。本章采用位分解（Bit Decomposition）技术来实现高效的重缩放验证。对于乘积结果 $P = \mathbf{W}_{int} \times x_{int}$，电路引入商 $Q$ 和余数 $R$ 作为辅助信号，并施加以下约束：\begin{align}P &= Q \cdot S + R\end{align}该约束迫使 $Q$ 成为 $P/S$ 的整数部分，从而在不执行除法指令的情况下实现了向下取整的重缩放。
+
+(3)非线性激活函数的电路化
+
+VeriFed-UL 使用的 CNN 模型包含 ReLU 激活函数。在电路中，ReLU ($y = \max(0, x)$) 的实现是非平凡的，因为有限域 $\mathbb{F}_p$ 上没有直接的“正负”概念。本章通过引入辅助二进制变量 $b \in \{0, 1\}$ 来构建条件约束：约束 1： $y = x \cdot b$，确保当 $b=1$ 时 $y=x$，当 $b=0$ 时 $y=0$。约束 2： $y \cdot (1-b) = 0$，确保输出的一致性。约束 3： 利用 Circom 库中的 LessThan 组件，比较 $x$ 与 $p/2$。若 $x > p/2$，则将其视为负数，即有限域内的补码表示，强制 $b=0$；否则 $b=1$。
+
+\subsubsection{平方欧氏距离验证组件}
+这是 Geo-ZKP 的核心几何约束组件，用于验证命题 A。由于在算术电路中直接计算平方根运算成本极高且伴随精度损失，本章将原命题 $||f(x_f; \omega_e^u) - C_i^{j^*}||_2 < \sqrt{\tau}$ 转化为等价的平方形式进行验证：$$\sum_{k=1}^{d} (z'_k - (C_i^{j^*})_k)^2 < \tau$$其中 $k$ 表示特征向量的维度索引，$z'_k$ 是量化特征向量 $f(x_f; \omega_e^u)$ 的第 $k$ 个分量，$(C_i^{j^*})_k$ 是目标质心的对应分量。该组件的 R1CS 约束构建包含以下三个步骤：1. 差值计算与有限域算术对于特征向量的每一维 $k \in [1, d]$（例如 ResNet18 中 $d=512$），引入中间信号 $\delta_k$：$$\delta_k = z'_k - (C_i^{j^*})_k$$注意：此处的减法是在有限域 $\mathbb{F}_p$ 上进行的。当 $z'_k < (C_i^{j^*})_k$ 时，结果 $\delta_k$ 会回绕为域中的大整数（即负数的补码形式）。只要域大小 $p$ 远大于最大可能的平方和（防止溢出），这种表示在数学上是安全的。2. 平方约束引入信号 $\sigma_k$，并添加乘法约束：$$\delta_k \times \delta_k = \sigma_k$$由于在模算术中 $(-x)^2 \equiv x^2 \pmod p$，有限域上的平方运算自动消除了符号的影响，正确计算了欧氏距离的项。3. 累加与范围证明（Range Proof）定义累加信号 $D_{sum} = \sum_{k=1}^d \sigma_k$。最后，使用比较器组件 LessThan 验证 $D_{sum} < \tau$。这通常涉及将 $D_{sum}$ 进行二进制分解并进行逐位比较。
+
+具体的伪代码逻辑如算法\ref{alg:squared-euclidean-distance-cn}所示：
+\begin{algorithm}[htbp]
+\caption{Geo-ZKP：带范围验证的平方欧氏距离计算}
+\label{alg:squared-euclidean-distance-cn}
+\begin{algorithmic}[1]
+\Statex \textbf{输入:} 私有特征向量 $\mathbf{z}' \in \mathbb{F}^d$ 
+        \Comment{对应 $f(x_f; \omega_e^u)$}
+\Statex \textbf{输入:} 公共质心向量 $\mathbf{c} \in \mathbb{F}^d$ 
+        \Comment{对应 $C_i^{j^*}$}
+\Statex \textbf{输入:} 公共几何阈值 $\tau$ 
+        \Comment{平方距离阈值}
+\Statex \textbf{输出:} 平方欧氏距离 $D_{sum}$ 及其范围合规性验证结果
+
+\State 初始化累加器 $D_{sum} \gets 0$
+\For{$k = 1$ 到 $d$}
+    \State $\delta_k \gets z'_k - c_k$ 
+           \Comment{有限域差值，自动处理负数回绕}
+    \State $\sigma_k \gets \delta_k \times \delta_k$ 
+           \Comment{R1CS 平方约束：$\delta_k \cdot \delta_k - \sigma_k = 0$}
+    \State $D_{sum} \gets D_{sum} + \sigma_k$ 
+           \Comment{线性累加约束}
+\EndFor
+\State $\mathit{check} \gets \text{LessThan}(D_{sum}, \tau)$ 
+       \Comment{调用比较组件进行范围证明}
+\State \textbf{Assert} $(\mathit{check} = 1)$ 
+       \Comment{若距离超限，则证明失败}
+\State \Return $D_{sum}$
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{模型漂移正则化组件}
+为了构建完整的信任闭环，验证命题 B（微创性）至关重要。若允许车辆随意修改模型，攻击者可能将所有权重置零以满足几何距离约束，却导致全局模型失效（灾难性遗忘）。正则化组件通过约束参数变化量的 $L_2$ 范数来防止此类攻击。
+
+参数空间的距离约束该组件的目标是验证遗忘后模型参数 $\omega^u$相对于原始模型 $\omega^o$ 的漂移量满足安全阈值：
+\begin{equation}
+\sum_{k=1}^{|\omega|} (\omega^u_k - \omega^o_k)^2 < \lambda
+\end{equation}
+其中 $|\omega|$ 为模型参数总量，$\omega^u_k, \omega^o_k$ 为量化后的整数权重。
+
+(1)基于 Merkle 抽样的随机验证（Randomized Spot-Checking）
+
+由于现代神经网络参数量巨大（如 ResNet18 约 11M 参数），
+直接在电路中加载所有参数计算差值将产生数亿个约束，
+超出车载单元的计算能力。
+为此，本研究引入基于 Fiat--Shamir 变换的随机采样验证策略：
+
+\begin{itemize}
+    \item 种子生成：利用区块链前一区块哈希作为公共种子（Public Seed）。
+    \item 索引生成：生成一组伪随机索引集合
+          $\mathcal{I} \subset \{1, \ldots, |\omega|\}$
+          （例如 $|\mathcal{I}| = 1000$）。
+    \item 采样约束：电路仅验证采样参数子集的漂移：
+    \begin{equation}
+    \sum_{k \in \mathcal{I}} (\omega^u_k - \omega^o_k)^2 < \lambda'
+    \end{equation}
+    其中
+    $\lambda' \approx \frac{|\mathcal{I}|}{|\omega|}\lambda$
+    为调整后的采样阈值。
+\end{itemize}
+
+注意：为了在不加载全量模型的情况下证明采样参数 $\omega_k$ 的真实性，假设模型参数在链上通过 Merkle Tree 形式存储，电路接收采样权重的 Merkle Path 作为私有见证，验证其归属于公共输入 $R_{\omega^o}$ 和 $R_{\omega^u}$（即参数树的根哈希）。这使得验证复杂度从 $O(|\omega|)$ 降低至$O(|\mathcal{I}| \log |\omega|)$。
+
+(2)电路实现流程
+
+电路实现该组件时接收私有输入：采样权重对 $\{(\omega^u_k, \omega^o_k)\}_{k \in \mathcal{I}}$及其对应的 Merkle 认证路径。电路执行流程如下：
+
+\begin{itemize}
+    \item 成员资格检查：验证每个 $\omega^u_k$ 和 $\omega^o_k$
+          的 Merkle Path 是否分别指向公共根
+          $R_{\omega^u}$ 和 $R_{\omega^o}$。
+    \item 差值平方累加：复用“平方欧氏距离组件”逻辑，
+          计算 $\sum (\omega^u_k - \omega^o_k)^2$。
+    \item 阈值判定：利用 LessThan 组件确保累加结果小于 $\lambda'$。
+\end{itemize}
+
+\subsubsection{数据一致性与成员资格组件}
+
+为了防止“凭空遗忘”攻击（即攻击者使用随意构造的噪声图片来生成证明，而非真实的训练数据），以及确保计算所用模型参数的真实性，电路必须验证所有私有输入的合法性。此组件负责将私有见证与区块链上的公开承诺（Commitment）进行密码学绑定。
+
+(1)基于 Poseidon 的 Merkle 完整性验证
+
+本研究选用 Poseidon Hash 作为电路内的核心哈希原语。相比传统的 SHA-256（依赖位运算，在素数域 $\mathbb{F}_p$ 上极其昂贵），Poseidon 专门为 zk-SNARKs 设计，其 S-Box 采用 $x^\alpha$ 形式，在 R1CS 中的约束数量可减少约 100 倍。为了解决全量参数验证的性能瓶颈，本章不再在电路中计算整个模型的哈希，而是验证参数的 Merkle 承诺。对于特征提取电路和正则化组件中使用的每一个权重参数 $\omega^u_k$，电路验证其 Merkle Path 是否指向公共根 $H(\omega^u)$。$$\text{Constraint: } \text{MerkleVerify}(\omega^u_k, \text{path}_k, H(\omega^u)) == \text{True}$$这确保了用于推理和验证的所有参数均与车辆在链上广播的全局状态严格一致。
+
+(2)数据成员资格证明 (Data Membership Proof)
+
+车辆在联邦学习训练阶段，需将其本地数据集 $\mathcal{D}_i$ 的 Merkle Root ($R_{\mathcal{D}_i}$) 上链。在遗忘阶段，电路接收私有输入：待遗忘样本 $x_f$ 及其在 Merkle 树中的认证路径 $path_{x}$。电路内部执行 Root 重建算法：$$\text{ComputedRoot} = \text{MerkleRootCalculation}(x_f, path_{x})$$并施加一致性约束：$$\text{Constraint: } \text{ComputedRoot} == R_{\mathcal{D}_i}$$该约束证明了私有输入 $x_f$ 确实属于该车辆在训练阶段注册过的合法数据集 $\mathcal{D}_i$。这实现了数据全生命周期的可追溯性，有效防御了攻击者利用无关噪声数据欺骗 VeriFed-UL 验证系统的风险。
+
+
+\subsection{Geo-ZKP 协议执行流程与复杂度分析}
+综合上述组件，Geo-ZKP 在 VeriFed-UL 中的完整执行流程如下：
+
+(1)系统设置（Setup）：由可信第三方或通过 MPC（多方安全计算）生成 Groth16 算法的证明密钥 $pk$ 和验证密钥 $vk$。此过程在系统初始化阶段完成一次。
+
+(2)遗忘请求与执行（Unlearning Execution）：目标车辆 $u_i$ 在本地执行 VeriFed-UL 算法，优化得到更新后的模型参数 $\omega^u$。
+
+(3)见证生成（Witness Generation）：车辆将原始参数 $\omega^o$、更新参数 $\omega^u$、待遗忘样本 $x_f$ 及其 Merkle 路径、目标质心 $C_i^{j^*}$ 等转化为有限域元素，并依据 R1CS 电路逻辑计算所有中间信号（包括特征提取、距离计算及正则化采样的中间值），形成完整的见证向量 $\mathbf{w}$。
+
+(4)证明生成（Proof Generation）：车辆利用证明密钥 $pk$，基于公开输入 $\mathbf{x}$ 和私有见证 $\mathbf{w}$ 生成零知识证明 $\pi$。该证明仅包含三个椭圆曲线群元素 $(A, B, C)$，大小约为 128 字节，恒定不变。$$\pi \leftarrow \text{Prove}(pk, \mathbf{x}, \mathbf{w})$$
+
+(5)交易发布与验证（Transaction \& Verification）：车辆构建遗忘交易 $TX$，并广播至车联网 DAG 网络：$$TX = \{H(\omega^o), H(\omega^u), C_i^{j^*}, R_{\mathcal{D}_i}, \text{Seed}, \pi\}$$其中 $\text{Seed}$ 为用于正则化采样的前一区块哈希。RSU 节点收到交易后，解析公开输入 $\mathbf{x}$ 并运行验证算法：$$\text{Verify}(vk, \mathbf{x}, \pi) \rightarrow \{0, 1\}$$仅当验证结果为 1 时，RSU 才会接受该模型更新并将其纳入全局聚合。
+
+以下从电路复杂度与安全性两个方面，对所提出机制进行系统性分析，重点评估其在零知识验证环境下的可扩展性、验证开销以及在对抗恶意参与方时所能提供的安全保障：
+
+(1)电路复杂度分析
+
+Geo-ZKP 的电路约束主要由三部分组成：特征提取、几何距离验证及正则化约束。\begin{itemize}\item 特征提取（主要开销）：对于轻量级 CNN 模型（如 LeNet-5 或简化版 MobileNet），特征提取涉及约 $10^4 \sim 10^5$ 个乘法约束。若采用完整的 ResNet-18，约束量级将升至 $10^7$，生成证明需分钟级时间。考虑到 V2X 场景的实时性需求，本研究建议在验证阶段采用知识蒸馏（Knowledge Distillation）得到的轻量化代理模型，或通过硬件加速（如 FPGA/GPU）来缩短证明时间。\item 几何距离与正则化：得益于本章的“平方距离转化”和“随机采样”策略，这两部分的约束量被控制在 $O(d)$ 和 $O(|\mathcal{I}|)$ 级别（约 5,000 - 10,000 约束），相比全量参数验证降低了 3-4 个数量级。\item 总体性能：在 NVIDIA Jetson AGX Orin 平台上，针对适配车联网的轻量级模型，Geo-ZKP 的证明生成时间约为 1.5 - 3.0 秒。虽然高于常规推理时间，但对于“被遗忘权”这种非硬实时（Non-hard Real-time）任务，该延迟在可接受范围内。\end{itemize} 
+
+(2)安全性分析
+
+\begin{itemize}\item 完备性（Completeness）：诚实的车辆若严格执行 VeriFed-UL，其生成的特征向量 $f(x_f; \omega_e^u)$ 必然满足几何约束，从而通过验证。\item 可靠性（Soundness）：对于采用“懒惰更新”策略的攻击者，若其返回 $\Delta \omega = 0$，特征向量将停留在原始正确类别的聚类中心，与目标质心 $C_i^{j^*}$ 的距离必然超过阈值 $\tau$。此时，攻击者无法构造出满足 $D_{sum} < \tau$ 约束的有效见证，验证必然失败。\item 零知识性（Zero-Knowledge）：证明 $\pi$ 的生成引入了随机盲化因子，RSU 在验证过程中无法反推 $x_f$（原始数据）或 $\omega^u$（模型参数明文）的任何信息，实现了数据隐私与模型知识产权的双重保护。\end{itemize}
+
+
+
+\section{适配车联网的高并发 DAG 共识框架}
+传统的联邦学习依赖中心服务器进行聚合，容易成为单点故障；而简单的区块链化（如基于 PBFT 或 PoW）则受限于吞吐量（TPS），无法应对车联网中成千上万车辆同时发起的遗忘请求。本研究提出一种基于 DAG（有向无环图）的异步共识机制，取代单一的主链结构。
+
+在 DAG 账本（如 IOTA Tangle）中，没有“区块”的概念，交易（Transaction）直接相互链接。其核心规则是：任何新交易必须验证并引用之前的两笔交易（Tips）。
+
+高并发性（Asynchronous Concurrency）：车辆 $A$ 和车辆 $B$ 可以同时发布遗忘请求，无需竞争打包进同一个区块。随着网络中交易量的增加，验证能力反而增强（因为更多节点参与了 Tip Selection）。
+
+低延迟：不需要等待区块确认时间（Block Time），交易一经广播并被后续交易引用，其累积权重（Cumulative Weight）即开始增长，实现快速确认。
+
+本节将车联网中的遗忘交易账本建模为一个有向无环图 $\mathcal{G} = (\mathcal{V}, \mathcal{E})$。
+
+顶点集合 $\mathcal{V}$：每个顶点 $v \in \mathcal{V}$ 代表一笔由车辆或 RSU 发布的遗忘交易 $TX$。为了支持 Geo-ZKP 的链上验证，一笔完整的交易结构定义为：$$TX = \{ID_{node}, \underbrace{H(\omega^o), H(\omega^u)}_{\text{Model Links}}, \underbrace{C_i^{j^*}}_{\text{Target}}, \underbrace{URI_{\omega}}_{\text{Payload}}, \pi_{zkp}, \text{Tips}, TS, \text{Sig}\}$$
+
+其中：
+$ID_{node}$ 为发起者身份标识；
+
+$H(\omega^o)$ 为本轮遗忘所基于的原始全局模型哈希（对应前文公开输入）；
+
+$H(\omega^u)$ 为遗忘后本地模型参数的哈希；
+
+$C_i^{j^*}$ 为车辆声明对齐的目标错误类别质心 1；
+
+$URI_{\omega}$ 为模型参数实体的链下存储地址（如 IPFS CID）；
+
+$\pi_{zkp}$ 为节生成的零知识证明；
+
+$\text{Tips}$ 为引用的父交易列表；$TS$ 为时间戳；$\text{Sig}$ 为数字签名。
+
+边集合 $\mathcal{E}$：有向边 $(A, B) \in \mathcal{E}$ 表示交易 $A$ 引用并验证了交易 $B$。在 DAG 术语中，将 $A$ 称为 $B$ 的批准者（Approver）。
+
+创世规则与末端节点（Tips）：图谱始于一个预定义的创世交易（Genesis Transaction）。在任意时刻 $t$，图中那些尚未被任何新交易引用的节点集合被称为 Tips 集合，记为 $\mathcal{T}_t \subset \mathcal{V}$。当一辆车 $V_i$ 准备发布新的遗忘请求时，它必须按照特定的末端选择算法（Tip Selection Algorithm）从 $\mathcal{T}_t$ 中选择 $k$ 个（通常 $k=2$）父交易进行引用。
+
+这一过程蕴含了“累积验证”的哲学：当交易 $A$ 引用了交易 $B$，意味着 $A$ 的发起者已经验证了 $B$ 的 Geo-ZKP 证明 $\pi_{zkp}^B$ 合法，且检查了 $B$ 的签名有效性。值得注意的是，此处的验证仅针对元数据和零知识证明，无需下载 $URI_{\omega}$ 中的全量模型参数，从而保证了轻量级特性。 这种机制将验证工作量分摊到了全网所有参与节点，随着交易量的增加，网络的验证能力反而增强，呈现出优异的可扩展性。
+
+在 DAG 共识中，防止“垃圾交易”（Spamming）阻塞网络的关键在于严格的准入控制。不同于 IOTA 仅依赖微量的 PoW（工作量证明），本框架利用 VeriFed-UL 特有的 Geo-ZKP 作为交易的“入场券”。
+
+对于任意新接收到的交易 $TX_{new}$，节点必须执行以下验证流程方可将其加入本地 DAG 副本：
+
+句法验证：检查数据格式、时间戳是否在有效窗口内。
+
+签名验证：验证 $\text{Sig}$ 是否由 $ID_{node}$ 的公钥生成，确保不可抵赖性。
+
+语义验证（Geo-ZKP）：节点提取交易中的元数据构建公开输入向量 $\mathbf{x}$，并调用验证算法：$$Ver(vk, \underbrace{[H(\omega^o), H(\omega^u), C_i^{j^*}, R_{\mathcal{D}_i}]}_{\mathbf{x}}, \pi_{zkp}) \overset{?}{=} 1$$其中 $R_{\mathcal{D}_i}$ 为该车辆在训练阶段注册的数据集 Merkle 根 2。若 $Ver(\cdot) = 0$，说明该车辆未真实执行遗忘操作或未满足公式 (2-1) 定义的几何约束，该交易被标记为无效，且不会被任何诚实节点引用；若 $Ver(\cdot) = 1$，交易被视为合法候选，进入 Tips 选择池。
+
+这种设计确保了 DAG 中的每一条边都代表了一次成功的数学验证，构建了一个“由数学真理编织的信任网络”。
+
+\subsection{遗忘贡献证明与动态信誉机制}
+本章构建了一个多维度的动态信誉系统，每个车辆节点 $u_i$ 维护一个动态信誉评分 $R_i(t) \in [0, R_{max}]$。该信誉值不仅决定了车辆在全局聚合中的权重，还影响其交易被网络确认的速度。
+
+信誉更新遵循“加法增长、乘法惩罚”（Additive Increase Multiplicative Decrease, AIMD）原则，以实现快速的作恶响应与稳定的贡献积累。
+
+\subsubsection*{1. 贡献奖励 (Reputation Accumulation)}
+当车辆 $u_i$ 发布的遗忘交易 $TX$ 被 RSU 确认为有效（即通过 ZK 验证并被主链收录）时，其信誉值按如下规则更新：
+$$R_i(t+1) = \min\left(R_{max}, \ e^{-\mu \Delta t} \cdot R_i(t) + \alpha \cdot \Psi(TX) \right)$$
+
+其中：
+\begin{itemize}
+    \item $e^{-\mu \Delta t}$ 为时间衰减因子，其中 $\mu$ 为衰减系数，$\Delta t$ 表示自该节点上一次成功参与更新以来的时间间隔。这迫使车辆必须持续贡献，依靠历史贡献“坐享其成”的节点信誉会随时间自然流失，防止了早期参与者的信誉垄断。
+    \item $\alpha$ 为基础增长步长。
+    \item $\Psi(TX)$ 为任务工作量加权函数，定义为：
+    $$ \Psi(TX) = w_1 \cdot \mathcal{N}_{verified} + w_2 \cdot \mathbb{I}(\text{Urgent}) $$
+    其中 $\mathcal{N}_{verified}$ 表示经 Geo-ZKP 电路验证的有效遗忘样本数量（即 ZK 证明中的 Batch Size，需作为公开输入 $\mathbf{x}$ 的一部分），$\mathbb{I}(\cdot)$ 为指示函数。该公式表明，验证通过的遗忘数据量越大、任务越紧急，获得的信誉奖励越高。
+\end{itemize}
+
+\subsubsection*{2. 作恶惩罚 (Reputation Slashing)}
+若 RSU（作为拥有强算力的审计节点）在验证过程中发现 $u_i$ 提交的证明 $\pi_{zkp}$ 无法通过验证方程 $Ver(vk, \mathbf{x}, \pi_{zkp}) = 0$，或者其公开输入 $\mathbf{x}$ 中的数据根 $R_{\mathcal{D}_i}$ 与历史注册记录不符，则触发信誉削减：$$R_i(t+1) = R_i(t) \cdot \beta, \quad (\beta \in [0, 0.5])$$
+对于严重攻击行为（如女巫攻击或模型投毒），$\beta$ 可设为 0，直接将节点拉入黑名单（CRL），并在物理层阻断其接入。
+
+\subsection{改进的信誉加权 MCMC 尾部选择算法}
+在 DAG 网络中，如何选择 Tips 进行引用决定了图谱的生长方向。标准的 MCMC（马尔可夫链蒙特卡洛）算法仅基于交易数量的累积权重，容易受到“寄生链攻击”（Parasite Chain Attack）。
+
+本研究提出基于信誉加权的 MCMC 算法。当新交易需选择父节点时，从创世节点出发执行随机游走。假设当前粒子位于交易 $x$，其直接批准者（Direct Approvers）集合为 $\mathcal{A}_x = \{y_1, y_2, \dots\}$（即引用了 $x$ 的后续交易），则粒子跳转到下一跳交易 $y \in \mathcal{A}_x$ 的转移概率 $P_{xy}$ 定义为 Boltzmann 分布形式：
+
+$$P_{xy} = \frac{\exp\left(-\kappa \cdot (CW_x - CW_y)\right)}{\sum_{z \in \mathcal{A}_x} \exp\left(-\kappa \cdot (CW_x - CW_z)\right)}$$
+
+其中，$\kappa > 0$ 为随机游走参数，用于调节选择过程的熵。$\kappa$ 值越大，游走越倾向于选择权重最大的分支（主链）；$\kappa$ 值越小，游走越接近均匀随机分布。
+
+在此，本章重构了累积权重（Cumulative Weight, CW）的定义。对于任意交易 $x$，设其发起节点为 $u(x)$，该节点的当前信誉值为 $R_{u(x)}$（由前文 PoUC 机制维护），则 $CW_x$ 定义为自身信誉与所有后续引用者的权重之和：
+
+$$
+CW_x = 
+\begin{cases} 
+R_{u(x)}, & \text{if } \mathcal{A}_x = \emptyset \ (\text{i.e., } x \text{ is a Tip}) \\
+R_{u(x)} + \sum_{y \in \mathcal{A}_x} CW_y, & \text{otherwise}
+\end{cases}
+$$
+
+在物理场景中，信誉高的车辆（即历史 ZKP 验证记录良好的节点）发布的交易，其 $CW$ 值增长极快。根据转移概率公式，随机游走粒子将以极高的概率流向由高信誉节点生成的子树。这在 DAG 中形成了一条由高质量遗忘贡献构成的“主链”（Main Chain）。恶意节点或低信誉节点（如懒惰客户端）发布的交易，由于缺乏高信誉节点的后续引用（Approving），其 $CW$ 值增长停滞。随机游走算法“路过”这些低权重分支的概率极低，导致它们最终无法被选为 Tips，成为无法并入全局模型的“孤块”。这从网络拓扑层面实现了对无效或虚假遗忘贡献的自动过滤。
+
+
+\subsection{分层混合共识与全局模型聚合}
+纯粹的 DAG 架构虽然解决了高并发问题，但其拓扑结构的最终一致性是概率性的，且缺乏一个明确的全局模型“版本号”。为了适配联邦遗忘对模型同步的需求，本章设计了“边缘 DAG + 核心 BFT”的分层混合共识机制。
+
+\subsubsection{边缘侧：局部 DAG 收敛与快照}
+在路侧单元（RSU）覆盖的局部范围内，车辆持续异步地发布交易，构建局部 DAG。RSU 作为拥有较高计算与存储能力的边缘节点，充当“观察者”和“收割者”的角色：
+
+\begin{itemize}
+    \item 子图维护与主路径识别：RSU 实时维护本地的 DAG 账本，并通过计算各交易的累积权重（CW）来识别由高信誉交易构成的\textbf{主权重路径}（Heavy-Weight Path）。这一路径代表了网络中大多数诚实算力认可的遗忘历史。
+
+    \item 置信度评估与确定性转化： 对于主路径上的某一笔交易 $TX$，RSU 持续监控其累积信誉权重 $CW_{TX}$。当 $CW_{TX}$ 超过预设的置信度阈值 $\Theta_{conf}$（例如设定为当前活跃节点总信誉的 67\%）时，RSU 认为该交易已达到\textbf{概率确定性}（Probabilistic Finality），将其状态标记为“已确认”。
+
+    \item 数据回取与快照生成 (Data Retrieval \& Snapshotting)： 
+    一旦交易被确认，RSU 将根据 $TX$ 中的 $URI_{\omega}$ 指针，从链下存储（如 IPFS）异步下载实际的模型更新参数 $\Delta \omega_i$。每隔固定时间窗口（例如 10 秒），RSU 对该窗口内所有新确认的、且通过了 Geo-ZKP 验证的更新进行\textbf{局部聚合}，生成局部状态快照 $S_{local}$：
+    $$ S_{local}^{(t)} = \text{Agg}_{local}\left( \{ \Delta \omega_i \mid TX_i \in \text{Confirmed}_t \} \right) $$
+    此处引入局部聚合不仅降低了向核心层传输的带宽开销，也隔离了边缘侧的异步抖动。
+\end{itemize}
+
+\subsubsection{核心层：RSU 委员会的轻量级 BFT 共识}
+为了在不同 RSU 之间同步全局模型，利用 RSU 之间的高速骨干网络（Backhaul Network），运行一个轻量级的拜占庭容错共识（如 HotStuff 或简化版 PBFT）。
+
+为了适配分层架构，本章重新定义了局部快照与全局聚合的数学形式：
+
+局部快照结构：RSU $k$ 生成的局部快照 $S_{local}^{(k)}$ 不仅包含聚合参数，还需包含该区域的信誉统计信息，即 $S_{local}^{(k)} = \langle \Delta \Omega_k, \ R_{\Sigma_k} \rangle$，其中：
+$$ \Delta \Omega_k = \sum_{i \in \text{Confirmed}_k} R_i \cdot \Delta \omega_i, \quad R_{\Sigma_k} = \sum_{i \in \text{Confirmed}_k} R_i $$
+
+共识流程：
+
+\begin{itemize}
+    \item 提案阶段：轮值的主 RSU 收集各 RSU $k$ 上传的局部快照 $S_{local}^{(k)}$，计算出新一轮全局模型候选值 $\omega_{cand}$，并构建包含该候选模型及所有快照签名的区块进行广播。
+    
+    \item 验证与投票：委员会成员 RSU 验证区块内快照的合法性（检查签名及 PoUC 信誉计算正确性），并验证 $\omega_{cand}$ 是否由各快照正确聚合而成。
+    
+    \item 提交阶段： 一旦获得 $2/3$ 以上成员的签名，新一轮的全局模型 $\omega_{global}^{t+1}$ 即达成强一致性共识。
+\end{itemize}
+
+全局聚合公式：最终的模型更新利用各 RSU 提交的信誉加权中间态进行计算，实现了对底层车辆贡献的无损还原，同时避免了原始数据的传输：
+
+$$ \omega_{global}^{t+1} = \omega_{global}^t + \eta \cdot \frac{\sum_{k \in \mathcal{K}} \Delta \Omega_k}{\sum_{k \in \mathcal{K}} R_{\Sigma_k}} $$
+
+其中 $\mathcal{K}$ 为参与本轮聚合的 RSU 集合，$\eta$ 为全局服务器端学习率。该公式在数学上等价于对所有底层车辆进行信誉加权平均，确保了高信誉车辆对全局模型的话语权。
+
+\subsection{安全性博弈分析与威胁防御}
+本架构的核心价值在于防御车联网环境下针对联邦遗忘特有的攻击向量。本章将安全攻防过程建模为理性的博弈过程，论证系统在纳什均衡下的安全性。
+
+\subsubsection{针对“懒惰客户端”的理性博弈模型}
+威胁描述： 车辆 $u_i$ 为节省算力，不执行反向传播和 Geo-ZKP 生成过程，直接提交 $\Delta \omega = 0$ 或随机噪声，并伪造完成日志。
+
+博弈分析：设车辆参与单次遗忘任务的净效用函数为 $U_{client} = \text{Gain} - \text{Cost}$。
+
+\begin{itemize}
+    \item 诚实策略 (Honest)：$\text{Cost}_{honest}$ 为执行 Geo-ZKP 的算力成本（$\mathcal{C}_{zkp}$），$\text{Gain}_{honest}$ 为信誉提升带来的长期服务收益期望（正比于 $\alpha \cdot \Psi(TX)$）。
+    
+    \item 懒惰策略 (Lazy)： 攻击者不进行计算，故 $\text{Cost}_{lazy} \approx 0$。但根据 Geo-ZKP 的\textbf{可靠性 (Soundness)} 性质，若模型参数未发生真实的几何对齐，即 $||f(x; \omega^u) - C_i^{j^*}|| \ge \tau$，则验证函数 $Ver(\pi) = 0$ 的概率接近 1。
+\end{itemize}
+
+防御逻辑： 由于 RSU 的强制验证机制，懒惰交易将被拒绝，并根据 PoUC 机制触发信誉乘法惩罚 $\beta$。其效用函数对比为：
+
+$$ U_{lazy} = 0 - \text{Loss}(R_i) \approx - (1-\beta)R_i(t) < 0 $$
+$$ U_{honest} = \Delta R_{gain} - \mathcal{C}_{zkp} > 0 $$
+
+结论： 只要系统设定的信誉激励 $\Delta R_{gain}$ 大于生成证明的算力成本 $\mathcal{C}_{zkp}$，满足 $U_{honest} > U_{lazy}$，则\textbf{诚实执行}即为该博弈的唯一严格纳什均衡点。理性的车辆将被迫选择诚实计算以最大化自身效用。
+
+\subsubsection{防御恶意留存与后门攻击的密码学硬度}
+威胁描述： 攻击者声称删除了包含后门触发器的数据 $x_{backdoor}$，但实际上保留了该数据及对应的模型参数，导致后门在遗忘后依然有效。
+
+防御逻辑： VeriFed-UL 的数学本质是强迫特定样本的表征发生定向偏移。Geo-ZKP 将这一过程转化为不可绕过的算术电路约束。
+
+\begin{itemize}
+    \item 输入绑定性 (Input Binding)： 电路中的 Merkle Proof 约束 $\text{MerkleVerify}(x, path) == R_{\mathcal{D}_i}$ 强制攻击者必须使用先前注册的真实训练数据 $x_{backdoor}$ 作为电路私有输入，无法用无关样本顶替。
+    
+    \item 几何约束硬度 (Geometric Hardness)： 电路强制验证 $||f(x_{backdoor}; \omega^u) - C_i^{j^*}|| < \tau$。如果攻击者保留了后门，意味着模型参数未发生足以改变特征分布的更新（即 $\omega^u \approx \omega^o$），则 $x_{backdoor}$ 的表征必然仍位于原正确类别的簇中，与目标错误质心 $C_i^{j^*}$ 的距离将显著大于 $\tau$。
+\end{itemize}
+
+结果：攻击者面临\textbf{互斥性安全困境 (Mutually Exclusive Dilemma)}——要么修改模型参数以通过 ZK 验证（这在数学上等价于破坏了后门触发机制），要么保留后门但无法生成有效的 ZK 证明。因此，RSU 验证通过 $\pi_{zkp}$ 这一事实，即构成了后门已被消除的密码学证明。
+
+\subsubsection{针对女巫攻击与垃圾交易的信誉屏障}
+威胁描述：攻击者模拟海量虚假身份（Sybil Identities），向 DAG 发布大量无效更新以阻塞网络或稀释诚实节点的权重。
+
+防御逻辑：
+
+\begin{itemize}
+    \item 冷启动屏障： 新加入网络的节点初始信誉 $R_0$ 设定为极低值。根据信誉加权 MCMC 算法，随机游走粒子选中低信誉节点的概率呈指数级衰减。女巫节点发布的交易将大概率成为“孤块”，无法影响主链共识。
+    
+    \item 算力不对称： 生成一个有效的 Geo-ZKP 证明需要不可忽略的计算成本（约 0.5-1.5 秒）。Geo-ZKP 在此处充当了有意义的工作量证明。攻击者若要维持大规模垃圾交易，必须投入巨大的算力资源，导致攻击成本远高于潜在收益。
+    
+    \item 动态隔离：一旦 RSU 检测到某公钥频繁提交无效证明，将通过 CRL（证书撤销列表）在协议接入层直接阻断其连接请求，实现对恶意节点的快速隔离。
+\end{itemize}
+
+
+
+\section{性能评估与可行性分析}
+假设 RSU 覆盖范围内有 500 辆车，平均每辆车每小时发起 1 次遗忘请求。
+\begin{itemize}
+    \item PBFT： 随着并发数增加，交易排队延迟呈指数上升，平均确认时间 $> 10s$。
+    \item DAG： 由于采用异步验证，交易确认时间 $T_{confirm}$ 随交易量增加反而缩短（更多 Tips 可供引用）。根据 IOTA Tangle 的理论模型推演，在高负荷下网络可稳定维持 1,000+ TPS，足以支撑智慧城市级别的车联网大规模部署。
+\end{itemize}
+
+\subsection{能源消耗估算}
+考虑到电动汽车（EV）的电池敏感性，Geo-ZKP 的能耗是必须考量的指标。基于 NVIDIA Orin 的热设计功耗（TDP $\approx 30W$），车辆端生成一次证明耗时约 $t_{gen} = 1.2s$，则单次遗忘证明生成的能耗 $E_{prove}$ 为：
+\begin{equation}
+E_{prove} = P_{avg} \times t_{gen} \approx 30W \times 1.2s = 36 \text{ Joules}
+\end{equation}
+相比之下，车载空调运行 1 秒钟的能耗约为 1000-3000 Joules。Geo-ZKP 的能耗仅相当于空调运行 0.03 秒的电量。因此，引入该安全机制不会对新能源汽车的续航里程产生任何可感知的负面影响。
+
+\subsection{隐私与安全性的形式化总结}
+本节对前述章节的安全性设计进行归纳：
+\begin{enumerate}
+    \item 计算隐私：基于 zk-SNARKs 的\textbf{零知识性（Zero-Knowledge Property）}，证明 $\pi_{zkp}$ 的分布独立于私有见证 $w$（包含 $x_f$ 和 $\omega^u$）。攻击者无法从公开的证明流中提取关于特征向量或原始数据的任何有效信息，其反推复杂度等同于破解底层椭圆曲线密码学难题（如 ECDLP）。
+    
+    \item 前向安全性：即使攻击者在 $t$ 时刻攻破了车辆并获取了当前密钥，由于 ZK 证明生成依赖于当时的数据快照（Witness），攻击者无法伪造或还原历史时刻 $t-1$ 的数据状态。
+    
+    \item 抗合谋攻击：PoUC 信誉机制与 DAG 的随机游走算法结合，使得恶意节点合谋构建“寄生链”的成功概率随着主链累积权重的增加呈指数衰减：$P(Attack) \propto e^{-\kappa \cdot CW}$（其中 $\kappa$ 为 MCMC 随机游走参数）。
+\end{enumerate}
+
+综上所述，本章提出的 Geo-ZKP 与 DAG 融合架构，在算力开销、通信带宽、网络吞吐、能源消耗四个关键工程指标上均表现优异，是在车联网环境中实现“可信联邦遗忘”的最优解之一。
+
+\section{系统实现与区块链性能评估实验}
+前文提出了基于 Geo-ZKP 的可验证联邦遗忘架构与面向车联网的 DAG 共识机制。本章将基于 Python 仿真环境对该架构进行系统级实现，重点评估其在计算开销、网络吞吐量及安全性方面的表现。不同于传统的依赖外部区块链节点（如 Geth）的部署方式，本实验通过在联邦学习框架内部构建高保真的区块链仿真组件，实现了模型训练与链上验证的无缝耦合，从而验证所提方案在逻辑与工程上的可行性。
+\subsection{系统实现架构}
+为了在现有联邦遗忘框架（FedEditor）基础上引入区块链验证层，本章扩展了原有的系统架构。仿真系统主要由三个核心模块组成：基于 flcore 的联邦学习模块、基于密码学原语的证明生成模块以及基于 Python 对象的区块链账本仿真模块。
+
+本章将系统划分为以下三个功能层，代码结构遵循高内聚、低耦合原则：
+
+(1)链下计算层：在客户端（flcore/clients/clientavg.py）中集成了 Geo-ZKP 证明生成器。车辆在完成本地 VeriFed-UL 遗忘训练后，不再直接上传参数，而是调用 ZKPGenerator 类。该类模拟了电路约束计算过程，输入更新后的模型参数 $\omega^u$、目标质心 $C_i^{j^*}$ 以及遗忘特征向量 $f(x_f; \omega^u)$，输出包含几何距离密文与时间戳的模拟证明 $\pi_{sim}$。
+
+(2)链上验证层：通过 blockchain/smart\_contract.py 实现 VerifierContract 类，模拟以太坊虚拟机（EVM）的执行逻辑。该合约维护系统参数（如距离阈值 $\tau$），并实现了标准 Groth16 验证接口的仿真版本 verify\_transaction()。该函数通过检查证明中的几何约束 $D_{sum} < \tau$ 以及 Merkle 根的一致性，决定交易的有效性，并同步计算执行所需的虚拟 Gas 开销。
+
+(3)共识账本层：通过 blockchain/ledger.py 实现 DAGLedger 类，模拟车联网环境下的异步账本。该模块维护一个交易池，并模拟 DAG 的交易确认逻辑：当一笔包含模型更新的交易被接收时，系统自动触发合约验证。只有通过验证的交易才会被标记为 CONFIRMED 状态，并具备被服务器（Server）聚合的资格。同时，该模块实现了信誉（Reputation）的累积逻辑，为每笔有效交易计算 PoUC 贡献值。
+
+系统运行时的关键交互流程如下：
+(1) 证明生成： 客户端 $u_i$ 执行遗忘后，计算特征向量均值与目标质心的欧氏距离平方，并打包生成交易 $TX_i$。
+
+(2) 交易广播： $TX_i$ 被推送到 DAGLedger 的待确认队列。
+
+(3) 自动验证： 仿真器自动调用 VerifierContract 对队列中的 $TX_i$ 进行逻辑校验，模拟 Gas 扣除，并根据结果更新交易状态。
+
+(4) 可信聚合： 服务器端 serveravg.py 在聚合阶段，仅从账本中拉取状态为 CONFIRMED 的模型参数，自动剔除无效或恶意的更新。
+
+为了评估区块链引入后的系统开销，本章设定了如表\ref{tab:blockchain-params}所示的实验参数。其中，Gas 开销模型参考了以太坊黄皮书及 Circom Groth16 验证的标准消耗值。
+\begin{table}[htbp]
+\centering
+\caption{区块链仿真实验参数设置}
+\renewcommand{\arraystretch}{1.4}
+\label{tab:blockchain-params}
+\begin{tabular}{llll}
+\toprule
+参数类别 & 参数项 & 设定值 & 说明 \\
+\midrule
+\multirow{2}{*}{网络规模}
+& 客户端总数（Clients） & 50 & 模拟中型车联网群组 \\
+& 并发比例（Concurrency） & 10\% -- 100\% & 测试吞吐量的动态变化 \\
+\midrule
+\multirow{2}{*}{模型参数}
+& 基础模型 & ResNet-18 & 与前文保持一致 \\
+& 几何阈值（$\tau$） & 0.5 & 判定遗忘是否成功的距离上限 \\
+\midrule
+\multirow{3}{*}{区块链参数}
+& 单次验证 Gas 基准 & 245{,}000 Gas & 模拟 Groth16 配对检查开销 \\
+& 区块确认延迟 & 异步（Asynchronous） & 模拟 DAG 网络的非阻塞确认 \\
+& 恶意节点比例 & 20\% & 用于安全性测试 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{实验结果与分析}
+本章重点关注引入区块链验证层带来的系统级影响，主要采用以下三个指标：
+
+(1)链上开销与时延（Overhead \& Latency）：
+
+证明生成时间 ($T_{gen}$)：车辆端生成 Geo-ZKP 证明的计算耗时。
+
+验证耗时 ($T_{ver}$)：智能合约执行验证逻辑的耗时。
+
+Gas 消耗：模拟执行验证所需的虚拟 Gas 总量，用于评估经济成本。
+
+(2)系统吞吐量（Throughput）：
+
+每秒交易数 (TPS)：在高并发请求下，DAG 账本每秒能够确认并存入的有效模型更新数量。
+
+(3)安全性与有效性（Security \& Utility）：
+
+攻击拦截率 (AIR)：系统成功识别并拒绝恶意交易（如懒惰更新）的比例。
+
+聚合模型精度：在存在攻击者的情况下，仅聚合链上确认模型后的全局模型在测试集 $D_t$ 上的准确率。
+
+
+\subsection{计算开销分解与量化精度权衡评估}
+(1)链上验证开销评估
+为了量化 Geo-ZKP 方案的效率，将本文方法与“全量参数验证（Full-Param）”和“无区块链（No-Chain）”方案进行了对比。在 Full-Param 方案中，假设智能合约需要读取 ResNet-18 的所有权重并在链上计算哈希，这会消耗巨大的 Gas。
+
+详细的性能测试数据如表 \ref{tab:verification-overhead} 所示。在车辆端，Geo-ZKP 引入了约 1.24 秒的证明生成开销 ($T_{\text{gen}}$)，这对于分钟级延迟容忍度的遗忘任务完全可接受。而在链上验证环节，图 \ref{fig:overhead} 直观地展示了文方法与全量参数验证方案的巨大性能鸿沟。
+
+\begin{table}[htbp]
+\centering
+\caption{不同方案的验证开销对比}
+\label{tab:verification-overhead}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{lcccX}
+\hline
+方案 
+& 证明生成耗时 ($T_{\text{gen}}$) 
+& 链上验证耗时 ($T_{\text{ver}}$) 
+& 模拟 Gas 消耗 
+& 结果分析 \\
+\hline
+No-Chain 
+& 0s 
+& 0s 
+& 0 
+& 无安全保障，零开销 \\
+
+Full-Param 
+& -- 
+& $>$10s（模拟超时） 
+& $>$5{,}000{,}000 
+& 超出区块 Gas 上限，在实际区块链环境中不可行 \\
+
+Ours (Geo-ZKP) 
+& \textbf{1.24s} 
+& \textbf{0.004s} 
+& \textbf{$\sim$245{,}000} 
+& \textbf{低延迟，经济可行} \\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picture/链上验证开销对比.pdf}
+    \caption{链上验证开销对比}
+    \label{fig:overhead}
+\end{figure}
+
+
+结合表 \ref{tab:verification-overhead} 的具体数值可见，得益于零知识证明的简洁性，链上验证耗时仅为 4 毫秒，Gas 消耗稳定在 24.5 万单位。相比之下，全量参数验证的开销呈爆炸式增长（Gas $>5 \times 10^6$），在实际环境中几乎不可部署。该结果有力地证明了 Geo-ZKP 方案在工程实现上的高效性与可扩展性。
+
+(2)证明生成时间的细粒度分解
+在前述实验中，观测到车辆端生成一次 Geo-ZKP 证明的平均耗时约为 1.24 秒。为了探究该计算开销的构成并识别性能瓶颈，本研究对证明生成过程中的三个核心组件——特征提取（Feature Extraction）、几何距离计算（Distance Calculation）及 Merkle 成员资格证明（Membership Proof）——进行了耗时分解测试。
+
+如图 \ref{fig:Time_Breakdown} 所示，特征提取阶段占据了总耗时的绝大部分（约 78\%）。这是因为在算术电路（R1CS）中模拟卷积神经网络的矩阵乘法需要生成海量的乘法约束，导致证明生成的计算复杂度与模型参数量呈线性相关。相比之下，几何距离验证与 Merkle 路径校验的耗时仅占 15\% 和 7\%。这一结果表明，Geo-ZKP 的主要计算负载源于将神经网络前向传播转化为电路约束的过程。这不仅验证了前文引入“量化特征提取电路”以降低约束规模的必要性，也提示未来的优化方向应集中于轻量化代理模型的设计或特定电路结构的硬件加速。
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{picture/Geo-ZKP证明生成时间的细粒度分解.pdf}
+    \caption{Geo-ZKP 证明生成时间的细粒度分解}
+    \label{fig:Time_Breakdown}
+\end{figure}
+
+
+(3)量化位宽与验证准确率的权衡分析
+Geo-ZKP 采用定点数算术来适配零知识证明电路，量化位宽 $k$ 的选择直接决定了计算精度与电路规模。为了验证 2.2.2 节中选取 $k=16$ 的合理性，本章设置了一组对比实验，测试了 $k \in \{8, 12, 16, 20, 32\}$ 时电路约束数量（代表计算开销）与验证通过率（代表准确性）的变化关系。
+
+实验结果如图 \ref{fig:Quantization}所示。当量化位宽较低（$k=8$）时，由于精度损失导致的舍入误差较大，部分诚实车辆提交的合法更新计算出的几何距离 $D_{sum}$ 错误地超出了阈值 $\tau$，导致验证通过率仅为 82.4\%，产生了不可接受的“误拒”现象。随着位宽增加，验证通过率迅速回升至 100\%。然而，当 $k$ 超过 20 后，虽然精度不再是问题，但电路的 R1CS 约束数量呈指数级增长，导致证明生成时间显著延长，甚至超出了车载硬件的实时处理能力。综合考量，$k=16$ 是一个关键的“甜点（Sweet Spot）”：在此位宽下，系统既保持了接近 100\% 的验证准确率（无精度导致的误判），又将电路规模控制在可接受范围内。该实验数据有力地支撑了系统参数设置的科学性。
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{picture/量化位宽对计算开销与验证精度的权衡分析.pdf}
+    \caption{量化位宽对计算开销与验证精度的权衡分析}
+    \label{fig:Quantization}
+\end{figure}
+
+
+\subsection{DAG 高并发吞吐性能测试}
+为了验证系统在车联网高并发场景下的适应能力，编写了压力测试脚本 \texttt{test\_dag\_throughput.py}，模拟了从 50 到 500 个并发交易请求瞬间涌入账本的场景，并记录系统处理完成的 TPS。如图\ref{fig:throughput}所示，Python 仿真的 DAG 账本在并发请求数增加时，展现出了优异的扩展性。在低负载（$<100$ 并发）下，系统几乎实时确认，延迟可忽略不计。随着并发数提升至 500，系统峰值吞吐量达到了 1200+ TPS。这主要得益于仿真中 DAGLedger 的异步处理逻辑，验证过程（\texttt{verify\_transaction}）是并行执行的，不会阻塞后续交易的接收。相比传统区块链（如 PBFT）在并发增加时因节点通信复杂度$O(N^2)$ 导致性能急剧下降，本文提出的 DAG 架构能够充分利用边缘侧的计算资源，适合承载 IoV 环境下大规模车辆同时发起的遗忘请求。
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{picture/高并发场景下的系统吞吐量对比.pdf}
+    \caption{高并发场景下的系统吞吐量 (TPS) 对比}
+    \label{fig:throughput}
+\end{figure}
+
+
+\subsection{抗“懒惰客户端”攻击安全性验证}
+为了验证系统抵御恶意行为的鲁棒性，本章在由 50 个客户端构成的联邦网络中引入了对抗场景：随机指定 10 个客户端（占比 20\%）模拟“懒惰攻击者”。这些节点在接收到遗忘请求后，仅返回未修改的原始模型参数以骗取信誉值，而未执行实际的 VeriFed-UL 算法。实验重点考察了引入区块链验证机制前后，全局模型在遗忘集 $D_f$ 和测试集 $D_t$ 上的性能演变，具体的量化对比结果汇总于表 \ref{tab:security-results}。
+
+在缺乏区块链保护的基准场景下，服务器因无法辨识更新的真实性，盲目聚合了 20\% 的懒惰更新。如图 \ref{fig:security} 所示，这种恶意噪声的注入导致了严重的模型污染：$D_f$ 上的准确率从正常的低水平异常飙升至 18.5\%，表明遗忘任务彻底失败；同时，无效参数干扰了全局模型的收敛方向，导致 $D_t$ 上的测试准确率跌至 64.2\%。
+
+相比之下，引入区块链验证机制后，系统展现了显著的防御能力。仿真日志表明，部署的 VerifierContract 成功识别并拦截了所有 10 笔恶意交易，攻击拦截率（AIR）达到 100\%。其根本机制在于，未修改的模型参数无法驱动特征向量在表征空间发生定向偏移，致使计算出的几何距离 $D_{sum}$ 远超预设阈值 $\tau=0.5$。因此，智能合约直接拒绝了这些状态异常的交易（状态标记为 REJECTED），确保服务器仅聚合剩余 40 个诚实节点的有效更新。最终结果显示，系统在维持 3.8\% 的低遗忘准确率（实现有效遗忘）的同时，将测试集准确率保持在 65.9\% 的最优水平，充分验证了 Geo-ZKP 机制对“懒惰攻击”的免疫能力。
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{picture/“懒惰客户端”攻击的影响.pdf}
+    \caption{抗“懒惰客户端”攻击安全性对比}
+    \label{fig:security}
+\end{figure}
+
+\subsection{信誉机制的动态演化与收敛性分析}
+为了进一步验证“遗忘贡献证明（PoUC）”机制在长期运行中的稳定性与防御能力，本实验模拟了 100 轮联邦遗忘任务，并追踪了三类典型节点——诚实节点（Honest）、懒惰攻击者（Lazy）及策略性震荡攻击者（On-Off Attacker）——在系统中的信誉值 $R_i(t)$ 演化轨迹。其中，震荡攻击者采取“先积累后作恶”的策略，即在前 30 轮表现诚实，随后突然发起投毒攻击。
+
+如图 \ref{fig:Reputation}所示，信誉系统的动态收敛特性表现如下：
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{picture/不同策略节点的信誉动态演化轨迹.pdf}
+    \caption{不同策略节点的信誉动态演化轨迹}
+    \label{fig:Reputation}
+\end{figure}
+
+诚实节点（绿色曲线）： 其信誉值随着有效贡献的累积呈现稳步上升趋势，并最终收敛于系统设定的上限 $R_{max}$，这保证了高质量贡献者在全局聚合中拥有更高的话语权。
+
+懒惰攻击者（红色曲线）： 由于持续提交无法通过 Geo-ZKP 验证的无效更新，其信誉值在初始阶段即受到乘法惩罚机制（AIMD）的抑制，迅速跌至 0 附近，从而被 DAG 共识网络边缘化，无法对主链产生影响。
+
+震荡攻击者（橙色虚线）： 该节点在前 30 轮通过诚实行为积累了较高信誉。然而，在第 31 轮其尝试作恶的瞬间，Geo-ZKP 验证失败触发了严重的信誉削减（Slashing），导致其信誉值出现断崖式下跌。值得注意的是，由于 PoUC 采用了严格的“乘法惩罚、加法恢复”原则，该节点在后续尝试恢复信誉的过程中极为缓慢。
+
+这一实验结果深刻揭示了 PoUC 机制的“防御弹性”,它不仅能快速识别并隔离持续作恶者，极大增加了策略性攻击的时间成本，从而迫使理性节点维持诚实行为以最大化长期效用，形成了纳什均衡下的系统安全性。
+
+
+\section{本章小结}
+本章围绕车联网联邦学习中的“被遗忘权”可验证性问题，提出并深入阐述了融合几何零知识证明（Geo-ZKP）与有向无环图（DAG）共识的验证架构。针对原有VeriFed-UL框架存在的验证缺口，本章的核心贡献在于将遗忘的数学语义（表征空间几何对齐）转化为可验证的密码学命题，并设计了一套适应车联网高并发、资源受限特点的去中心化信任机制。
+
+首先，本章形式化定义了可验证的遗忘逻辑，提炼出“几何有效性”与“微创性”两个核心数学约束。在此基础上，创新性地设计了Geo-ZKP协议，通过定制化的算术电路，使车辆能够在零知识的前提下，向网络证明其模型更新已满足特定的几何约束，而无需泄露任何原始数据或模型参数，从根本上解决了隐私泄露与验证缺失的双重困境。
+
+其次，为应对车联网的高并发和动态特性，本章设计了基于DAG的异步共识账本。该账本以Geo-ZKP作为交易准入的“信任门票”，并通过结合遗忘贡献证明（PoUC）的信誉加权MCMC算法，自然形成了由高质量贡献主导的主权重路径，实现了对无效或恶意更新的自动化过滤。分层混合共识机制（边缘DAG+核心BFT）则兼顾了局部高吞吐与全局强一致性，保障了联邦遗忘模型的安全聚合。
+
+最后，通过系统的性能评估与安全性分析表明，所提方案在工程上是可行的。Geo-ZKP的证明生成开销对车载设备可接受，且链上验证成本极低；DAG架构能支撑每秒千级以上的交易吞吐；形式化的博弈分析及仿真实验证实，该架构能有效抵御“懒惰客户端”、后门留存及女巫攻击等多种威胁，在攻击者存在的情况下仍能维持系统的安全运行与模型的有效性。
+综上所述，本章构建的“可验证联邦遗忘”框架，为车联网环境下安全、高效、可信地实现数据被遗忘权提供了兼具密码学严谨性与工程实用性的系统性解决方案。
+\cleardoublepage
+
+
+\chapter{面向车联网低带宽环境的 Q-LZW 差分压缩传输机制}
+尽管Geo-ZKP为联邦遗忘提供了坚实的信任锚点，但其引入的通信开销不容忽视。车联网通信环境具有显著的带宽受限、高动态与间歇性连接特征 。传统的深度神经网络（DNN）模型，如ResNet-18或VGG-16，其参数量通常在数十兆字节（MB）量级 。在引入Geo-ZKP后，车辆不仅需要上传模型更新，还需传输相应的零知识证明（Proof），且为了保证验证的通过率，模型参数必须保持严格的一致性（Consistency）。传统的模型压缩技术，如稀疏化（Sparsification）或激进的有损量化（Lossy Quantization），虽然能大幅降低通信量，但往往会破坏参数的几何结构或改变哈希值，导致链上智能合约无法验证Geo-ZKP证明的有效性。
+
+因此，车联网联邦遗忘系统面临着一个严峻的“验证-通信”悖论：为了安全性，需要完整的参数结构以生成几何证明；而为了通信效率，又必须极度压缩数据。如何在不破坏Geo-ZKP验证所需的数学结构前提下，最大限度地降低通信载荷，成为本章研究的核心问题。
+
+本章提出了一种计算与通信协同优化的Q-LZW差分压缩传输机制。该机制捕捉到了Geo-ZKP验证电路对数据格式的内生约束，所有浮点运算必须映射到有限域上的定点整数运算，而不是孤立地看待压缩问题。这个为了安全性而强制执行的量化步骤，在数学上降低了模型参数的信息熵（Entropy）。Q-LZW机制利用这一特性，结合模型更新的时间相关性（Temporal Correlation），通过差分编码将原本高熵的浮点数流转化为极低熵的整数流，并采用改进的LZW算法进行无损熵编码。
+
+\section{量化差分更新的熵特性分析}
+在设计具体的压缩算法之前，必须深入理解传输数据的统计特性。本节将结合车联网联邦学习的具体场景，分析模型更新的概率分布，并推导量化与差分操作如何改变数据的信源熵。
+
+\subsection{深度模型梯度的统计分布特性}
+在联邦学习中，车辆 $u_i$ 在第 $t$ 轮上传的数据通常是本地模型权重 $W^{(t)}_i$ 或其相对于全局模型的更新量 $\Delta W^{(t)}_i = W^{(t)}_i - W^{(global)}_{t-1}$。对于现代深度神经网络，这些参数通常以32位浮点数（FP32）格式存储。根据中心极限定理以及大量的实证研究，深度神经网络的梯度分布通常呈现出均值为0的拉普拉斯分布或高斯分布特性，且随着训练的进行，分布逐渐向0收缩，表现出显著的稀疏性趋势。
+
+设随机变量 $X$ 表示模型更新中的某个参数值，其概率密度函数近似为：$$p(x) = \frac{1}{2b} \exp\left(-\frac{|x|}{b}\right)$$其中， $b$ 为尺度参数。
+
+然而，尽管数值分布具有稀疏性，但在计算机的二进制表示层面，FP32格式的数据却表现出极高的熵。这是因为浮点数由符号位、指数位和尾数位（Mantissa）组成。在模型训练或遗忘的微调阶段，虽然参数变化的幅度很小，但其尾数部分的低位（LSB）通常包含了大量的随机噪声。这些噪声在数值上影响微乎其微，但在比特流层面却导致了极高的不确定性。
+
+根据香农熵（Shannon Entropy）定义：$$H(X) = - \sum_{x \in \mathcal{X}} p(x) \log_2 p(x)$$对于FP32序列，由于尾数的高度随机性，其熵值 $H(X_{fp32})$ 往往接近于未压缩的比特率32 bits/symbol，这解释了为何通用的压缩算法Gzip直接作用于浮点模型参数时，压缩比往往极低，通常在1.0x - 1.2x之间。
+
+\subsection{Geo-ZKP 验证电路的内生量化约束}
+本文第四章提出的Geo-ZKP协议，旨在让车辆向RSU证明其执行了合法的遗忘操作，即特征向量发生了定向偏移。这一证明过程依赖于算术电路，如R1CS（Rank-1 Constraint System）。现有的零知识证明系统通常构建在素数域 $\mathbb{F}_p$ 之上，其中 $p$ 是一个巨大的素数，例如BN254曲线的标量域大小。这意味着电路内部无法直接处理浮点数运算。为了在电路中验证涉及距离计算 $||f(x) - C||^2 < \tau$ 的几何约束，必须将浮点数映射为有限域元素。这种映射通常采用定点化策略。设量化缩放因子为 $S$，通常取 $2^k$（如 $S=2^{16}$），则浮点参数 $w_{float}$ 被映射为整数 $w_{int}$：$$w_{int} = \lfloor w_{float} \cdot S \rceil$$这一过程不仅是为了适配ZKP电路的数学结构，更是对原始数据的一次有损降维。从信息论的角度来看，量化操作相当于对连续的实数空间进行了离散化和截断。
+
+(1)消除尾数噪声：通过舍弃FP32尾数中的低10-15位,取决于 $S$ 的选择，过滤掉了绝大部分对模型性能影响极小但熵值极高的随机噪声。
+
+(2)值域收缩：量化后的整数 $w_{int}$ 取值范围被限定在一个较小的整数区间内（例如对于 $k=16$，大部分权重可能落在 $[-65536, 65536]$ 范围内），这显著降低了符号空间的大小。
+
+因此，Geo-ZKP对数据格式的强制要求，实际上为数据压缩提供了一个绝佳的预处理步骤。本章并非为了压缩而引入量化，而是利用了安全机制带来的副产品。
+
+\subsection{差分更新在有限域上的低熵特性}
+在量化的基础上，Q-LZW机制进一步利用了联邦遗忘过程中的时间相关性。在遗忘阶段，模型通常是在已收敛的全局模型基础上进行微调。这意味着，相邻两个轮次之间，或者是本地模型 $W_{local}$ 与全局模型 $W_{global}$ 之间，参数的差异 $\Delta W$ 是极小的。
+
+定义量化后的差分序列为 $\Delta \mathbf{W}_q$，其元素 $\delta_i$ 计算为：$$\delta_i = Q(w^{(local)}_i) - Q(w^{(global)}_i)$$由于遗忘操作的“微创性”，绝大多数参数的 $\delta_i$ 将为0。即便发生变化，由于量化因子的存在，其变化量也通常集中在 $\pm 1, \pm 2$ 等极小整数范围内。
+
+理论推论 5.1：在Geo-ZKP兼容的量化条件下，模型参数的差分序列 $\Delta \mathbf{W}_q$ 服从高度尖峰的离散分布。其香农熵 $H(\Delta \mathbf{W}_q)$ 远低于原始量化参数的熵 $H(\mathbf{W}_q)$，且随着遗忘过程的收敛，$H(\Delta \mathbf{W}_q)$ 单调递减。
+
+这种“零膨胀”且局部高度重复的数据流，是LZW算法的最佳适用场景。与Huffman编码需要预先统计词频或传输码表不同，LZW能够动态构建字典，自适应地将连续的零值或重复的微小模式（如 +1, -1, 0, 0）编码为短索引。
+
+相比于目前流行的稀疏化方法,即只传输Top-k梯度的索引和值，Q-LZW方案的优势在于它保留了完整的几何结构。稀疏化本质上是一种有损压缩，接收端重建的向量中未传输位置被置为0，这会导致重建向量与发送端用于生成ZKP证明的向量不一致，从而导致哈希校验失败。而Q-LZW是对量化后数据的无损编码，能够完美还原出发送端的量化向量，从而保证了严格的一致性。
+
+\section{Q-LZW 差分压缩传输机制设计}
+基于上述理论分析，本节详细阐述Q-LZW机制的系统架构与关键算法设计。该机制位于车辆端与RSU端的通信层，旨在实现从浮点模型到压缩比特流的高效转换与还原。
+
+\subsection{系统架构概览}
+Q-LZW机制不仅是一个压缩算法，更是一个连接联邦学习计算层与区块链通信层的中间件。如图\ref{fig:lzwstr}所示，其处理流程包含四个核心阶段：
+
+ZKP兼容量化：将FP32模型参数映射为有限域兼容的定点整数。
+
+差分计算与域映射：计算模型更新差值，并处理有限域内的负数表示问题。
+
+动态LZW编码：对预处理后的整数流进行熵编码。
+
+交易封装与广播：将压缩数据与ZKP证明打包上链。
+
+在接收端RSU，执行完全对称的逆过程，恢复出量化模型用于验证。
+
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+  \node[inner sep=0, rounded corners=1pt, clip]
+   {
+\includegraphics[width=\textwidth,trim=4cm 3cm 4cm 1cm, clip]{picture/lzw差分压缩传输机制系统架构.pdf}};
+\end{tikzpicture}
+    \caption{Q-LZW差分压缩传输机制系统架构}
+    \label{fig:lzwstr}
+\end{figure}
+
+\subsubsection{Geo-ZKP 兼容的有限域量化}
+为了确保压缩与验证的协同，量化标准必须由Geo-ZKP电路的定义决定。假设zk-SNARKs系统使用标量域大小为 $p$ 的椭圆曲线，电路设计中约定的定点数缩放因子为 $S = 2^k$。
+
+对于模型中的每一个参数 $w_i \in \mathbb{R}$，其量化值 $q_i$ 定义为：$$q_i = \text{clip}\left(\lfloor w_i \cdot S + 0.5 \rfloor, -M, M\right)$$其中：
+
+$k$：量化位宽参数，通常取16。这意味着使用16位来表示小数部分，保证了约 $10^{-5}$ 的精度，足以满足神经网络推理与遗忘的精度需求。
+
+Rounding：采用四舍五入而非截断，以减小累计误差。
+
+Clipping：为了防止数值溢出有限域或超出电路处理能力，设置截断阈值 $M$（例如 $M = 2^{63}-1$）。这一步将连续的浮点数空间坍缩为离散的整数格点，大幅降低了数据的固有熵。
+
+\subsubsection{ZigZag 差分域映射}
+这是Q-LZW机制中最具创新性的设计环节。传统的差分压缩处理的是标准整数，但在ZKP语境下，所有数值最终都将被解释为有限域 $\mathbb{F}_p$ 上的元素。
+
+在有限域中，负数 $-x$ 被表示为 $p-x$。由于 $p$ 通常是一个巨大的数,比如254位大整数，即使是微小的负差分 $-1$，在域上的表示也会变成一个巨大的整数（$p-1$）。$$\text{Example:} \quad \delta = -1 \xrightarrow{\mathbb{F}_p} \approx 2.18 \times 10^{76}$$这就导致了一个严重的问题：原本绝对值很小的差分流也就是低熵，在直接映射到有限域后，变成了大小数值交替出现的序列也就是高熵。这种“大数爆炸”会彻底破坏LZW的压缩效率，因为字典无法捕捉到这些巨大的随机数模式。ZigZag 域映射为了解决这一问题，本章在量化差分之后、LZW编码之前，引入了ZigZag编码层。ZigZag编码将有符号整数映射为无符号整数，使得绝对值小的负数映射为小的正整数。
+
+映射函数 $\mathcal{Z}(x)$ 定义如下：$$\mathcal{Z}(x) =
+\begin{cases}
+2x, & \text{if } x \ge 0 \\
+-2x - 1, & \text{if } x < 0
+\end{cases}$$
+
+通过这种映射，原本集中在0附近的差分分布，经过映射后依然集中在0附近的小整数区间。这保留了数据的低熵特性。在压缩阶段避免了模 $p$ 运算带来的大数问题。接收端在解压并逆ZigZag映射后，再进行模 $p$ 转换输入电路，从而实现了“压缩友好”与“验证友好”的解耦。
+$0 \xrightarrow{} 0$
+$-1 \xrightarrow{} 1$
+$1 \xrightarrow{} 2$
+$-2 \xrightarrow{} 3$
+$2 \xrightarrow{} 4$
+
+\subsubsection{针对稀疏整数流优化的LZW算法}
+标准的LZW算法（如GIF中所用）通常基于8位字符集（0-255）。针对车联网模型更新的特性，本章对LZW进行了特定的优化。
+
+(1) 字典初始化策略由于经过ZigZag映射后的数据流包含大量的小整数，但偶尔也会出现较大的整数（参数剧烈变化时）。本文采用混合字长字典（Hybrid Word-Length Dictionary）：
+
+基础字符集：预设 $0 \sim 255$ 为基础字符，对应LZW字典的 $0 \sim 255$ 索引。
+
+大数转义：对于大于255的整数，采用“转义符 + 原始值”的方式记录，或者将其拆分为多个字节处理。考虑到差分后的数值99\%以上都小于255（对应实际变化量 $\approx 0.0039$），这种情况极少发生。
+
+(2)动态位宽输出（Variable-Length Output）为了极致压缩，输出码流的位宽随字典大小动态调整。
+
+初始阶段：字典大小 $256$，输出位宽 $9$ bits。
+
+随着新模式加入字典，当字典大小超过 $512$ 时，输出位宽增至 $10$ bits，依此类推，直到上限（如12 bits或16 bits）。
+
+(3)滑动窗口与字典重置车联网模型参数量巨大，单一字典可能迅速填满（Saturated）。一旦字典填满，LZW将退化为静态字典编码，无法适应模型不同层（Layer）的参数分布差异（例如，卷积层参数往往比全连接层参数更稀疏）。Q-LZW引入了自适应重置机制：
+
+实时监控压缩率（Current Compression Ratio）。
+
+当检测到压缩率连续 $N$ 个块（Block）下降时，发送 CLEAR\_CODE，清空字典并重置位宽。这使得算法能够捕捉模型参数的局部统计特性变化。
+
+算法 \ref{alg:q-lzw}Q-LZW 编码过程
+\begin{algorithm}[htbp]
+\caption{Q-LZW 压缩算法（用于量化梯度序列）}
+\label{alg:q-lzw}
+\begin{algorithmic}[1]
+\Statex \textbf{输入:} 量化差分向量 $\Delta$（已进行 ZigZag 映射）
+\Statex \textbf{输出:} 压缩比特流 $\texttt{OutputStream}$
+
+\State 初始化字典 $\texttt{Dict} \gets \{0:0, 1:1, \dots, 255:255\}$
+\State 当前前缀 $P \gets \varnothing$
+\State 输出位宽 $\texttt{Bits} \gets 9$
+
+\For{each symbol $K$ in $\Delta$}
+    \If{$P + K \in \texttt{Dict}$}
+        \State $P \gets P + K$
+    \Else
+        \State 输出 $\texttt{Code}(P)$，使用 $\texttt{Bits}$ 位
+        \State 将 $(P + K)$ 加入 $\texttt{Dict}$
+        \If{$|\texttt{Dict}| \ge 2^{\texttt{Bits}}$}
+            \State $\texttt{Bits} \gets \texttt{Bits} + 1$
+        \EndIf
+        \State $P \gets K$
+    \EndIf
+\EndFor
+
+\If{压缩比下降}
+    \State 输出 $\texttt{CLEAR\_CODE}$
+    \State 重置 $\texttt{Dict}$，$\texttt{Bits} \gets 9$
+\EndIf
+
+\State 输出 $\texttt{Code}(P)$
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\subsubsection{协议集成与交易结构}
+压缩后的数据不仅包含模型信息，还隐含了ZKP验证所需的元数据。为了支持RSU的自动化处理，本章设计了专用的区块链交易结构。
+$$TX = \{ \text{Header}, \text{Payload}, \text{Proof} \}$$
+
+Header:
+
+BaseModelHash: 上一轮全局模型的哈希值,用于差分还原。
+
+ScaleFactor: 量化缩放因子 $S$,例如 $2^{16}$。
+
+CompressionAlgo: 标识压缩算法为 "Q-LZW"。
+
+Payload:
+
+CompressedData: LZW输出的二进制比特流。
+
+Proof:
+
+zkProof: Groth16或Halo2生成的零知识证明 $\pi$。
+
+Commitment: 本地量化模型的承诺，用于链上验证数据完整性。
+
+接收端（RSU）收到交易后，执行如下原子化验证流程：
+
+(1)解压：LZW解码 $\to$ 逆ZigZag $\to$ $\Delta W_q$。
+
+(2)重构：从本地存储加载 BaseModelHash 对应的 $W_{global}$，计算 $W_{local} = W_{global} + \Delta W_q$。
+
+(3)完整性校验：计算 $Hash(W_{local})$，验证其是否与Proof中的Commitment匹配。若不匹配，说明传输错误或遭到篡改，直接丢弃。
+
+(4)有效性验证：调用智能合约或链下验证器，输入 $(W_{local}, \pi)$ 执行 $Verify(\pi)$。通过则接受更新，否则拒绝。
+
+\section{系统性能与有效性的理论分析}
+\subsection{严格一致性分析}
+现有的许多联邦学习压缩方案,如QSGD, Top-k Sparsification属于有损压缩。在传统的FL中，这种损失被视为梯度的随机噪声，可以通过聚合过程抵消。然而，在“可验证联邦遗忘”场景下，有损压缩是致命的。
+
+命题 5.2：若采用有损压缩传输，接收端解压得到的参数 $W'$ 与发送端用于生成证明的参数 $W$ 存在偏差（$W' \neq W$）。由于密码学哈希函数的雪崩效应，$Hash(W') \neq Hash(W)$，这将导致链上验证逻辑 $Verify(\pi, W')$ 必然失败。
+
+Q-LZW机制通过“先量化、后证明、再压缩”的策略解决了这一矛盾：
+
+(1)量化即共识：系统约定，量化后的整数模型才是法律意义上的“有效模型”。Geo-ZKP是基于量化值 $W_q$ 生成的。
+
+(2)无损传输：Q-LZW对 $W_q$ 进行的是数学上的无损变换（ZigZag + LZW）。因此，接收端还原的 $\hat{W}_q$ 在比特级别上严格等于发送端的 $W_q$。
+
+(3)验证闭环：RSU使用 $\hat{W}_q$ 进行验证，保证了 $Verify(\pi, \hat{W}_q) \to \text{True}$。
+
+这从根本上确保了安全验证与通信压缩的兼容性。
+
+\subsection{压缩率的理论上界分析}
+根据LZW算法的性质，其渐进压缩率取决于信源的熵率。对于ZigZag映射后的差分序列 $\Delta Z$，假设其服从参数为 $\lambda$ 的几何分布（近似离散拉普拉斯分布）：$$P(z) \approx (1-p)p^z$$随着遗忘的进行，$\Delta W$ 趋向于0，意味着 $\Delta Z$ 中 $0$ 的概率极高。此时，LZW字典将大量填充形如 0, 00, 000... 的模式。
+
+对于长度为 $L$ 的连续零序列，LZW可以将其压缩为 $O(\log L)$ 个符号。而在联邦遗忘后期，参数更新极其稀疏，存在大量的长零串。因此，Q-LZW在理论上可以达到接近游程编码的效率，同时又能处理非零数据的局部模式，其压缩性能优于单纯的Huffman编码,Huffman编码无法利用字符间相关性或通用Gzip,Gzip对短整数流优化不足。
+
+\section{实验评估}
+为了全面验证Q-LZW机制在车联网环境下的有效性，在模拟平台上对其进行了多维度的性能评估。
+
+\subsection{实验设置}
+硬件环境：NVIDIA Jetson AGX Orin (模拟车载OBU)，Intel Xeon Server (模拟RSU)。
+
+数据集与模型：使用CIFAR-10数据集，模型采用ResNet-18（参数量约11.2M，FP32大小约44.6MB）。
+
+网络环境：使用NS-3网络模拟器构建车联网通信场景。
+
+协议：LTE-V2X / 5G NR sidelink。
+
+带宽：设置为低带宽（2 Mbps）、中带宽（10 Mbps）和高带宽（50 Mbps）三种场景，模拟车辆在不同信号覆盖区的状态。
+
+丢包率：设定为5\%以模拟信道干扰。
+
+对比基准（Baselines）：
+
+Raw (FP32)：原始未压缩传输。
+
+Gzip (FP32)：直接对浮点模型文件进行Gzip压缩（Level 6）。
+
+QSGD (8-bit)：标准的随机量化梯度压缩（有损）。
+
+Q-LZW (Ours)：本文提出的方案（16-bit Geo-ZKP量化 + ZigZag + LZW）。
+
+\subsection{压缩性能对比分析}
+表\ref{tab:compression_comparison}展示了在联邦遗忘中期（参数变化趋于稳定）时，各方案对ResNet-18模型更新的压缩效果。
+\begin{table}[!htbp]
+  \centering
+  \small
+  \caption{不同压缩机制性能对比（ResNet-18）}
+  \label{tab:compression_comparison}
+  \renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{
+    >{\centering\arraybackslash}p{1.9cm}
+    >{\centering\arraybackslash}p{1.7cm}
+    >{\centering\arraybackslash}p{1.7cm}
+    >{\centering\arraybackslash}p{1.5cm}
+    >{\centering\arraybackslash}p{2.0cm}
+    X
+  }
+    \toprule
+    \textbf{压缩方法} 
+    & \textbf{原始数据格式} 
+    & \textbf{压缩后大小 (MB)} 
+    & \textbf{压缩比 (CR)} 
+    & \textbf{ZKP 验证一致性} 
+    & \textbf{备注} \\
+    \midrule
+    Raw (FP32) & FP32 (44.6MB) & 44.6 & 1.0$\times$ & 是 & 基准方法，用于对比不同压缩机制的性能 \\
+    
+    Gzip & FP32 & 40.1 & 1.11$\times$ & 是 & 由于浮点参数熵较高，传统无损压缩算法难以取得显著收益 \\
+    
+    QSGD (8-bit) & INT8 & 11.1 & 4.0$\times$ & 否 & 采用有损量化，导致模型参数哈希值发生变化，无法通过零知识验证 \\
+    
+    Q-LZW (Ours) & Field Int (22.3MB) & 4.8 & 9.29$\times^{*}$ & 是 & 在保持零知识证明一致性的前提下，实现最高综合压缩比 \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{0.4em}
+  \footnotesize
+  \textit{注：}Q-LZW 的原始输入为 16 位定点数（22.3MB），压缩后大小为 4.8MB。
+  相对于原始 FP32 模型（44.6MB），综合压缩比为 $44.6 / 4.8 \approx 9.29$。
+\end{table}
+
+为了直观量化不同算法的存储与传输效益，图\ref{fig:Fig3-1_Compression_Comparison}展示了各压缩机制下的模型体积与综合压缩比对比。可以看出，原始 FP32 模型体积高达 44.6MB，而通用 Gzip 算法由于无法消除浮点数尾数的高熵噪声，仅实现了微弱的压缩效果（约 40.1MB）。相比之下，Q-LZW 机制通过量化与差分编码的双重熵减，将模型体积显著压缩至 4.8MB，实现了高达 9.29倍的压缩比，显著优于传统的压缩方案。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{picture/不同算法的压缩比与模型体积对比.pdf}
+\caption{不同算法的压缩比与模型体积对比}
+\label{fig:Fig3-1_Compression_Comparison}
+\end{figure}
+
+
+结果深入剖析：
+
+(1)Gzip的失效：实验数据印证了5.2.1节的理论分析。直接对FP32数据使用Gzip仅获得了1.11x的微弱压缩。这表明浮点数尾数位的随机噪声破坏了数据的可压缩性，Gzip的滑窗机制无法找到重复的字节模式。
+
+(2)QSGD的局限：虽然QSGD实现了4倍压缩，但它是有损的。在实验中，接收端解压后的参数哈希值与发送端完全不同，导致Geo-ZKP验证通过率为0\%。这意味着QSGD无法应用于需要严格审计的联邦遗忘场景。在车联网联邦遗忘场景下，压缩算法的安全性验证至关重要。图\ref{fig:Fig3-3_ZKP_Pass_Rate} 揭示了现有有损压缩算法在 Geo-ZKP 协议下的‘验证失效’现象。QSGD 和 Top-k 稀疏化虽然降低了通信量，但破坏了参数的哈希一致性，导致链上验证通过率为 0\%。相反，Q-LZW 机制坚持了‘量化即共识’的设计原则，对量化后数据进行无损编码，因此在保持高压缩比的同时，实现了 100\% 的 Geo-ZKP 验证通过率，完美解决了‘验证-通信’悖论。
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{picture/Geo-ZKP 验证通过率对比.pdf}
+\caption{Geo-ZKP 验证通过率对比 ("验证-通信悖论")}
+\label{fig:Fig3-3_ZKP_Pass_Rate}
+\end{figure}
+
+
+(3)Q-LZW的优越性：Q-LZW实现了惊人的9.29倍综合压缩比。这得益于两层熵减：
+
+量化层：从32位浮点变16位整数，直接减少50\%数据量。
+
+差分LZW层：进一步将22.3MB的稀疏整数流压缩至4.8MB（压缩比约4.6x）。实验统计显示，经过ZigZag映射后的差分流中，超过75\%的数据为 $0$，约15\%为 $\pm 1$，极高的重复率使得LZW字典效率极高。
+
+\subsection{通信时延与吞吐量评估}
+本章将上述压缩后的数据放入NS-3模拟的V2I链路中传输，记录单次模型更新的端到端时延（包含压缩/解压时间）。
+图\ref{fig:Fig3-4_End_to_End_Latency} 详细分解了在不同网络带宽（2Mbps边缘弱网、10Mbps正常、50Mbps理想）下的端到端时延构成。在 2Mbps 的低带宽受限环境下，原始 FP32 传输主要受限于巨大的传输时延（蓝色部分），总耗时极高。而 Q-LZW 尽管引入了微小的计算开销（灰色部分，约 0.6s），但极大地削减了传输载荷。实验结果表明，在弱网环境下，Q-LZW 将总时延从原始的百秒级降低至秒级，通信效率提升显著，证明了其在边缘高动态网络中的适应性。
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{picture/不同网络带宽下的端到端时延分解.pdf}
+    \caption{不同网络带宽下的端到端时延分解}
+    \label{fig:Fig3-4_End_to_End_Latency}
+\end{figure}
+
+
+
+低带宽场景 (2 Mbps)：传输原始FP32模型需要约 180秒，极易导致超时或链路中断。采用Q-LZW后，总时延（含计算时间）降至约 21秒，通信效率提升了8.5倍。这使得在信号较差的边缘区域执行联邦遗忘成为可能。
+
+中带宽场景 (10 Mbps)：原始传输需36秒，Q-LZW仅需 5秒。
+
+计算开销分析：虽然Q-LZW引入了额外的压缩/解压计算，但在NVIDIA Orin平台上，16位整数的LZW编解码速度极快（>100 MB/s），其带来的计算延迟（约0.2秒）相对于通信延迟的节省（数十秒）几乎可以忽略不计。
+
+此外，结合第四章的DAG共识，更小的交易体积意味着更高的网络吞吐量（TPS）。仿真显示，在拥塞控制限制下，采用Q-LZW机制的DAG网络每秒可处理的并发遗忘请求数是原始方案的 6倍 以上。
+
+\subsection{差分策略的消融实验}
+为了验证各处理阶段对数据可压缩性的贡献，本章进行了消融实验分析。图\ref{fig:Fig3-5_Ablation_Entropy} 展示了数据流经过不同处理阶段后的香农熵（Shannon Entropy）变化。原始 FP32 数据的熵值极高（接近 32 bits/symbol），几乎不可压缩。经过 Int16 量化后，噪声被移除，熵值减半。而最关键的骤降发生在‘差分+ZigZag’阶段，该操作成功消除了数据的统计分布偏差，将熵值进一步降低至 5 bits/symbol 以下。这一熵减过程直观地解释了为何 Q-LZW 能够实现高效压缩。
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{picture/消融实验 - 预处理阶段对数据熵值的影响.pdf}
+    \caption{消融实验 - 处理阶段对数据熵值的影响}
+    \label{fig:Fig3-5_Ablation_Entropy}
+\end{figure}
+
+为了验证“差分（Delta）”步骤的必要性，本章对比了“仅量化+LZW（No-Delta）”与“完整Q-LZW”的效果。
+
+No-Delta：直接压缩16位模型参数。由于训练后的权重分布在整个动态范围内，缺乏重复模式，LZW压缩比仅为 1.4x。此外，Q-LZW 的压缩性能具有显著的动态特性。如图\ref{fig:Fig3-2_Compression_Trend}所示，随着联邦遗忘迭代轮次的增加，全局模型逐渐收敛，模型更新 $\Delta W$ 的稀疏性不断增强（即零元素增多）。与静态的 Gzip 算法不同，Q-LZW 利用了这种时间维度上的冗余，其压缩比呈现出稳步上升的趋势。这表明在遗忘过程的后期，该机制能够进一步节省通信带宽，具有‘越学越快’的传输特性。
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{picture/联邦遗忘过程中的动态压缩比趋势.pdf}
+    \caption{联邦遗忘过程中的动态压缩比趋势}
+    \label{fig:Fig3-2_Compression_Trend}
+\end{figure}
+
+
+Q-LZW：引入差分后，利用了时间维度上的冗余，压缩比跃升至 4.6x（相对于量化数据）。
+
+这一显著差异有力地证明了推论：“差分操作是构造低熵信源的关键，它将LZW从无效变为高效。”
+
+\subsection{能耗分析}
+对于电动汽车（EV）而言，车载单元的能耗也是关键指标。本章测量了处理单次更新的能耗（计算能耗 + 通信能耗）。$$E_{total} = P_{comp} \times T_{comp} + P_{comm} \times T_{comm}$$实验结果显示，虽然Q-LZW增加了少量的计算能耗，但由于通信时间的大幅缩短（无线发送模块是耗电大户），总能耗降低了约 70\%。这表明Q-LZW不仅是一个高效的传输机制，也是一个绿色节能的解决方案。
+
+
+
+
+\section{本章小结}
+本章针对车联网联邦遗忘系统中存在的“安全验证”与“通信效率”之间的矛盾，提出了一种创新的Q-LZW差分压缩传输机制。
+
+本章的核心工作与结论如下：
+
+理论突破：深刻揭示了Geo-ZKP验证所需的有限域定点化过程并非单纯的负担，它具有熵减效应。通过数学推导，证明了量化差分序列具有极低的香农熵，为无损压缩提供了理论依据。
+
+机制创新：设计了包含ZigZag有限域映射、动态LZW编码与自适应字典重置的完整流水线。该机制巧妙地规避了传统稀疏化方法对几何结构的破坏，在不引入任何有损变换的前提下，实现了对模型参数的高效压缩。
+
+性能验证：实验表明，Q-LZW机制在保证Geo-ZKP验证严格一致性的前提下，将ResNet-18等模型的通信开销降低了9倍以上，在低带宽环境下将传输时延缩短了85\%，并显著降低了车载终端的能耗。
+
+Q-LZW机制的提出，打通了“高效遗忘算法（VeriFed-UL）”、“可信验证协议（Geo-ZKP）”与“底层通信网络”之间的最后壁垒，为构建一个既安全合规又具备工程实用性的车联网联邦遗忘系统提供了至关重要的传输层支撑。这一“计算-通信协同优化”的设计思路，也为未来在资源受限边缘设备上部署复杂的隐私计算协议提供了具有普适性的参考范式。
+\cleardoublepage
+
+\chapter{总结与展望}
+\section{研究工作过总结}
+随着车联网（IoV）向数据密集型与智能化方向的深度演进，如何在分布式协作学习中保障数据隐私、确立数据主权并满足“被遗忘权”（Right to be Forgotten）的合规性要求，已成为智能交通系统面临的关键科学问题。本文聚焦于车联网联邦学习场景下存在的“遗忘难、验证难、通信难”三大痛点，围绕“高效遗忘、可信审计、通信优化”三个维度展开了系统性研究。通过引入表征空间重构、几何零知识证明、DAG区块链共识及计算通信协同压缩等技术，构建了一套面向车联网的可验证联邦遗忘闭环体系。
+
+第一，提出了面向车联网的表征空间定向偏移联邦遗忘算法（VeriFed-UL），解决了传统遗忘方法效率低与模型性能下降的矛盾。 针对现有被动式联邦遗忘方法依赖高昂的重训练成本，以及主动式方法易导致“灾难性遗忘”的问题，本文摒弃了对模型参数进行粗粒度扰动的传统思路，创新性地从表征学习（Representation Learning）的视角出发，设计了一种无需重训练的主动遗忘机制。引入“最近错误类别质心”（Nearest Incorrect Class Centroid）作为导向目标，通过对比学习思想构建正负样本对，强制将待遗忘数据的特征表征从原始类别簇迁移至错误质心邻域，使其在特征空间中表现为“未见数据”，从而在数学层面实现了记忆的精确擦除。为了解决遗忘过程对模型通用知识的破坏，设计了包含知识遗忘损失、记忆保留损失与模型漂移正则项的多目标优化函数。该机制在驱动特征迁移的同时，约束了模型参数的整体偏移量，有效防止了参数震荡。基于CIFAR-10、GTSRB等多个基准数据集的实验结果表明，VeriFed-UL在无需其他车辆参与重训练的前提下，将目标数据的遗忘率最高降低了99.64\%，效果逼近完全重训练的理论上限；同时，全局模型在非遗忘数据上的预测性能损失被严格控制在3.88\%以内，实现了遗忘效率与模型效用的最佳平衡。
+
+第二，构建了基于几何零知识证明（Geo-ZKP）与DAG区块链的可信遗忘审计体系，解决了弱信任环境下遗忘过程不可验证的难题。 针对车联网节点存在的“懒惰更新”攻击风险以及隐私保护与公开审计之间的矛盾，本文建立了一种“链下密码学验证 + 链上去中心化审计”的双重信任机制。设计了Geo-ZKP算术电路，将VeriFed-UL算法中的表征对齐逻辑抽象为“几何有效性”与“微创性”两个可验证的数学命题。车辆利用该电路在不泄露原始数据与模型参数明文的前提下，生成包含几何距离约束与Merkle成员资格证明的零知识凭证，实现了对遗忘行为的物理层与逻辑层双重验证。针对传统区块链吞吐量不足的问题，引入适配车联网高并发特性的DAG（有向无环图）共识账本。结合设计的遗忘贡献证明（PoUC）信誉机制，利用基于信誉加权的MCMC尾部选择算法，构建了由高质量贡献主导的主权重路径，有效防御了女巫攻击与垃圾交易，实现了遗忘请求的毫秒级确认与全网可信同步。
+
+第三，设计了计算与通信协同的Q-LZW差分压缩传输机制，突破了安全验证引入的通信带宽瓶颈。 针对引入Geo-ZKP后数据传输量激增以及传统有损压缩破坏验证一致性的问题，本文提出了一种利用计算约束换取通信效率的无损压缩策略。深入挖掘了Geo-ZKP验证电路对有限域定点数运算的内生需求，将其作为压缩的前置量化步骤，把高熵的浮点模型参数映射为低熵的整数流。利用联邦学习模型更新的时间相关性，结合ZigZag差分编码与LZW字典编码技术，对量化后的稀疏整数流进行动态压缩。该机制在严格保证解压数据哈希值与验证电路输入一致（Strict Consistency）的前提下，显著降低了通信载荷。实验数据显示，Q-LZW机制在零安全折损的情况下，大幅减少了模型参数与证明数据的传输时延，显著提升了车联网联邦遗忘系统的整体吞吐量与实时性。
+
+\section{研究工作展望}
+尽管本文在车联网联邦遗忘的高效性、可信性与传输优化方面取得了一定成果，但受限于研究时间、实验条件及车联网场景的极端复杂性，仍存在一些不足之处。未来的研究工作可从以下几个方向进行深化与拓展：
+
+首先，目前的VeriFed-UL框架在处理遗忘损失、保留损失与正则化项时，主要依赖经验设定的固定超参数权重。然而，在面对车联网中数据分布高度异构（Non-IID）或遗忘任务难度动态变化的场景时，固定权重难以达到最优效果。未来的工作可以引入多目标进化算法（MOEA）或基于梯度的元学习策略，根据模型当前的遗忘程度与泛化性能，动态调整各损失函数的权重，在遗忘完整性、模型效用及收敛速度之间自动搜索帕累托最优解，增强算法的自适应能力。
+
+其次，本文的实验主要基于经典的深度卷积神经网络（如ResNet系列）进行。随着Transformer架构及大模型在自动驾驶感知决策领域的应用日益广泛，模型参数量已从百万级跃升至十亿级。在如此巨大的参数空间中进行全量微调或生成零知识证明将带来难以承受的计算负担。未来将探索结合参数高效微调（PEFT，如LoRA、Adapter）的遗忘策略，研究如何仅通过修改极少量参数来实现特定知识的擦除。同时，需研究针对大模型的轻量化ZKP电路设计，以降低证明生成的算力门槛。
+
+然后，目前的区块链共识与通信压缩实验主要在仿真环境下进行，尚未完全模拟真实车联网中可能出现的极端网络抖动、多径衰落、大规模节点频繁掉线及拜占庭容错（BFT）共识在极高延迟下的表现。未来计划在更贴近真实物理环境的车联网测试床（Testbed）或半实物仿真平台上部署文方法，进一步验证DAG共识机制在高动态拓扑下的收敛稳定性，以及Q-LZW机制在由丢包引起的重传场景下的能效比，优化协议的抗弱网能力。
+
+最后，虽然Geo-ZKP解决了验证过程中的隐私泄露问题，但模型参数在聚合阶段仍可能面临推断攻击或梯度反转攻击的风险。未来的研究可以考虑将本文方法与安全多方计算（MPC）或差分隐私（Differential Privacy, DP）技术进行更深度的融合。例如，在DAG共识中引入基于MPC的去中心化聚合协议，或者在Q-LZW压缩前添加差分隐私噪声，构建覆盖数据采集、训练、遗忘、聚合全生命周期的纵深防御体系，在抵御外部攻击的同时，进一步降低内部合谋攻击的风险。
+
+
+%%=============================================================================%
+%% 文档附页部分（致谢、参加科研情况、知识产权与原创性声明）
+%%-----------------------------------------------------------------------------%
+
+%%=============================================================================%
+%% 参考文献以及附录
+%%-----------------------------------------------------------------------------%
+% \bibliographystyle{nputhesis}                               % GB/T 7714-2015 格式
+\bibliographystyle{nputhesis-noslash}                       % 参考文献改进格式
+\bibliography{reference}                                    % 参考文献
+\appendix
+
+
+\backmatter                                                 % 文档附页部分
+%%-----------------------------------------------------------------------------%
+\begin{acknowledgements}                                    % 致谢开始
+    感谢我的老师和我的朋友们……
+\end{acknowledgements}                                      % 致谢结束
+%%-----------------------------------------------------------------------------%
+\begin{accomplishments}                                     % 参加科研情况开始
+    [1]吴朝敏,孙文,丁越昌,等.一种节点安全共识方法及装置:202410916281[P][2026-01-13].
+
+    [2]孙文,吴朝敏,路宇新,等.一种轻量级的分布式节点身份认证方法及系统:CN202510917302.3[P].CN120498699A[2026-01-13].
+
+    [3]2023年11月-至今，参与无人值守数据安全项目（编号：D5120240276）.
+
+    [4]孙文,王鹏,吴朝敏,等.基于可持续元宇宙的分布式学习及分片区块链方法及系统:202311369137[P][2026-01-13].
+
+    [5]武伟,孙文,丁越昌,谭杰, 吴朝敏等.一种关键隐私数据安全存证共享方法及装置:202410916274[P][2026-01-13].
+\end{accomplishments}                                       % 参加科研情况结束
+%%-----------------------------------------------------------------------------%
+\makestatement                                              % 知识产权与原创性声明
+% %%=============================================================================%
+%% 文档结束
+%%-----------------------------------------------------------------------------%
+\end{document}
+%%=============================================================================%
+
+
+%% 
+%% This work consists of the file  yanputhesis.dtx
+%% and the derived files           yanputhesis.ins,
+%%                                 yanputhesis.pdf,
+%%                                 yanputhesis.cls.
+%% 
+%%
+%% End of file `yanputhesis-sample.tex'.
