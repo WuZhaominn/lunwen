@@ -1,0 +1,500 @@
+\begin{thebibliography}{90}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax\else
+  \urlstyle{same}\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \DeclareUrlCommand\doi{\urlstyle{rm}}
+  \def\eprint#1#2{#2}
+\else
+  \def\doi#1{\href{https://doi.org/#1}{\nolinkurl{#1}}}
+  \let\eprint\href
+\fi
+
+\bibitem[Nguyen et~al.(2025)Nguyen, Huynh, Ren, Nguyen, Liew, Yin, and Nguyen]{nguyen2025survey}
+Nguyen T~T, Huynh T~T, Ren Z, et~al.
+\newblock A survey of machine unlearning\allowbreak[J].
+\newblock ACM Transactions on Intelligent Systems and Technology, 2025, 16\allowbreak (5): 1-46.
+
+\bibitem[Nakamoto et~al.(2008)Nakamoto and Bitcoin]{nakamoto2008peer}
+Nakamoto S, Bitcoin A.
+\newblock A peer-to-peer electronic cash system\allowbreak[J].
+\newblock Bitcoin.--URL: https://bitcoin. org/bitcoin. pdf, 2008, 4\allowbreak (2): 15.
+
+\bibitem[Abboud et~al.(2016)Abboud, Omar, and Zhuang]{abboud2016interworking}
+Abboud K, Omar H~A, Zhuang W.
+\newblock Interworking of dsrc and cellular network technologies for v2x communications: A survey\allowbreak[J].
+\newblock IEEE transactions on vehicular technology, 2016, 65\allowbreak (12): 9457-9470.
+
+\bibitem[Zhao et~al.(2019)Zhao, Yu, and Xu]{zhao20196g}
+Zhao Y, Yu G, Xu H.
+\newblock 6g mobile communication network: vision, challenges and key technologies\allowbreak[J].
+\newblock arXiv preprint arXiv:1905.04983, 2019.
+
+\bibitem[Yang et~al.(2020)Yang, Xu, and Liang]{yang2020intelligent}
+Yang G, Xu X, Liang Y~C.
+\newblock Intelligent reflecting surface assisted non-orthogonal multiple access\allowbreak[C]. \allowbreak
+2020 IEEE wireless communications and networking conference (WCNC).
+\newblock IEEE, 2020: 1-6.
+
+\bibitem[Mao et~al.(2017)Mao, You, Zhang, Huang, and Letaief]{mao2017survey}
+Mao Y, You C, Zhang J, et~al.
+\newblock A survey on mobile edge computing: The communication perspective\allowbreak[J].
+\newblock IEEE communications surveys \& tutorials, 2017, 19\allowbreak (4): 2322-2358.
+
+\bibitem[Duan et~al.(2024)Duan, Li, Huang, Cao, and Zhang]{electronics13030663}
+Duan W, Li X, Huang Y, et~al.
+\newblock Multi-agent-deep-reinforcement-learning-enabled offloading scheme for energy minimization in vehicle-to-everything communication systems\allowbreak[J].
+\newblock Electronics, 2024, 13\allowbreak (3).
+\newblock \url{https://www.mdpi.com/2079-9292/13/3/663}.
+
+\bibitem[Hou et~al.(2016)Hou, Li, Chen, Wu, Jin, and Chen]{hou2016vehicular}
+Hou X, Li Y, Chen M, et~al.
+\newblock Vehicular fog computing: A viewpoint of vehicles as the infrastructures\allowbreak[J].
+\newblock IEEE transactions on vehicular technology, 2016, 65\allowbreak (6): 3860-3873.
+
+\bibitem[Vishwakarma et~al.(2022)Vishwakarma and Das]{vishwakarma2022smartcoin}
+Vishwakarma L, Das D.
+\newblock Smartcoin: A novel incentive mechanism for vehicles in intelligent transportation system based on consortium blockchain\allowbreak[J].
+\newblock Vehicular Communications, 2022, 33: 100429.
+
+\bibitem[Naeem et~al.(2021)Naeem, Kaddoum, and Tariq]{9682073}
+Naeem F, Kaddoum G, Tariq M.
+\newblock Digital twin-empowered network slicing in b5g networks: Experience-driven approach\allowbreak[C]. \allowbreak
+2021 IEEE Globecom Workshops (GC Wkshps).
+\newblock 2021: 1-5.
+
+\bibitem[Mills et~al.(2020)Mills, Hu, and Min]{8917724}
+Mills J, Hu J, Min G.
+\newblock Communication-efficient federated learning for wireless edge intelligence in iot\allowbreak[J].
+\newblock IEEE Internet of Things Journal, 2020, 7\allowbreak (7): 5986-5994.
+
+\bibitem[Shi et~al.(2020)Shi, Zhou, Niu, Jiang, and Geng]{shi2020joint}
+Shi W, Zhou S, Niu Z, et~al.
+\newblock Joint device scheduling and resource allocation for latency constrained wireless federated learning\allowbreak[J].
+\newblock IEEE Transactions on Wireless Communications, 2020, 20\allowbreak (1): 453-467.
+
+\bibitem[Chen et~al.(2021)Chen, Chai, Cheng, and Rangwala]{chen2021asynchronous}
+Chen Y, Chai Z, Cheng Y, et~al.
+\newblock Asynchronous federated learning for sensor data with concept drift\allowbreak[C]. \allowbreak
+2021 IEEE International Conference on Big Data (Big Data).
+\newblock IEEE, 2021: 4822-4831.
+
+\bibitem[Zhao et~al.(2018)Zhao, Li, Lai, Suda, Civin, and Chandra]{zhao2018federated}
+Zhao Y, Li M, Lai L, et~al.
+\newblock Federated learning with non-iid data\allowbreak[J].
+\newblock arXiv preprint arXiv:1806.00582, 2018.
+
+\bibitem[Tan et~al.(2022)Tan, Yu, Cui, and Yang]{tan2022towards}
+Tan A~Z, Yu H, Cui L, et~al.
+\newblock Towards personalized federated learning\allowbreak[J].
+\newblock IEEE transactions on neural networks and learning systems, 2022, 34\allowbreak (12): 9587-9603.
+
+\bibitem[Li et~al.(2021)Li, He, and Song]{li2021model}
+Li Q, He B, Song D.
+\newblock Model-contrastive federated learning\allowbreak[C]. \allowbreak
+Proceedings of the IEEE/CVF conference on computer vision and pattern recognition.
+\newblock 2021: 10713-10722.
+
+\bibitem[Wei et~al.(2020)Wei, Li, Ding, Ma, Yang, Farokhi, Jin, Quek, and Poor]{wei2020federated}
+Wei K, Li J, Ding M, et~al.
+\newblock Federated learning with differential privacy: Algorithms and performance analysis\allowbreak[J].
+\newblock IEEE transactions on information forensics and security, 2020, 15: 3454-3469.
+
+\bibitem[Sun et~al.(2021)Sun, Cong, Dong, Wang, Lyu, and Liu]{sun2021data}
+Sun G, Cong Y, Dong J, et~al.
+\newblock Data poisoning attacks on federated machine learning\allowbreak[J].
+\newblock IEEE Internet of Things Journal, 2021, 9\allowbreak (13): 11365-11375.
+
+\bibitem[Liu et~al.(2022)Liu, Xu, Yuan, Wang, and Li]{liu2022right}
+Liu Y, Xu L, Yuan X, et~al.
+\newblock The right to be forgotten in federated learning: An efficient realization with rapid retraining\allowbreak[C]. \allowbreak
+IEEE INFOCOM 2022-IEEE conference on computer communications.
+\newblock IEEE, 2022: 1749-1758.
+
+\bibitem[Bourtoule et~al.(2021)Bourtoule, Chandrasekaran, Choquette-Choo, Jia, Travers, Zhang, Lie, and Papernot]{bourtoule2021machine}
+Bourtoule L, Chandrasekaran V, Choquette-Choo C~A, et~al.
+\newblock Machine unlearning\allowbreak[C]. \allowbreak
+2021 IEEE symposium on security and privacy (SP).
+\newblock IEEE, 2021: 141-159.
+
+\bibitem[Chen et~al.(2022{\natexlab{a}})Chen, Zhang, Wang, Backes, Humbert, and Zhang]{chen2022graph}
+Chen M, Zhang Z, Wang T, et~al.
+\newblock Graph unlearning\allowbreak[C]. \allowbreak
+Proceedings of the 2022 ACM SIGSAC conference on computer and communications security.
+\newblock 2022{\natexlab{a}}: 499-513.
+
+\bibitem[Chen et~al.(2022{\natexlab{b}})Chen, Sun, Zhang, and Ding]{chen2022recommendation}
+Chen C, Sun F, Zhang M, et~al.
+\newblock Recommendation unlearning\allowbreak[C]. \allowbreak
+Proceedings of the ACM web conference 2022.
+\newblock 2022{\natexlab{b}}: 2768-2777.
+
+\bibitem[Guo et~al.(2023)Guo, Zhao, Hou, Wang, and Jia]{guo2023verifying}
+Guo Y, Zhao Y, Hou S, et~al.
+\newblock Verifying in the dark: Verifiable machine unlearning by using invisible backdoor triggers\allowbreak[J].
+\newblock IEEE Transactions on Information Forensics and Security, 2023, 19: 708-721.
+
+\bibitem[Chen et~al.(2023)Chen, Gao, Liu, Peng, and Wang]{chen2023boundary}
+Chen M, Gao W, Liu G, et~al.
+\newblock Boundary unlearning: Rapid forgetting of deep networks via shifting the decision boundary\allowbreak[C]. \allowbreak
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition.
+\newblock 2023: 7766-7775.
+
+\bibitem[Wang et~al.(2023{\natexlab{a}})Wang, Zhang, Tian, and Yu]{wang2023machine}
+Wang W, Zhang C, Tian Z, et~al.
+\newblock Machine unlearning via representation forgetting with parameter self-sharing\allowbreak[J].
+\newblock IEEE Transactions on Information Forensics and Security, 2023{\natexlab{a}}, 19: 1099-1111.
+
+\bibitem[Chundawat et~al.(2023{\natexlab{a}})Chundawat, Tarun, Mandal, and Kankanhalli]{chundawat2023zero}
+Chundawat V~S, Tarun A~K, Mandal M, et~al.
+\newblock Zero-shot machine unlearning\allowbreak[J].
+\newblock IEEE Transactions on Information Forensics and Security, 2023{\natexlab{a}}, 18: 2345-2354.
+
+\bibitem[Wang et~al.(2023{\natexlab{b}})Wang, Chen, Yuan, Zeng, Wong, and Yin]{wang2023kga}
+Wang L, Chen T, Yuan W, et~al.
+\newblock Kga: A general machine unlearning framework based on knowledge gap alignment\allowbreak[J].
+\newblock arXiv preprint arXiv:2305.06535, 2023{\natexlab{b}}.
+
+\bibitem[Liu et~al.(2024)Liu, Jiang, Shen, Peng, Lam, Yuan, and Liu]{liu2024survey}
+Liu Z, Jiang Y, Shen J, et~al.
+\newblock A survey on federated unlearning: Challenges, methods, and future directions\allowbreak[J].
+\newblock ACM Computing Surveys, 2024, 57\allowbreak (1): 1-38.
+
+\bibitem[Sheng et~al.(2024)Sheng, Bao, and Ge]{sheng2024robust}
+Sheng X, Bao W, Ge L.
+\newblock Robust federated unlearning\allowbreak[C]. \allowbreak
+Proceedings of the 33rd ACM International Conference on Information and Knowledge Management.
+\newblock 2024: 2034-2044.
+
+\bibitem[Liu et~al.(2021)Liu, Ma, Yang, Wang, and Liu]{liu2021federaser}
+Liu G, Ma X, Yang Y, et~al.
+\newblock Federaser: Enabling efficient client-level data removal from federated learning models\allowbreak[C]. \allowbreak
+2021 IEEE/ACM 29th International Symposium on Quality of Service (IWQOS).
+\newblock IEEE, 2021: 1-10.
+
+\bibitem[Wu et~al.(2022{\natexlab{a}})Wu, Zhu, and Mitra]{wu2022federated}
+Wu C, Zhu S, Mitra P.
+\newblock Federated unlearning with knowledge distillation\allowbreak[J].
+\newblock arXiv preprint arXiv:2201.09441, 2022{\natexlab{a}}.
+
+\bibitem[Lin et~al.(2024)Lin, Gao, Du, Niyato, Gui, Cui, and Ren]{lin2024scalable}
+Lin Y, Gao Z, Du H, et~al.
+\newblock Scalable federated unlearning via isolated and coded sharding\allowbreak[J].
+\newblock arXiv preprint arXiv:2401.15957, 2024.
+
+\bibitem[Dinsdale et~al.(2022)Dinsdale, Jenkinson, and Namburete]{dinsdale2022fedharmony}
+Dinsdale N~K, Jenkinson M, Namburete A~I.
+\newblock Fedharmony: Unlearning scanner bias with distributed data\allowbreak[C]. \allowbreak
+International Conference on Medical Image Computing and Computer-Assisted Intervention.
+\newblock Springer, 2022: 695-704.
+
+\bibitem[Gao et~al.(2024)Gao, Ma, Wang, Sun, Li, Ji, Cheng, and Chen]{gao2024verifi}
+Gao X, Ma X, Wang J, et~al.
+\newblock Verifi: Towards verifiable federated unlearning\allowbreak[J].
+\newblock IEEE Transactions on Dependable and Secure Computing, 2024, 21\allowbreak (6): 5720-5736.
+
+\bibitem[Halimi et~al.(2022)Halimi, Kadhe, Rawat, and Baracaldo]{halimi2022federated}
+Halimi A, Kadhe S, Rawat A, et~al.
+\newblock Federated unlearning: How to efficiently erase a client in fl?\allowbreak[J].
+\newblock arXiv preprint arXiv:2207.05521, 2022.
+
+\bibitem[Wu et~al.(2022{\natexlab{b}})Wu, Guo, Wang, Hong, Zhang, and Ding]{wu2022federatedEWC}
+Wu L, Guo S, Wang J, et~al.
+\newblock Federated unlearning: Guarantee the right of clients to forget\allowbreak[J].
+\newblock IEEE Network, 2022{\natexlab{b}}, 36\allowbreak (5): 129-135.
+
+\bibitem[Alam et~al.(2024)Alam, Lamri, and Maniatakos]{alam2024get}
+Alam M, Lamri H, Maniatakos M.
+\newblock Get rid of your trail: Remotely erasing backdoors in federated learning\allowbreak[J].
+\newblock IEEE Transactions on Artificial Intelligence, 2024.
+
+\bibitem[Wang et~al.(2024{\natexlab{a}})Wang, Song, Qi, Zhou, Li, Wang, Sun, and Zhang]{wang2024server}
+Wang P, Song W, Qi H, et~al.
+\newblock Server-initiated federated unlearning to eliminate impacts of low-quality data\allowbreak[J].
+\newblock IEEE Transactions on Services Computing, 2024{\natexlab{a}}, 17\allowbreak (3): 1196-1211.
+
+\bibitem[Xia et~al.(2023)Xia, Xu, Pei, Zhang, Yu, Zou, Wang, and Liu]{xia2023fedme}
+Xia H, Xu S, Pei J, et~al.
+\newblock Fedme 2: Memory evaluation \& erase promoting federated unlearning in dtmn\allowbreak[J].
+\newblock IEEE Journal on Selected Areas in Communications, 2023, 41\allowbreak (11): 3573-3588.
+
+\bibitem[Wang et~al.(2024{\natexlab{b}})Wang, Zhu, Chen, and Esteves-Ver{\'\i}ssimo]{wang2024goldfish}
+Wang H, Zhu X, Chen C, et~al.
+\newblock Goldfish: An efficient federated unlearning framework\allowbreak[C]. \allowbreak
+2024 54th Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN).
+\newblock IEEE, 2024{\natexlab{b}}: 252-264.
+
+\bibitem[Chen et~al.(2024)Chen, Chai, Zhang, Wang, Shen, et~al.]{chen2024federated}
+Chen K, Chai Y, Zhang W, et~al.
+\newblock Federated unlearning for human activity recognition\allowbreak[J].
+\newblock arXiv preprint arXiv:2404.03659, 2024.
+
+\bibitem[Rahman et~al.(2024)Rahman, Roeder, De~La~Cruz, Baudier, and Li]{10757945}
+Rahman J, Roeder C, De~La~Cruz O, et~al.
+\newblock Blockfl: A blockchain-enabled federated learning system for securing iovs\allowbreak[C]. \allowbreak
+2024 IEEE 100th Vehicular Technology Conference (VTC2024-Fall).
+\newblock 2024: 1-6.
+
+\bibitem[Lu et~al.(2020)Lu, Huang, Dai, Maharjan, and Zhang]{8843900}
+Lu Y, Huang X, Dai Y, et~al.
+\newblock Blockchain and federated learning for privacy-preserved data sharing in industrial iot\allowbreak[J].
+\newblock IEEE Transactions on Industrial Informatics, 2020, 16\allowbreak (6): 4177-4186.
+
+\bibitem[Han et~al.(2019)Han, Lu, and Chen]{8863339}
+Han W, Lu T, Chen H.
+\newblock Sensitivity analysis about transient three-dimensional ihcp with multi-parameters in an elbow pipe with thermal stratification\allowbreak[J].
+\newblock IEEE Access, 2019, 7: 146791-146800.
+
+\bibitem[Kang et~al.(2019)Kang, Xiong, Niyato, Xie, and Zhang]{8832210}
+Kang J, Xiong Z, Niyato D, et~al.
+\newblock Incentive mechanism for reliable federated learning: A joint optimization approach to combining reputation and contract theory\allowbreak[J].
+\newblock IEEE Internet of Things Journal, 2019, 6\allowbreak (6): 10700-10714.
+
+\bibitem[Dwork et~al.(1992)Dwork and Naor]{dwork1992pricing}
+Dwork C, Naor M.
+\newblock Pricing via processing or combatting junk mail\allowbreak[C]. \allowbreak
+Annual International Cryptology Conference.
+\newblock Springer, 1992: 139-147.
+
+\bibitem[Castro et~al.(1999)Castro and Liskov]{castro1999practical}
+Castro M, Liskov B.
+\newblock Practical byzantine fault tolerance\allowbreak[C]. \allowbreak
+Proceedings of the 3rd Symposium on Operating Systems Design and Implementation (OSDI): volume~99.
+\newblock USENIX Association, 1999: 173-186.
+
+\bibitem[Cao et~al.(2019)Cao, Li, Zhang, Zhang, Mumtaz, Zhou, and Peng]{8758979}
+Cao B, Li Y, Zhang L, et~al.
+\newblock When internet of things meets blockchain: Challenges in distributed consensus\allowbreak[J].
+\newblock IEEE Network, 2019, 33\allowbreak (6): 133-139.
+
+\bibitem[Wang et~al.(2024{\natexlab{c}})Wang, Dong, Sun, Knottenbelt, and Guo]{wang2024tt}
+Wang Z, Dong N, Sun J, et~al.
+\newblock zkfl: Zero-knowledge proof-based gradient aggregation for federated learning\allowbreak[J].
+\newblock IEEE Transactions on Big Data, 2024{\natexlab{c}}, 11\allowbreak (2): 447-460.
+
+\bibitem[Kone{\v{c}}n{\`y} et~al.(2016)Kone{\v{c}}n{\`y}, McMahan, Yu, Richt{\'a}rik, Suresh, and Bacon]{konevcny2016federated}
+Kone{\v{c}}n{\`y} J, McMahan H~B, Yu F~X, et~al.
+\newblock Federated learning: Strategies for improving communication efficiency\allowbreak[J].
+\newblock arXiv preprint arXiv:1610.05492, 2016.
+
+\bibitem[Lin et~al.(2017)Lin, Han, Mao, Wang, and Dally]{lin2017deep}
+Lin Y, Han S, Mao H, et~al.
+\newblock Deep gradient compression: Reducing the communication bandwidth for distributed training\allowbreak[J].
+\newblock arXiv preprint arXiv:1712.01887, 2017.
+
+\bibitem[Jiang et~al.(2022)Jiang, Wang, Valls, Ko, Lee, Leung, and Tassiulas]{jiang2022model}
+Jiang Y, Wang S, Valls V, et~al.
+\newblock Model pruning enables efficient federated learning on edge devices\allowbreak[J].
+\newblock IEEE Transactions on Neural Networks and Learning Systems, 2022, 34\allowbreak (12): 10374-10386.
+
+\bibitem[Alistarh et~al.(2017)Alistarh, Grubic, Li, Tomioka, and Vojnovic]{alistarh2017qsgd}
+Alistarh D, Grubic D, Li J, et~al.
+\newblock Qsgd: Communication-efficient sgd via gradient quantization and encoding\allowbreak[J].
+\newblock Advances in neural information processing systems, 2017, 30.
+
+\bibitem[Bernstein et~al.(2018)Bernstein, Wang, Azizzadenesheli, and Anandkumar]{bernstein2018signsgd}
+Bernstein J, Wang Y~X, Azizzadenesheli K, et~al.
+\newblock signsgd: Compressed optimisation for non-convex problems\allowbreak[C]. \allowbreak
+International Conference on Machine Learning (ICML).
+\newblock PMLR, 2018: 560-569.
+
+\bibitem[Reisizadeh et~al.(2020)Reisizadeh, Mokhtari, Hassani, Jadbabaie, and Pedarsani]{reisizadeh2020fedpaq}
+Reisizadeh A, Mokhtari A, Hassani H, et~al.
+\newblock Fedpaq: A communication-efficient federated learning method with periodic averaging and quantization\allowbreak[C]. \allowbreak
+International conference on artificial intelligence and statistics.
+\newblock PMLR, 2020: 2021-2031.
+
+\bibitem[Han et~al.(2015)Han, Mao, and Dally]{han2015deep}
+Han S, Mao H, Dally W~J.
+\newblock Deep compression: Compressing deep neural networks with pruning, trained quantization and huffman coding\allowbreak[J].
+\newblock arXiv preprint arXiv:1510.00149, 2015.
+
+\bibitem[Sattler et~al.(2020)Sattler, Wiedemann, M{\"u}ller, and Samek]{sattler2020robust}
+Sattler F, Wiedemann S, M{\"u}ller K~R, et~al.
+\newblock Robust and communication-efficient federated learning from non-i.i.d. data\allowbreak[J].
+\newblock IEEE Transactions on Neural Networks and Learning Systems, 2020, 31\allowbreak (9): 3400-3413.
+
+\bibitem[Malekijoo et~al.(2021)Malekijoo, Fadaeieslam, Malekijou, Homayounfar, Alizadeh-Shabdiz, and Rawassizadeh]{malekijoo2021fedzip}
+Malekijoo A, Fadaeieslam M~J, Malekijou H, et~al.
+\newblock Fedzip: A compression framework for communication-efficient federated learning\allowbreak[J].
+\newblock arXiv preprint arXiv:2102.01593, 2021.
+
+\bibitem[Ginart et~al.(2019)Ginart, Guan, Valiant, and Zou]{ginart2019making}
+Ginart A, Guan M, Valiant G, et~al.
+\newblock Making ai forget you: Data deletion in machine learning\allowbreak[J].
+\newblock Advances in neural information processing systems, 2019, 32.
+
+\bibitem[Fraboni et~al.(2024)Fraboni, Van~Waerebeke, Scaman, Vidal, Kameni, and Lorenzi]{fraboni2024sifu}
+Fraboni Y, Van~Waerebeke M, Scaman K, et~al.
+\newblock Sifu: Sequential informed federated unlearning for efficient and provable client unlearning in federated optimization\allowbreak[C]. \allowbreak
+International Conference on Artificial Intelligence and Statistics.
+\newblock PMLR, 2024: 3457-3465.
+
+\bibitem[Golatkar et~al.(2020)Golatkar, Achille, and Soatto]{golatkar2020forgetting}
+Golatkar A, Achille A, Soatto S.
+\newblock Forgetting outside the box: Scrubbing deep networks of information accessible from input-output observations\allowbreak[C]. \allowbreak
+European Conference on Computer Vision.
+\newblock Springer, 2020: 383-398.
+
+\bibitem[Shokri et~al.(2017)Shokri, Stronati, Song, and Shmatikov]{shokri2017membership}
+Shokri R, Stronati M, Song C, et~al.
+\newblock Membership inference attacks against machine learning models\allowbreak[C]. \allowbreak
+2017 IEEE symposium on security and privacy (SP).
+\newblock IEEE, 2017: 3-18.
+
+\bibitem[Ma et~al.(2022)Ma, Liu, Liu, Liu, Ma, and Ren]{ma2022learn}
+Ma Z, Liu Y, Liu X, et~al.
+\newblock Learn to forget: Machine unlearning via neuron masking\allowbreak[J].
+\newblock IEEE Transactions on Dependable and Secure Computing, 2022, 20\allowbreak (4): 3194-3207.
+
+\bibitem[McMahan et~al.(2017)McMahan, Moore, Ramage, Hampson, and y~Arcas]{mcmahan2017communication}
+McMahan B, Moore E, Ramage D, et~al.
+\newblock Communication-efficient learning of deep networks from decentralized data\allowbreak[C]. \allowbreak
+Artificial intelligence and statistics.
+\newblock PMLR, 2017: 1273-1282.
+
+\bibitem[Zhu et~al.(2019)Zhu, Liu, and Han]{zhu2019deep}
+Zhu L, Liu Z, Han S.
+\newblock Deep leakage from gradients\allowbreak[J].
+\newblock Advances in neural information processing systems, 2019, 32.
+
+\bibitem[Chen et~al.(2020)Chen, Kornblith, Norouzi, and Hinton]{chen2020simple}
+Chen T, Kornblith S, Norouzi M, et~al.
+\newblock A simple framework for contrastive learning of visual representations\allowbreak[C]. \allowbreak
+International conference on machine learning.
+\newblock PmLR, 2020: 1597-1607.
+
+\bibitem[Oord et~al.(2018)Oord, Li, and Vinyals]{oord2018representation}
+Oord A~v~d, Li Y, Vinyals O.
+\newblock Representation learning with contrastive predictive coding\allowbreak[J].
+\newblock arXiv preprint arXiv:1807.03748, 2018.
+
+\bibitem[Miao et~al.(2023)Miao, Zheng, Li, Li, Choo, and Deng]{miao2023secure}
+Miao Y, Zheng W, Li X, et~al.
+\newblock Secure model-contrastive federated learning with improved compressive sensing\allowbreak[J].
+\newblock IEEE Transactions on Information Forensics and Security, 2023, 18: 3430-3444.
+
+\bibitem[Zhou et~al.(2024)Zhou, Yang, Zheng, Liang, Wang, Ma, Pan, and Jin]{zhou2024personalized}
+Zhou X, Yang Q, Zheng X, et~al.
+\newblock Personalized federated learning with model-contrastive learning for multi-modal user modeling in human-centric metaverse\allowbreak[J].
+\newblock IEEE Journal on Selected Areas in Communications, 2024, 42\allowbreak (4): 817-831.
+
+\bibitem[Li et~al.(2022)Li, Jiang, Li, and Xia]{li2022backdoor}
+Li Y, Jiang Y, Li Z, et~al.
+\newblock Backdoor learning: A survey\allowbreak[J].
+\newblock IEEE transactions on neural networks and learning systems, 2022, 35\allowbreak (1): 5-22.
+
+\bibitem[Gu et~al.(2017)Gu, Dolan-Gavitt, and Garg]{gu2017badnets}
+Gu T, Dolan-Gavitt B, Garg S.
+\newblock Badnets: Identifying vulnerabilities in the machine learning model supply chain\allowbreak[J].
+\newblock arXiv preprint arXiv:1708.06733, 2017.
+
+\bibitem[Liu et~al.(2018)Liu, Ma, Aafer, Lee, Zhai, Wang, and Zhang]{liu2018trojaning}
+Liu Y, Ma S, Aafer Y, et~al.
+\newblock Trojaning attack on neural networks\allowbreak[C]. \allowbreak
+25th Annual Network And Distributed System Security Symposium (NDSS 2018).
+\newblock Internet Soc, 2018.
+
+\bibitem[Bagdasaryan et~al.(2021)Bagdasaryan and Shmatikov]{bagdasaryan2021blind}
+Bagdasaryan E, Shmatikov V.
+\newblock Blind backdoors in deep learning models\allowbreak[C]. \allowbreak
+30th USENIX Security Symposium (USENIX Security 21).
+\newblock 2021: 1505-1521.
+
+\bibitem[Li et~al.(2020)Li, Xue, Zhao, Zhu, and Zhang]{li2020invisible}
+Li S, Xue M, Zhao B~Z~H, et~al.
+\newblock Invisible backdoor attacks on deep neural networks via steganography and regularization\allowbreak[J].
+\newblock IEEE Transactions on Dependable and Secure Computing, 2020, 18\allowbreak (5): 2088-2105.
+
+\bibitem[Saha et~al.(2020)Saha, Subramanya, and Pirsiavash]{saha2020hidden}
+Saha A, Subramanya A, Pirsiavash H.
+\newblock Hidden trigger backdoor attacks\allowbreak[C]. \allowbreak
+Proceedings of the AAAI conference on artificial intelligence: volume~34.
+\newblock 2020: 11957-11965.
+
+\bibitem[Nguyen et~al.(2024)Nguyen, Vu, Nguyen, Nguyen, Doan, and Wong]{nguyen2024empirical}
+Nguyen T~H, Vu H~P, Nguyen D~T, et~al.
+\newblock Empirical study of federated unlearning: Efficiency and effectiveness\allowbreak[C]. \allowbreak
+Asian Conference on Machine Learning.
+\newblock PMLR, 2024: 959-974.
+
+\bibitem[Merkle(2019)]{merkle2019protocols}
+Merkle R~C.
+\newblock Protocols for public key cryptosystems\allowbreak[M]. \allowbreak
+Secure communications and asymmetric cryptosystems.
+\newblock Routledge, 2019: 73-104.
+
+\bibitem[Wu et~al.(2022{\natexlab{c}})Wu, Li, Miao, Xu, Zhang, Liu, and Choo]{wu2022cits}
+Wu T, Li X, Miao Y, et~al.
+\newblock Cits-mew: Multi-party entangled watermark in cooperative intelligent transportation system\allowbreak[J].
+\newblock IEEE Transactions on Intelligent Transportation Systems, 2022{\natexlab{c}}, 24\allowbreak (3): 3528-3540.
+
+\bibitem[Xiao et~al.(2017)Xiao, Rasul, and Vollgraf]{xiao2017fashion}
+Xiao H, Rasul K, Vollgraf R.
+\newblock Fashion-mnist: A novel image dataset for benchmarking machine learning algorithms\allowbreak[J].
+\newblock arXiv preprint arXiv:1708.07747, 2017.
+
+\bibitem[Netzer et~al.(2011)Netzer, Wang, Coates, Bissacco, Wu, Ng, et~al.]{netzer2011reading}
+Netzer Y, Wang T, Coates A, et~al.
+\newblock Reading digits in natural images with unsupervised feature learning\allowbreak[C]. \allowbreak
+NIPS workshop on deep learning and unsupervised feature learning: volume 2011.
+\newblock Granada, 2011: 7.
+
+\bibitem[Krizhevsky et~al.(2009)Krizhevsky, Hinton, et~al.]{krizhevsky2009learning}
+Krizhevsky A, Hinton G, et~al.
+\newblock Learning multiple layers of features from tiny images\allowbreak[J].
+\newblock 2009.
+
+\bibitem[Stallkamp et~al.(2011)Stallkamp, Schlipsing, Salmen, and Igel]{stallkamp2011german}
+Stallkamp J, Schlipsing M, Salmen J, et~al.
+\newblock The german traffic sign recognition benchmark: a multi-class classification competition\allowbreak[C]. \allowbreak
+The 2011 international joint conference on neural networks.
+\newblock IEEE, 2011: 1453-1460.
+
+\bibitem[Xie et~al.(2019)Xie, Huang, Chen, and Li]{xie2019dba}
+Xie C, Huang K, Chen P~Y, et~al.
+\newblock Dba: Distributed backdoor attacks against federated learning\allowbreak[C]. \allowbreak
+International conference on learning representations.
+\newblock 2019.
+
+\bibitem[Lyu et~al.(2024)Lyu, Han, Wang, Liu, Zhu, Xu, Liu, and Zhang]{lyu2024lurking}
+Lyu X, Han Y, Wang W, et~al.
+\newblock Lurking in the shadows: Unveiling stealthy backdoor attacks against personalized federated learning\allowbreak[C]. \allowbreak
+33rd USENIX Security Symposium (USENIX Security 24).
+\newblock 2024: 4157-4174.
+
+\bibitem[Chen et~al.(2025)Chen, Wang, Wu, Li, Xu, Ji, Li, Shen, and Han]{chen2025robustpfl}
+Chen G, Wang W, Wu Y, et~al.
+\newblock Robustpfl: Robust personalized federated learning\allowbreak[J].
+\newblock IEEE Transactions on Dependable and Secure Computing, 2025.
+
+\bibitem[LeCun et~al.(2002)LeCun, Bottou, Bengio, and Haffner]{lecun2002gradient}
+LeCun Y, Bottou L, Bengio Y, et~al.
+\newblock Gradient-based learning applied to document recognition\allowbreak[J].
+\newblock Proceedings of the IEEE, 2002, 86\allowbreak (11): 2278-2324.
+
+\bibitem[He et~al.(2016)He, Zhang, Ren, and Sun]{he2016deep}
+He K, Zhang X, Ren S, et~al.
+\newblock Deep residual learning for image recognition\allowbreak[C]. \allowbreak
+Proceedings of the IEEE conference on computer vision and pattern recognition.
+\newblock 2016: 770-778.
+
+\bibitem[Graves et~al.(2021)Graves, Nagisetty, and Ganesh]{graves2021amnesiac}
+Graves L, Nagisetty V, Ganesh V.
+\newblock Amnesiac machine learning\allowbreak[C]. \allowbreak
+Proceedings of the AAAI Conference on Artificial Intelligence: volume~35.
+\newblock 2021: 11516-11524.
+
+\bibitem[Chundawat et~al.(2023{\natexlab{b}})Chundawat, Tarun, Mandal, and Kankanhalli]{chundawat2023can}
+Chundawat V~S, Tarun A~K, Mandal M, et~al.
+\newblock Can bad teaching induce forgetting? unlearning in deep networks using an incompetent teacher\allowbreak[C]. \allowbreak
+Proceedings of the AAAI Conference on Artificial Intelligence: volume~37.
+\newblock 2023{\natexlab{b}}: 7210-7217.
+
+\bibitem[Popov(2018)]{popov2018tangle}
+Popov S.
+\newblock The tangle\allowbreak[J].
+\newblock White paper, 2018, 1\allowbreak (3): 30.
+
+\end{thebibliography}
